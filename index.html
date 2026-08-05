@@ -8,31 +8,27 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="台風ウォッチ">
-<meta name="format-detection" content="telephone=no">
 <title>台風ウォッチ 北谷町</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e1420'/%3E%3Cpath d='M32 12c11 0 20 9 20 20s-9 20-20 20S12 43 12 32' stroke='%23e2622a' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%233d7fd6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{
-  color-scheme: dark;
-  --bg:#0e1420; --panel:#161f2e; --panel2:#1d2939; --line:#2b3b52;
-  --tx:#e7edf5; --tx2:#9fb0c6;
-  --info:#3d7fd6; --warn:#e0a020; --alert:#e2622a; --danger:#d33b3b; --extreme:#a4249b;
-  --safeT:env(safe-area-inset-top,0px);
+  color-scheme:dark;
+  --bg:#0e1420;--panel:#161f2e;--panel2:#1d2939;--line:#2b3b52;
+  --tx:#e7edf5;--tx2:#9fb0c6;
+  --info:#3d7fd6;--warn:#e0a020;--alert:#e2622a;--danger:#d33b3b;--extreme:#a4249b;
+  --gale:#e8b93a;--storm:#e0463c;--circle:#8fd0ff;--swarn:#b455d8;
   --safeB:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--tx);
-  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
-  font-size:16px;line-height:1.65;overscroll-behavior-y:contain}
-.wrap{max-width:720px;margin:0 auto;
-  padding:calc(10px + var(--safeT)) 12px calc(90px + var(--safeB))}
-
+body{margin:0;background:var(--bg);color:var(--tx);font-size:16px;line-height:1.65;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:calc(10px + env(safe-area-inset-top,0px)) 12px calc(92px + var(--safeB))}
 header{margin-bottom:8px}
-h1{font-size:19px;margin:0 0 2px;letter-spacing:.02em}
+h1{font-size:19px;margin:0 0 2px}
 .loc{font-size:12.5px;color:var(--tx2);display:block}
 
-/* 大きな判定バナー */
 #status{border-radius:16px;padding:20px 18px;margin:12px 0;border:1px solid rgba(255,255,255,.16)}
 #status .lv{font-size:11.5px;letter-spacing:.22em;opacity:.85}
 #status .hd{font-size:27px;font-weight:700;margin:6px 0 8px;line-height:1.25}
@@ -48,34 +44,61 @@ h1{font-size:19px;margin:0 0 2px;letter-spacing:.02em}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 14px;margin-bottom:12px}
 .card h2{font-size:13.5px;margin:0 0 11px;color:var(--tx2);font-weight:600;letter-spacing:.08em}
 
-/* 下部固定の更新バー（親指が届く位置） */
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;
-  background:rgba(14,20,32,.94);backdrop-filter:blur(10px);
-  border-top:1px solid var(--line);
-  padding:9px 12px calc(9px + var(--safeB));
-  display:flex;align-items:center;gap:11px}
-.bar button{flex:0 0 auto;min-height:46px;padding:0 22px;border-radius:11px;
-  background:var(--info);color:#fff;border:0;font:inherit;font-size:15px;font-weight:700}
-.bar button:active{opacity:.75}
-.bar .st{font-size:11.5px;color:var(--tx2);line-height:1.35}
+#demoBanner{display:none;margin:12px 0;border-radius:12px;padding:12px 14px;font-size:13.5px;font-weight:700;color:#2a1a00;
+  background:repeating-linear-gradient(45deg,#f0b429,#f0b429 12px,#d99a17 12px,#d99a17 24px)}
+#demoBanner span{display:block;font-weight:500;font-size:12px;margin-top:3px}
+body.demo #map{outline:3px solid #f0b429;outline-offset:-3px}
+
+.tcTabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px}
+.tcTabs button{background:var(--panel2);color:var(--tx2);border:1px solid var(--line);border-radius:999px;
+  padding:8px 15px;font:inherit;font-size:13.5px;font-weight:600}
+.tcTabs button.on{background:var(--alert);color:#fff;border-color:var(--alert)}
+
+#map{height:60vh;min-height:330px;border-radius:12px;border:1px solid var(--line);background:#0b111b}
+.leaflet-container{background:#0b111b;font:inherit}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#1d2939;color:#e7edf5}
+.leaflet-bar a{background:#1d2939;color:#e7edf5;border-bottom-color:#2b3b52}
+.leaflet-control-attribution{background:rgba(14,20,32,.82)!important;color:#9fb0c6!important;font-size:10px}
+.leaflet-control-attribution a{color:#7fb0ea!important}
+
+.legend{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:10px;font-size:12px;color:var(--tx2)}
+.legend i{display:inline-block;width:13px;height:13px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+.lg-gale{background:rgba(232,185,58,.28);border:1.5px solid var(--gale)}
+.lg-storm{background:rgba(224,70,60,.35);border:1.5px solid var(--storm)}
+.lg-circle{background:rgba(143,208,255,.10);border:1.5px dashed var(--circle)}
+.lg-swarn{background:rgba(180,85,216,.14);border:1.5px dashed var(--swarn)}
+.lg-home{background:var(--info);border:1.5px solid #fff}
+
+.judge{display:grid;gap:8px;margin-top:12px}
+.j{display:flex;align-items:flex-start;gap:11px;background:var(--panel2);border-radius:11px;padding:12px 13px;border-left:5px solid var(--line)}
+.j .ic{font-size:19px;line-height:1.3;flex:0 0 auto;width:22px;text-align:center}
+.j .t{font-size:14.5px;font-weight:700;flex:1}
+.j .d{font-size:12px;color:var(--tx2);font-weight:400;display:block;margin-top:2px;line-height:1.5}
+.j.in{border-left-color:var(--storm);background:#3a1a1a}
+.j.in .t{color:#ffb4ae}
+.j.warnc{border-left-color:var(--swarn);background:#2b1733}
+.j.warnc .t{color:#e5b6f5}
+.j.out{border-left-color:#2e6b52}
+.j.na{opacity:.5}
 
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 @media(min-width:560px){.grid{grid-template-columns:repeat(3,1fr)}}
 .kv{background:var(--panel2);border-radius:10px;padding:10px 12px}
-.kv .k{font-size:11px;color:var(--tx2);letter-spacing:.05em}
+.kv .k{font-size:11px;color:var(--tx2)}
 .kv .v{font-size:19px;font-weight:600;margin-top:2px;word-break:break-all}
 .kv .v small{font-size:11.5px;font-weight:400;color:var(--tx2)}
 
 .badges{display:flex;flex-wrap:wrap;gap:7px}
-.b{border-radius:8px;padding:7px 13px;font-size:14.5px;font-weight:700;border:1px solid transparent}
+.b{border-radius:8px;padding:7px 13px;font-size:14.5px;font-weight:700}
 .b-e{background:var(--extreme);color:#fff}
 .b-w{background:var(--danger);color:#fff}
 .b-a{background:var(--warn);color:#241a03}
-.b-c{background:transparent;color:var(--tx2);border-color:var(--line);text-decoration:line-through;opacity:.6;font-weight:500;font-size:12.5px}
+.b-c{background:transparent;color:var(--tx2);border:1px solid var(--line);text-decoration:line-through;opacity:.6;font-weight:500;font-size:12.5px}
 
 table{width:100%;border-collapse:collapse;font-size:13.5px}
-th,td{padding:9px 9px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
 th{color:var(--tx2);font-weight:600;font-size:11.5px}
+tr.hit td{background:#3a1a1a;color:#ffb4ae;font-weight:700}
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .scroll::-webkit-scrollbar{display:none}
 .hint{font-size:11px;color:var(--tx2);margin-top:5px}
@@ -83,17 +106,14 @@ th{color:var(--tx2);font-weight:600;font-size:11.5px}
 .wind-s{color:var(--warn);font-weight:700}
 .wind-vs{color:var(--alert);font-weight:800}
 
-.ts{display:flex;gap:9px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-  scroll-snap-type:x mandatory}
+.ts{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none}
 .ts::-webkit-scrollbar{display:none}
-.ts .c{min-width:132px;background:var(--panel2);border-radius:12px;padding:12px;flex:0 0 auto;
-  scroll-snap-align:start}
+.ts .c{min-width:132px;background:var(--panel2);border-radius:12px;padding:12px;flex:0 0 auto}
 .ts .c .d{font-size:12px;color:var(--tx2)}
 .ts .c .w{font-size:13.5px;margin:7px 0;min-height:62px;line-height:1.45}
 .ts .c .x{font-size:12.5px}
 
 pre.txt{white-space:pre-wrap;font:inherit;font-size:14px;margin:0}
-
 ul.ck{list-style:none;padding:0;margin:0}
 ul.ck li{padding:11px 0 11px 30px;position:relative;font-size:15px;border-bottom:1px solid var(--line)}
 ul.ck li:last-child{border-bottom:0}
@@ -103,17 +123,23 @@ ul.ck li.on:before{content:"☑";color:#2e9e6b}
 
 .links{display:grid;gap:8px}
 .links a{display:block;background:var(--panel2);border:1px solid var(--line);border-radius:11px;
-  padding:13px 14px;color:var(--tx);text-decoration:none;font-size:15px;min-height:48px}
-.links a span{display:block;font-size:11.5px;color:var(--tx2);margin-top:1px}
-.links a:active{background:#26364c}
+  padding:13px 14px;color:var(--tx);text-decoration:none;font-size:15px}
+.links a span{display:block;font-size:11.5px;color:var(--tx2)}
+
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:rgba(14,20,32,.94);
+  backdrop-filter:blur(10px);border-top:1px solid var(--line);
+  padding:9px 12px calc(9px + var(--safeB));display:flex;align-items:center;gap:10px}
+.bar button{min-height:46px;padding:0 20px;border-radius:11px;background:var(--info);color:#fff;
+  border:0;font:inherit;font-size:15px;font-weight:700;flex:0 0 auto}
+.bar button.ghost{background:var(--panel2);color:var(--tx2);border:1px solid var(--line);font-size:13px;padding:0 13px}
+.bar .st{font-size:11.5px;color:var(--tx2);line-height:1.35;flex:1}
 
 .note{font-size:12px;color:var(--tx2);border-top:1px solid var(--line);padding-top:14px;margin-top:18px}
 .note b{color:var(--tx)}
 .err{background:#3a1a1a;border:1px solid #6b2a2a;border-radius:11px;padding:13px;font-size:14px;margin-bottom:11px}
 .muted{color:var(--tx2);font-size:14px}
-svg text{font-size:9px;fill:var(--tx2)}
-.tip{background:var(--panel2);border-radius:11px;padding:12px 14px;font-size:13px;color:var(--tx2);margin-bottom:12px}
-.tip b{color:var(--tx)}
+.calm{text-align:center;padding:26px 14px;color:var(--tx2)}
+.calm .big{font-size:44px;line-height:1;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -121,26 +147,42 @@ svg text{font-size:9px;fill:var(--tx2)}
 
 <header>
   <h1>台風ウォッチ／北谷町</h1>
-  <span class="loc">沖縄県中頭郡北谷町北前・予報区：沖縄本島中南部／出典：気象庁</span>
+  <span class="loc">沖縄県中頭郡北谷町北前（26.316N, 127.764E）・予報区：沖縄本島中南部／出典：気象庁</span>
 </header>
 
 <div id="errbox"></div>
 
+<div id="demoBanner">⚠ これはデモ表示です。実際の気象データではありません。
+  <span>地図と判定ロジックの動作確認用のサンプル値です。下の「実データに戻す」で解除できます。</span></div>
+
 <div id="status" class="s-none">
-  <div class="lv">STATUS</div>
-  <div class="hd">読み込み中…</div>
+  <div class="lv">STATUS</div><div class="hd">読み込み中…</div>
   <div class="sub">気象庁の公開データを取得しています。</div>
+</div>
+
+<div class="card">
+  <h2>台風の位置・予報円・暴風域</h2>
+  <div class="tcTabs" id="tcTabs"></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="lg-storm"></i>暴風域（実況）</span>
+    <span><i class="lg-gale"></i>強風域（実況）</span>
+    <span><i class="lg-circle"></i>予報円</span>
+    <span><i class="lg-swarn"></i>暴風警戒域（予報）</span>
+    <span><i class="lg-home"></i>北谷町</span>
+  </div>
+  <div id="judge" class="judge"></div>
+</div>
+
+<div class="card">
+  <h2>台風の諸元</h2>
+  <div id="tc" class="muted">読み込み中…</div>
 </div>
 
 <div class="card">
   <h2>警報・注意報（北谷町）</h2>
   <div id="warn" class="muted">読み込み中…</div>
   <div id="warnhead" style="font-size:13px;margin-top:10px;color:var(--tx2)"></div>
-</div>
-
-<div class="card">
-  <h2>台風・熱帯低気圧</h2>
-  <div id="tc" class="muted">読み込み中…</div>
 </div>
 
 <div class="card">
@@ -159,12 +201,6 @@ svg text{font-size:9px;fill:var(--tx2)}
 </div>
 
 <div class="card">
-  <h2>週間予報（沖縄本島地方／那覇）</h2>
-  <div class="scroll"><table id="wk"></table></div>
-  <div class="hint">← 横にスワイプ</div>
-</div>
-
-<div class="card">
   <h2>気象概況</h2>
   <pre class="txt" id="ov">読み込み中…</pre>
 </div>
@@ -172,28 +208,19 @@ svg text{font-size:9px;fill:var(--tx2)}
 <div class="card">
   <h2>公式情報リンク</h2>
   <div class="links">
-    <a href="https://www.jma.go.jp/bosai/map.html#contents=typhoon" target="_blank" rel="noopener">気象庁 台風情報（進路図）<span>暴風域・予報円の公式図</span></a>
+    <a href="https://www.jma.go.jp/bosai/map.html#contents=typhoon" target="_blank" rel="noopener">気象庁 台風情報（公式の進路図）<span>正式な予報円・暴風警戒域はこちら</span></a>
     <a href="https://www.jma.go.jp/bosai/warning/#area_type=offices&area_code=471000" target="_blank" rel="noopener">気象庁 警報・注意報<span>沖縄本島地方</span></a>
     <a href="https://www.jma.go.jp/bosai/nowc/" target="_blank" rel="noopener">気象庁 雨雲の動き<span>ナウキャスト</span></a>
     <a href="https://www.jma.go.jp/bosai/risk/" target="_blank" rel="noopener">気象庁 キキクル<span>危険度分布</span></a>
-    <a href="https://www.jma.go.jp/bosai/kaikotan/" target="_blank" rel="noopener">気象庁 潮位・高潮<span>高潮警戒</span></a>
     <a href="https://www.chatan.jp/" target="_blank" rel="noopener">北谷町 公式サイト<span>避難所・災害情報</span></a>
-    <a href="https://www.okiden.co.jp/" target="_blank" rel="noopener">沖縄電力<span>停電情報</span></a>
-    <a href="https://www.data.jma.go.jp/yoho/data/jishin/met/kishoushien_Okinawahonto-Chiho_Chatan-cho.html" target="_blank" rel="noopener">気象庁 気象支援資料（北谷町）<span>市町村別詳細</span></a>
   </div>
 </div>
 
-<div class="tip">
-  <b>ホーム画面に追加すると使いやすくなります。</b><br>
-  iPhone（Safari）：共有ボタン → 「ホーム画面に追加」<br>
-  Android（Chrome）：右上の︙ → 「ホーム画面に追加」
-</div>
-
 <div class="note">
-  <b>出典：気象庁（JMA）</b> — 気象庁が公開する防災情報 JSON（bosai/forecast・bosai/warning・bosai/typhoon）を
-  端末から直接取得して表示する非公式のプロトタイプです。<br>
-  表示内容は取得時点のもので、通信状況や仕様変更により古い情報・欠落が生じることがあります。
-  判定ラベル（接近中・圏内など）は本ページ独自の簡易計算であり、気象庁の公式判断ではありません。<br>
+  <b>出典：気象庁（JMA）</b> — 気象庁が公開する防災情報 JSON（bosai/typhoon の targetTc・specifications・forecast、
+  bosai/warning、bosai/forecast）を端末から直接取得して表示する非公式のプロトタイプです。地図は Leaflet と OpenStreetMap を使用しています。<br>
+  予報円・暴風域・強風域・暴風警戒域は、気象庁が配信する図形データ（中心・半径・円弧）をもとに本ページが描画しています。
+  気象庁が発表する公式の図とは細部が異なる場合があります。距離や圏内判定は本ページ独自の計算による参考値です。<br>
   <b>避難・移動・出勤などの判断は、必ず気象庁および北谷町・沖縄県の公式発表を直接ご確認ください。</b>
 </div>
 
@@ -201,310 +228,392 @@ svg text{font-size:9px;fill:var(--tx2)}
 
 <div class="bar">
   <button id="reload">更新</button>
+  <button id="demoBtn" class="ghost">デモ</button>
   <div class="st" id="fetched">取得中…</div>
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 "use strict";
-const BASE = "https://www.jma.go.jp/bosai";
-const OFFICE = "471000";
-const AREA   = "471010";
-const CITY   = "4732600";
-const HOME   = {lat:26.316, lon:127.764, name:"北谷町北前"};
+const BASE="https://www.jma.go.jp/bosai";
+const OFFICE="471000",AREA="471010",CITY="4732600";
+const HOME={lat:26.316,lon:127.764,name:"北谷町北前"};
 
-const WCODE = {
-  "02":["暴風雪警報","w"],"03":["大雨警報","w"],"04":["洪水警報","w"],"05":["暴風警報","w"],
-  "06":["大雪警報","w"],"07":["波浪警報","w"],"08":["高潮警報","w"],
-  "10":["大雨注意報","a"],"12":["大雪注意報","a"],"13":["風雪注意報","a"],"14":["雷注意報","a"],
-  "15":["強風注意報","a"],"16":["波浪注意報","a"],"17":["融雪注意報","a"],"18":["洪水注意報","a"],
-  "19":["高潮注意報","a"],"20":["濃霧注意報","a"],"21":["乾燥注意報","a"],"22":["なだれ注意報","a"],
-  "23":["低温注意報","a"],"24":["霜注意報","a"],"25":["着氷注意報","a"],"26":["着雪注意報","a"],
-  "27":["その他警報等","a"],
-  "32":["暴風雪特別警報","e"],"33":["大雨特別警報","e"],"35":["暴風特別警報","e"],
-  "36":["大雪特別警報","e"],"37":["波浪特別警報","e"],"38":["高潮特別警報","e"]
-};
+const WCODE={
+ "02":["暴風雪警報","w"],"03":["大雨警報","w"],"04":["洪水警報","w"],"05":["暴風警報","w"],
+ "06":["大雪警報","w"],"07":["波浪警報","w"],"08":["高潮警報","w"],
+ "10":["大雨注意報","a"],"12":["大雪注意報","a"],"13":["風雪注意報","a"],"14":["雷注意報","a"],
+ "15":["強風注意報","a"],"16":["波浪注意報","a"],"17":["融雪注意報","a"],"18":["洪水注意報","a"],
+ "19":["高潮注意報","a"],"20":["濃霧注意報","a"],"21":["乾燥注意報","a"],"22":["なだれ注意報","a"],
+ "23":["低温注意報","a"],"24":["霜注意報","a"],"25":["着氷注意報","a"],"26":["着雪注意報","a"],
+ "27":["その他警報等","a"],
+ "32":["暴風雪特別警報","e"],"33":["大雨特別警報","e"],"35":["暴風特別警報","e"],
+ "36":["大雪特別警報","e"],"37":["波浪特別警報","e"],"38":["高潮特別警報","e"]};
 
-const $ = s => document.querySelector(s);
-const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-
-async function getJSON(url){
-  const r = await fetch(url, {cache:"no-store"});
-  if(!r.ok) throw new Error(r.status+" "+url);
-  const t = (await r.text()).trim();
-  if(!t) return null;
-  return JSON.parse(t);
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function getJSON(u){
+  const r=await fetch(u,{cache:"no-store"});
+  if(!r.ok) throw new Error(r.status+" "+u);
+  const t=(await r.text()).trim();
+  return t?JSON.parse(t):null;
 }
+const R_EARTH=6371;
 function km(a,b){
-  const R=6371, d=x=>x*Math.PI/180;
-  const dl=d(b.lat-a.lat), dg=d(b.lon-a.lon);
+  const d=x=>x*Math.PI/180;
+  const dl=d(b.lat-a.lat),dg=d(b.lon-a.lon);
   const h=Math.sin(dl/2)**2+Math.cos(d(a.lat))*Math.cos(d(b.lat))*Math.sin(dg/2)**2;
-  return 2*R*Math.asin(Math.sqrt(h));
+  return 2*R_EARTH*Math.asin(Math.sqrt(h));
 }
-const nm2km = n => n*1.852;
+function destPoint(c,brg,rkm){
+  const d=x=>x*Math.PI/180,D=x=>x*180/Math.PI;
+  const f1=d(c.lat),l1=d(c.lon),t=d(brg),dd=rkm/R_EARTH;
+  const f2=Math.asin(Math.sin(f1)*Math.cos(dd)+Math.cos(f1)*Math.sin(dd)*Math.cos(t));
+  const l2=l1+Math.atan2(Math.sin(t)*Math.sin(dd)*Math.cos(f1),Math.cos(dd)-Math.sin(f1)*Math.sin(f2));
+  return [D(f2),((D(l2)+540)%360)-180];
+}
+function circlePts(c,rkm,steps){
+  steps=steps||90;const p=[];
+  for(let i=0;i<steps;i++) p.push(destPoint(c,i*360/steps,rkm));
+  return p;
+}
+/* 凸包（暴風警戒域は円の掃過域＝凸なのでこれで正しく閉じる） */
+function hull(pts){
+  if(pts.length<3) return pts;
+  const P=pts.map(p=>[p[1],p[0]]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]); // [x=lon,y=lat]
+  const cross=(o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);
+  const lo=[],up=[];
+  for(const p of P){ while(lo.length>=2&&cross(lo[lo.length-2],lo[lo.length-1],p)<=0) lo.pop(); lo.push(p); }
+  for(let i=P.length-1;i>=0;i--){ const p=P[i];
+    while(up.length>=2&&cross(up[up.length-2],up[up.length-1],p)<=0) up.pop(); up.push(p); }
+  lo.pop();up.pop();
+  return lo.concat(up).map(p=>[p[1],p[0]]); // → [lat,lon]
+}
+function inPoly(pt,poly){ // pt={lat,lon}, poly=[[lat,lon],...]
+  let c=false;
+  for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+    const yi=poly[i][0],xi=poly[i][1],yj=poly[j][0],xj=poly[j][1];
+    if(((yi>pt.lat)!==(yj>pt.lat)) && (pt.lon<(xj-xi)*(pt.lat-yi)/(yj-yi)+xi)) c=!c;
+  }
+  return c;
+}
+/* stormWarningArea / galeWarningArea → ポリゴン（[lat,lon]の配列） */
+function areaToPolygon(a){
+  if(!a) return null;
+  const pts=[];
+  if(a.arc&&a.arc.length){
+    for(const seg of a.arc){
+      const c={lat:+seg[0][0],lon:+seg[0][1]}, rkm=(+seg[1])/1000;
+      let s=+seg[2][0], e=+seg[2][1];
+      if(e<s) e+=360;
+      const n=Math.max(8,Math.round((e-s)/4));
+      for(let i=0;i<=n;i++) pts.push(destPoint(c,s+(e-s)*i/n,rkm));
+    }
+  }
+  if(a.center&&a.radius!=null){
+    pts.push(...circlePts({lat:+a.center[0],lon:+a.center[1]},(+a.radius)/1000,72));
+  }
+  if(!pts.length) return null;
+  return hull(pts);
+}
 function fmtJ(s){
   if(!s) return "";
   const d=new Date(s);
   if(isNaN(d)) return s;
-  const w="日月火水木金土"[d.getDay()];
-  return `${d.getMonth()+1}/${d.getDate()}(${w}) ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+  return `${d.getMonth()+1}/${d.getDate()}(${"日月火水木金土"[d.getDay()]}) ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
 }
-function dayLabel(s){
-  const d=new Date(s), w="日月火水木金土"[d.getDay()];
-  return `${d.getMonth()+1}/${d.getDate()}(${w})`;
-}
+const dayLabel=s=>{const d=new Date(s);return `${d.getMonth()+1}/${d.getDate()}(${"日月火水木金土"[d.getDay()]})`;};
+const shortLabel=l=>String(l||"").replace("予報　","").replace("時間後","h後");
 
-function unwrap(v){
-  let x=v;
-  for(let i=0;i<4 && x;i++){
-    if(Array.isArray(x)){ x=x[0]; continue; }
-    if(x.circle){ x=x.circle; continue; }
-    break;
+/* ===== 台風データ ===== */
+function tcName(t){
+  const tn=t.typhoonNumber||"";
+  if(tn.length>2) return "台風"+(+tn.slice(-2))+"号"+(t.name&&t.name.jp?`（${t.name.jp}）`:"");
+  return "熱帯低気圧"+tn;
+}
+async function loadTyphoons(){
+  const list=await getJSON(BASE+"/typhoon/data/targetTc.json");
+  if(!list||!list.length) return [];
+  const out=[];
+  for(const meta of list){
+    const id=meta.tropicalCyclone;
+    let spec=null,fc=null;
+    try{ spec=await getJSON(`${BASE}/typhoon/data/${id}/specifications.json`);}catch(e){}
+    try{ fc  =await getJSON(`${BASE}/typhoon/data/${id}/forecast.json`);}catch(e){}
+    if(!spec) continue;
+    out.push(buildTC(id,meta,spec,fc||[]));
   }
-  return x;
-}
-function radiusKm(c){
-  const circle = unwrap(c);
-  if(!circle || typeof circle!=="object") return null;
-  const cands = [];
-  for(const k of ["longRadius","radius","shortRadius"]){
-    const v = circle[k];
-    if(v==null) continue;
-    if(typeof v === "object"){
-      if(v.km!=null) cands.push(parseFloat(v.km));
-      else if(v.nm!=null) cands.push(nm2km(parseFloat(v.nm)));
-    }else{
-      const n=parseFloat(v);
-      if(!isNaN(n)) cands.push(n>400?n:nm2km(n));
-    }
-  }
-  const v = cands.filter(x=>!isNaN(x));
-  return v.length ? Math.max(...v) : null;
-}
-function centerOf(o){
-  const p = o && (o.center || (o.position && o.position.deg) || (o.circle && o.circle.basePoint));
-  if(Array.isArray(p) && p.length>=2) return {lat:+p[0], lon:+p[1]};
-  return null;
-}
-function areaCircles(rec){
-  const out = {storm:null, gale:null};
-  const scan = (obj, depth) => {
-    if(!obj || typeof obj!=="object" || depth>5) return;
-    for(const [k,v] of Object.entries(obj)){
-      if(!v || typeof v!=="object") continue;
-      const lk = k.toLowerCase();
-      if(lk.includes("storm") && !out.storm) out.storm = unwrap(v);
-      else if((lk.includes("warning")||lk.includes("gale")) && !out.gale) out.gale = unwrap(v);
-      else scan(v, depth+1);
-    }
-  };
-  scan(rec, 0);
   return out;
 }
-
-async function loadTyphoon(){
-  const el=$("#tc");
-  let list;
-  try{ list = await getJSON(BASE+"/typhoon/data/targetTc.json"); }
-  catch(e){ el.innerHTML='<span class="muted">台風情報の取得に失敗しました。</span>'; return null; }
-  if(!list || !list.length){
-    el.innerHTML='<span class="muted">現在、気象庁が情報を発表している台風・熱帯低気圧はありません。</span>';
-    return {tcs:[]};
-  }
-  const tcs=[];
-  for(const t of list){
-    const id=t.tropicalCyclone;
-    let spec=null, fc=null;
-    try{ spec = await getJSON(`${BASE}/typhoon/data/${id}/specifications.json`);}catch(e){}
-    try{ fc   = await getJSON(`${BASE}/typhoon/data/${id}/forecast.json`);}catch(e){}
-    tcs.push({id, meta:t, spec:spec||[], fc:fc||[]});
-  }
-  renderTC(tcs);
-  return {tcs};
-}
-
-function analyzeTC(t){
-  const now = t.spec.find(r=>r.advancedHours===0) || t.spec.find(r=>r.part && r.part.jp==="実況");
-  const res = {name:null,cat:null,pressure:null,wind:null,gust:null,scale:null,intensity:null,
-    loc:null,course:null,speed:null,dist:null,inStorm:false,inGale:false,
-    stormKm:null,galeKm:null,forecasts:[],minDist:null,minAt:null};
-  const title = t.spec.find(r=>r.part==="title") || {};
-  res.name = (title.typhoonNumber && title.typhoonNumber!=="a") ? "台風第"+title.typhoonNumber+"号"
-           : (t.meta.category==="TD" ? "熱帯低気圧" : t.id);
-  res.cat = (title.category && title.category.jp) || t.meta.category || "";
-  res.issue = (title.issue && title.issue.JST) || t.meta.issue;
-
-  if(now){
-    res.pressure = now.pressure;
-    res.loc = now.location;
-    res.course = now.course;
-    res.speed = now.speed && (now.speed["km/h"]!=null ? now.speed["km/h"]+" km/h" : now.speed.kt+" kt");
-    res.scale = now.scale; res.intensity = now.intensity;
-    if(now.maximumWind) res.wind = (now.maximumWind.sustained && (now.maximumWind.sustained["m/s"]||now.maximumWind.sustained.kt)) || now.maximumWind["m/s"] || null;
-    if(now.maximumWind && now.maximumWind.gust) res.gust = now.maximumWind.gust["m/s"] || now.maximumWind.gust.kt;
-    const c = centerOf(now);
-    if(c){
-      res.center = c;
-      res.dist = km(HOME, c);
-      const ac = areaCircles(now);
-      res.stormKm = radiusKm(ac.storm);
-      res.galeKm  = radiusKm(ac.gale);
-      if(res.stormKm!=null && res.dist<=res.stormKm) res.inStorm=true;
-      if(res.galeKm !=null && res.dist<=res.galeKm ) res.inGale =true;
-    }
-  }
-  for(const r of t.fc){
+function buildTC(id,meta,spec,fc){
+  const title=spec.find(r=>r.part==="title")||{};
+  const geo={};                                   // advancedHours → 図形
+  for(const r of fc){
     if(r.part==="title") continue;
-    const c = centerOf(r);
-    if(!c) continue;
-    const d = km(HOME,c);
-    const item = {h:r.advancedHours, at:r.validtime&&r.validtime.JST, dist:d, lat:c.lat, lon:c.lon,
-                  circleKm: radiusKm(r.circle), stormKm: radiusKm(areaCircles(r).storm)};
-    res.forecasts.push(item);
-    if(r.advancedHours!==0 && (res.minDist===null || d<res.minDist)){ res.minDist=d; res.minAt=item.at; }
+    const h=r.advancedHours;
+    geo[h]={
+      center:r.center?{lat:+r.center[0],lon:+r.center[1]}:null,
+      gale:areaToPolygon(r.galeWarningArea),
+      storm:areaToPolygon(r.stormWarningArea),
+      circleR:r.probabilityCircle&&r.probabilityCircle.radius!=null?(+r.probabilityCircle.radius)/1000:null,
+      track:r.track?[].concat(r.track.preTyphoon||[],r.track.typhoon||[]).map(a=>[+a[0],+a[1]]):null
+    };
   }
-  return res;
+  const pts=[];
+  for(const r of spec){
+    if(r.part==="title") continue;
+    const p=r.position&&r.position.deg;
+    const h=r.advancedHours;
+    const g=geo[h]||{};
+    pts.push({
+      label:(r.part&&r.part.jp)||"", hours:h,
+      center:(Array.isArray(p)&&p.length>=2)?{lat:+p[0],lon:+p[1]}:(g.center||null),
+      location:r.location, course:r.course, speed:r.speed, pressure:r.pressure,
+      scale:r.scale, intensity:r.intensity, category:r.category&&r.category.jp,
+      valid:r.validtime&&r.validtime.JST,
+      wind:r.maximumWind&&r.maximumWind.sustained,
+      gust:r.maximumWind&&r.maximumWind.gust,
+      galeKm:pickKm(r.galeWarning), stormKm:pickKm(r.stormWarning),
+      circleKm:r.probabilityCircleRadius?+r.probabilityCircleRadius.km:null,
+      galePoly:g.gale||null, stormPoly:g.storm||null,
+      circleR:(g.circleR!=null?g.circleR:(r.probabilityCircleRadius?+r.probabilityCircleRadius.km:null))
+    });
+  }
+  const now=pts.find(x=>x.hours===0)||pts[0];
+  const forecasts=pts.filter(x=>x.hours>0).sort((a,b)=>a.hours-b.hours);
+  const track=(geo[0]&&geo[0].track)||null;
+  return {id,meta,title,name:tcName(title.typhoonNumber?title:meta),now,forecasts,track,
+    dist:now&&now.center?km(HOME,now.center):null};
+}
+function pickKm(arr){
+  if(!Array.isArray(arr)||!arr.length) return null;
+  return arr.map(e=>{
+    const a=e.area,nm=(a&&typeof a==="object")?(a.jp||""):(a||"");
+    const r=e.range?(e.range.km!=null?+e.range.km:(e.range.nm!=null?+e.range.nm*1.852:null)):null;
+    return (nm&&nm!=="全域"?nm+" ":"")+Math.round(r)+"km";
+  }).join(" / ");
 }
 
-function tcLevel(a){
-  if(a.inStorm) return 5;
-  if(a.inGale) return 4;
-  if(a.dist!=null && a.dist<300) return 3;
-  if(a.minDist!=null && a.minDist<300) return 3;
-  if(a.minDist!=null && a.minDist<600) return 2;
-  if(a.dist!=null && a.dist<800) return 2;
-  return 1;
+/* ===== 地図 ===== */
+let map=null,layer=null;
+function initMap(){
+  if(map) return;
+  map=L.map("map",{zoomControl:true}).setView([HOME.lat,HOME.lon],5);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:12,minZoom:3,
+    attribution:'地図 &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors｜台風データ 出典：気象庁'}).addTo(map);
+  layer=L.layerGroup().addTo(map);
+}
+function drawMap(tc){
+  initMap(); layer.clearLayers();
+  const bounds=[[HOME.lat,HOME.lon]];
+  L.circleMarker([HOME.lat,HOME.lon],{radius:8,color:"#fff",weight:2,fillColor:"#3d7fd6",fillOpacity:1})
+    .bindPopup("<b>北谷町北前</b><br>26.316N, 127.764E").addTo(layer);
+
+  if(!tc||!tc.now||!tc.now.center){ map.setView([HOME.lat,HOME.lon],7); setTimeout(()=>map.invalidateSize(),100); return; }
+
+  if(tc.track&&tc.track.length>1){
+    L.polyline(tc.track,{color:"#8a97ab",weight:2,opacity:.65,dashArray:"2 5"})
+      .bindPopup("これまでの経路").addTo(layer);
+  }
+  // 暴風警戒域（予報）
+  for(const f of tc.forecasts){
+    if(!f.stormPoly) continue;
+    L.polygon(f.stormPoly,{color:"#b455d8",weight:1.5,dashArray:"5 4",fillColor:"#b455d8",fillOpacity:.10})
+      .bindPopup(`<b>暴風警戒域</b>　${esc(shortLabel(f.label))}<br>${esc(fmtJ(f.valid))}`).addTo(layer);
+    f.stormPoly.forEach(p=>bounds.push(p));
+  }
+  // 予報円
+  for(const f of tc.forecasts){
+    if(!f.center||f.circleR==null) continue;
+    const poly=circlePts(f.center,f.circleR,72);
+    L.polygon(poly,{color:"#8fd0ff",weight:2,dashArray:"6 5",fillColor:"#8fd0ff",fillOpacity:.07})
+      .bindPopup(`<b>予報円</b>　${esc(shortLabel(f.label))}<br>半径 ${Math.round(f.circleR)} km<br>${esc(fmtJ(f.valid))}`).addTo(layer);
+    poly.filter((_,i)=>i%9===0).forEach(p=>bounds.push(p));
+  }
+  // 実況の強風域・暴風域
+  const n=tc.now;
+  if(n.galePoly){
+    L.polygon(n.galePoly,{color:"#e8b93a",weight:2,fillColor:"#e8b93a",fillOpacity:.16})
+      .bindPopup("<b>強風域</b><br>風速15m/s以上のおそれ").addTo(layer);
+    n.galePoly.filter((_,i)=>i%6===0).forEach(p=>bounds.push(p));
+  }
+  if(n.stormPoly){
+    L.polygon(n.stormPoly,{color:"#e0463c",weight:2,fillColor:"#e0463c",fillOpacity:.32})
+      .bindPopup("<b>暴風域</b><br>風速25m/s以上のおそれ").addTo(layer);
+  }
+  // 進路線・予報位置
+  const line=[[n.center.lat,n.center.lon]].concat(tc.forecasts.filter(f=>f.center).map(f=>[f.center.lat,f.center.lon]));
+  if(line.length>1) L.polyline(line,{color:"#e2622a",weight:3,dashArray:"8 6"}).addTo(layer);
+  for(const f of tc.forecasts){
+    if(!f.center) continue;
+    L.circleMarker([f.center.lat,f.center.lon],{radius:5,color:"#0b111b",weight:2,fillColor:"#f0a878",fillOpacity:1})
+      .bindPopup(`<b>${esc(shortLabel(f.label))}</b><br>${esc(fmtJ(f.valid))}<br>中心気圧 ${esc(f.pressure||"—")} hPa<br>北谷町から ${Math.round(km(HOME,f.center))} km`).addTo(layer);
+    bounds.push([f.center.lat,f.center.lon]);
+  }
+  L.circleMarker([n.center.lat,n.center.lon],{radius:9,color:"#fff",weight:2.5,fillColor:"#e2622a",fillOpacity:1})
+    .bindPopup(`<b>${esc(tc.name)}　中心（実況）</b><br>${esc(n.location||"")}<br>${esc(n.pressure||"—")} hPa`).addTo(layer);
+  bounds.push([n.center.lat,n.center.lon]);
+
+  try{ map.fitBounds(L.latLngBounds(bounds).pad(0.10)); }catch(e){}
+  setTimeout(()=>map.invalidateSize(),120);
 }
 
-function renderTC(tcs){
+/* ===== 圏内判定 ===== */
+function judgeTC(tc){
+  const r={dist:null,inStorm:false,inGale:false,firstCircle:null,firstStorm:null,minDist:null,minAt:null};
+  if(!tc||!tc.now||!tc.now.center) return r;
+  r.dist=km(HOME,tc.now.center);
+  if(tc.now.stormPoly) r.inStorm=inPoly(HOME,tc.now.stormPoly);
+  if(tc.now.galePoly)  r.inGale =inPoly(HOME,tc.now.galePoly);
+  for(const f of tc.forecasts){
+    if(!f.center) continue;
+    const d=km(HOME,f.center);
+    if(r.minDist===null||d<r.minDist){ r.minDist=d; r.minAt=f; }
+    if(!r.firstCircle && f.circleR!=null && d<=f.circleR) r.firstCircle=f;
+    if(!r.firstStorm && f.stormPoly && inPoly(HOME,f.stormPoly)) r.firstStorm=f;
+  }
+  return r;
+}
+function renderJudge(tc){
+  const el=$("#judge");
+  if(!tc||!tc.now||!tc.now.center){ el.innerHTML=""; return; }
+  const j=judgeTC(tc), rows=[];
+  rows.push(`<div class="j out"><div class="ic">📍</div><div class="t">台風中心から ${Math.round(j.dist).toLocaleString()} km
+    <span class="d">北谷町北前から${esc(tc.name)}の中心までの距離（本ページの計算）</span></div></div>`);
+
+  rows.push(tc.now.stormPoly
+    ? `<div class="j ${j.inStorm?"in":"out"}"><div class="ic">${j.inStorm?"⚠":"✓"}</div><div class="t">暴風域：北谷町は${j.inStorm?"圏内です":"圏外です"}
+       <span class="d">風速25m/s以上のおそれ／実況の暴風域 ${esc(tc.now.stormKm||"—")}</span></div></div>`
+    : `<div class="j na"><div class="ic">—</div><div class="t">暴風域：発表なし<span class="d">この台風には暴風域がありません</span></div></div>`);
+
+  rows.push(tc.now.galePoly
+    ? `<div class="j ${j.inGale?"in":"out"}"><div class="ic">${j.inGale?"⚠":"✓"}</div><div class="t">強風域：北谷町は${j.inGale?"圏内です":"圏外です"}
+       <span class="d">風速15m/s以上のおそれ／実況の強風域 ${esc(tc.now.galeKm||"—")}</span></div></div>`
+    : `<div class="j na"><div class="ic">—</div><div class="t">強風域：発表なし</div></div>`);
+
+  if(j.firstStorm){
+    rows.push(`<div class="j warnc"><div class="ic">⚠</div><div class="t">暴風警戒域に入る見込み：${esc(shortLabel(j.firstStorm.label))}
+      <span class="d">${esc(fmtJ(j.firstStorm.valid))}／この時点で北谷町が暴風警戒域（暴風域に入るおそれのある範囲）に含まれます</span></div></div>`);
+  }
+  if(j.firstCircle){
+    rows.push(`<div class="j warnc"><div class="ic">⚠</div><div class="t">予報円の中に入る：${esc(shortLabel(j.firstCircle.label))}
+      <span class="d">${esc(fmtJ(j.firstCircle.valid))}／予報円 半径${Math.round(j.firstCircle.circleR)}km・北谷町まで${Math.round(km(HOME,j.firstCircle.center))}km
+      　※台風の中心が北谷町付近を通る可能性があります</span></div></div>`);
+  }
+  if(j.minAt){
+    rows.push(`<div class="j out"><div class="ic">🎯</div><div class="t">予報上の最接近：約${Math.round(j.minDist).toLocaleString()} km
+      <span class="d">${esc(shortLabel(j.minAt.label))}・${esc(fmtJ(j.minAt.valid))}時点の予想中心位置との距離</span></div></div>`);
+  }
+  el.innerHTML=rows.join("");
+}
+
+/* ===== 諸元 ===== */
+function renderSpec(tc){
   const el=$("#tc");
-  let h="";
-  for(const t of tcs){
-    const a = analyzeTC(t); t._a=a;
-    h += `<div style="margin-bottom:16px">`;
-    h += `<div style="font-size:17px;font-weight:700;margin-bottom:8px">${esc(a.name)}<span style="font-size:12px;color:var(--tx2);font-weight:400"> ${esc(a.cat)}／発表 ${esc(fmtJ(a.issue))}</span></div>`;
-    h += `<div class="grid">`;
-    const kv=(k,v,s)=>{ h+=`<div class="kv"><div class="k">${k}</div><div class="v">${v==null||v===""?'<small>—</small>':esc(v)}${s?`<small> ${s}</small>`:""}</div></div>`; };
-    kv("北谷町からの距離", a.dist!=null?Math.round(a.dist).toLocaleString():null, "km");
-    kv("中心気圧", a.pressure, "hPa");
-    kv("中心位置", a.loc);
-    kv("進行方向", a.course);
-    kv("速さ", a.speed);
-    kv("大きさ／強さ", (a.scale&&a.scale!=="-"?a.scale:"—")+" / "+(a.intensity&&a.intensity!=="-"?a.intensity:"—"));
-    if(a.wind) kv("最大風速", a.wind);
-    if(a.gust) kv("最大瞬間風速", a.gust);
-    kv("暴風域半径", a.stormKm!=null?Math.round(a.stormKm):null, "km");
-    kv("強風域半径", a.galeKm!=null?Math.round(a.galeKm):null, "km");
-    if(a.minDist!=null) kv("予報上の最接近", Math.round(a.minDist).toLocaleString(), "km "+fmtJ(a.minAt));
-    h += `</div>`;
-
-    if(a.forecasts.length){
-      h += `<div class="scroll" style="margin-top:12px"><table><tr><th>予報</th><th>日時</th><th>北谷町から</th><th>予報円</th><th>暴風域</th></tr>`;
-      for(const f of a.forecasts){
-        h += `<tr><td>${f.h===0?"実況":esc(f.h)+"h後"}</td><td>${esc(fmtJ(f.at))}</td>
-              <td>${Math.round(f.dist).toLocaleString()} km</td>
-              <td>${f.circleKm!=null?Math.round(f.circleKm)+" km":"—"}</td>
-              <td>${f.stormKm!=null?Math.round(f.stormKm)+" km":"—"}</td></tr>`;
-      }
-      h += `</table></div><div class="hint">← 横にスワイプ</div>`;
-      h += miniMap(a);
+  if(!tc||!tc.now){ el.innerHTML='<span class="muted">諸元データがありません。</span>'; return; }
+  const n=tc.now,t=tc.title||{};
+  let h=`<div style="font-size:17px;font-weight:700;margin-bottom:8px">${esc(tc.name)}
+    <span style="font-size:12px;color:var(--tx2);font-weight:400"> ${esc((t.category&&t.category.jp)||"")}・${esc(tc.id)}・発表 ${esc(fmtJ(t.issue&&t.issue.JST))}</span></div><div class="grid">`;
+  const kv=(k,v,s)=>{h+=`<div class="kv"><div class="k">${k}</div><div class="v">${v==null||v===""?'<small>—</small>':esc(v)}${s?`<small> ${s}</small>`:""}</div></div>`;};
+  kv("中心位置",n.location);
+  kv("北谷町から",Math.round(km(HOME,n.center)).toLocaleString(),"km");
+  kv("中心気圧",n.pressure,"hPa");
+  kv("大きさ",(n.scale&&n.scale!=="-")?n.scale:"—");
+  kv("強さ",(n.intensity&&n.intensity!=="-")?n.intensity:"—");
+  kv("進行方向",n.course);
+  kv("速さ",n.speed?(n.speed["km/h"]!=null?n.speed["km/h"]+" km/h":((n.speed.note&&n.speed.note.jp)||n.speed.note||"—")):null);
+  if(n.wind) kv((n.wind.note?n.wind.note+"の":"")+"最大風速",n.wind["m/s"],"m/s");
+  if(n.gust) kv("最大瞬間風速",n.gust["m/s"],"m/s");
+  kv("暴風域",n.stormKm);
+  kv("強風域",n.galeKm);
+  h+="</div>";
+  if(tc.forecasts.length){
+    h+=`<div class="scroll" style="margin-top:12px"><table>
+      <tr><th>予報</th><th>日時</th><th>中心気圧</th><th>予報円</th><th>暴風警戒域</th><th>北谷町から</th></tr>`;
+    for(const f of tc.forecasts){
+      const inC=f.center&&f.circleR!=null&&km(HOME,f.center)<=f.circleR;
+      const inS=f.stormPoly&&inPoly(HOME,f.stormPoly);
+      h+=`<tr class="${(inC||inS)?"hit":""}"><td>${esc(shortLabel(f.label))}</td><td>${esc(fmtJ(f.valid))}</td>
+        <td>${esc(f.pressure||"—")} hPa</td>
+        <td>${f.circleR!=null?Math.round(f.circleR)+" km":"—"}</td>
+        <td>${esc(f.stormKm||"—")}</td>
+        <td>${f.center?Math.round(km(HOME,f.center)).toLocaleString()+" km":"—"}</td></tr>`;
     }
-    h += `<div style="font-size:11.5px;color:var(--tx2);margin-top:9px">距離は本ページ独自の計算による参考値です。正確な進路図は<a href="https://www.jma.go.jp/bosai/map.html#contents=typhoon" target="_blank" rel="noopener" style="color:#7fb0ea">気象庁 台風情報</a>へ。</div></div>`;
+    h+="</table></div><div class='hint'>← 横にスワイプ／赤い行は北谷町が予報円または暴風警戒域に入る時点</div>";
   }
   el.innerHTML=h;
 }
 
-function miniMap(a){
-  const pts = a.forecasts.filter(f=>f.lat!=null);
-  if(!pts.length) return "";
-  const lats=pts.map(p=>p.lat).concat([HOME.lat]);
-  const lons=pts.map(p=>p.lon).concat([HOME.lon]);
-  let la0=Math.min(...lats), la1=Math.max(...lats), lo0=Math.min(...lons), lo1=Math.max(...lons);
-  const pad=Math.max(1.2,(la1-la0)*0.15,(lo1-lo0)*0.15);
-  la0-=pad; la1+=pad; lo0-=pad; lo1+=pad;
-  const W=560,H=300;
-  const X=lo=>((lo-lo0)/(lo1-lo0))*(W-50)+30;
-  const Y=la=>H-30-((la-la0)/(la1-la0))*(H-55);
-  let s=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;margin-top:12px;background:#0b111b;border:1px solid var(--line);border-radius:11px">`;
-  for(let g=Math.ceil(lo0/5)*5; g<=lo1; g+=5){ s+=`<line x1="${X(g)}" y1="20" x2="${X(g)}" y2="${H-25}" stroke="#22314699"/><text x="${X(g)+2}" y="${H-14}">${g}E</text>`; }
-  for(let g=Math.ceil(la0/5)*5; g<=la1; g+=5){ s+=`<line x1="28" y1="${Y(g)}" x2="${W-18}" y2="${Y(g)}" stroke="#22314699"/><text x="2" y="${Y(g)-2}">${g}N</text>`; }
-  for(const p of pts){
-    if(p.circleKm){
-      const rx=Math.abs(X(p.lon+p.circleKm/111/Math.cos(p.lat*Math.PI/180))-X(p.lon));
-      const ry=Math.abs(Y(p.lat+p.circleKm/111)-Y(p.lat));
-      s+=`<ellipse cx="${X(p.lon)}" cy="${Y(p.lat)}" rx="${rx}" ry="${ry}" fill="#d33b3b1f" stroke="#d33b3b88"/>`;
-    }
-    if(p.stormKm){
-      const rx=Math.abs(X(p.lon+p.stormKm/111/Math.cos(p.lat*Math.PI/180))-X(p.lon));
-      const ry=Math.abs(Y(p.lat+p.stormKm/111)-Y(p.lat));
-      s+=`<ellipse cx="${X(p.lon)}" cy="${Y(p.lat)}" rx="${rx}" ry="${ry}" fill="#a4249b26" stroke="#a4249b99"/>`;
-    }
-  }
-  s+=`<polyline points="${pts.map(p=>X(p.lon)+","+Y(p.lat)).join(" ")}" fill="none" stroke="#e2622a" stroke-width="2.5" stroke-dasharray="6 4"/>`;
-  for(const p of pts){
-    s+=`<circle cx="${X(p.lon)}" cy="${Y(p.lat)}" r="${p.h===0?6:4}" fill="${p.h===0?"#e2622a":"#f0a878"}" stroke="#0b111b"/>`;
-    s+=`<text x="${X(p.lon)+8}" y="${Y(p.lat)-6}" fill="#f0a878">${p.h===0?"実況":p.h+"h"}</text>`;
-  }
-  s+=`<circle cx="${X(HOME.lon)}" cy="${Y(HOME.lat)}" r="6" fill="#3d7fd6" stroke="#fff" stroke-width="1.8"/>`;
-  s+=`<text x="${X(HOME.lon)+9}" y="${Y(HOME.lat)+5}" fill="#8fbaf0">北谷町</text>`;
-  s+=`<text x="30" y="14">簡易進路図（参考・地図背景なし）</text></svg>`;
-  return s;
-}
-
+/* ===== 警報・予報・概況 ===== */
+/* 警報・注意報
+   注意: 旧 /bosai/warning/data/warning/{office}.json は更新が止まっており（2026-05-28で凍結）、
+   現行は /bosai/warning/data/r8/{office}.json。気象警報・注意報の電文は dataTypeCode "VPWW55"。 */
+const HEADLINE_MAX_AGE_H=24;   // これより古い解説文は本文として表示しない
 async function loadWarning(){
-  const el=$("#warn");
-  let d;
-  try{ d = await getJSON(`${BASE}/warning/data/warning/${OFFICE}.json`); }
-  catch(e){ el.innerHTML='<span class="muted">警報・注意報の取得に失敗しました。</span>'; return {rank:0,list:[]}; }
-  if(!d){ el.innerHTML='<span class="muted">データがありません。</span>'; return {rank:0,list:[]}; }
-  let ws=[];
-  for(const at of (d.areaTypes||[])) for(const ar of (at.areas||[])) if(ar.code===CITY) ws = ar.warnings||[];
-  if(!ws.length) for(const at of (d.areaTypes||[])) for(const ar of (at.areas||[])) if(ar.code===AREA) ws=ar.warnings||[];
-  const active=[], cleared=[];
-  for(const w of ws){
-    const m = WCODE[w.code] || ["コード"+w.code,"a"];
-    (w.status==="解除"||w.status==="発表警報・注意報はなし" ? cleared : active).push({name:m[0],rank:m[1],status:w.status});
-  }
-  let rank=0;
-  active.forEach(w=>{ rank=Math.max(rank, w.rank==="e"?3:w.rank==="w"?2:1); });
-  let h = active.length
-    ? '<div class="badges">'+active.map(w=>`<span class="b b-${w.rank}">${esc(w.name)}</span>`).join("")+'</div>'
-    : '<span class="muted">北谷町に現在発表中の警報・注意報はありません（取得時点）。</span>';
-  if(cleared.length) h += '<div class="badges" style="margin-top:8px">'+cleared.map(w=>`<span class="b b-c">${esc(w.name)} 解除</span>`).join("")+'</div>';
-  el.innerHTML=h;
-  $("#warnhead").textContent = (d.headlineText||"") + (d.reportDatetime?`（${fmtJ(d.reportDatetime)} ${d.publishingOffice||""}発表）`:"");
-  return {rank, list:active};
-}
+  const el=$("#warn"), hd=$("#warnhead");
+  let arr;
+  try{ arr=await getJSON(`${BASE}/warning/data/r8/${OFFICE}.json`); }
+  catch(e){ el.innerHTML='<span class="muted">警報・注意報の取得に失敗しました。</span>'; hd.textContent=""; return {rank:0,list:[]}; }
+  if(!Array.isArray(arr)||!arr.length){ el.innerHTML='<span class="muted">データがありません。</span>'; hd.textContent=""; return {rank:0,list:[]}; }
 
+  const blk=arr.find(b=>b.dataTypeCode==="VPWW55")||arr[0];
+  const w=blk.warning||{};
+  const findArea=(items,code)=>(items||[]).find(a=>a.areaCode===code);
+  let kinds=(findArea(w.class20Items,CITY)||{}).kinds;
+  let scope="北谷町";
+  if(!kinds){ kinds=(findArea(w.class10Items,AREA)||{}).kinds; scope="沖縄本島中南部"; }
+  kinds=kinds||[];
+
+  const active=[],cleared=[];
+  for(const k of kinds){
+    if(!k.code){ continue; }                       // 「発表警報・注意報はなし」
+    const m=WCODE[k.code]||["コード"+k.code,"a"];
+    (k.status==="解除"?cleared:active).push({name:m[0],rank:m[1],status:k.status});
+  }
+  let rank=0; active.forEach(x=>rank=Math.max(rank,x.rank==="e"?3:x.rank==="w"?2:1));
+
+  let h=active.length
+    ? '<div class="badges">'+active.map(x=>`<span class="b b-${x.rank}">${esc(x.name)}</span>`).join("")+'</div>'
+    : `<span class="muted">${esc(scope)}に現在発表中の警報・注意報はありません。</span>`;
+  if(cleared.length) h+='<div class="badges" style="margin-top:8px">'+cleared.map(x=>`<span class="b b-c">${esc(x.name)} 解除</span>`).join("")+'</div>';
+  el.innerHTML=h;
+
+  /* 解説文は「その文自身の発表日時」とセットで検証し、古ければ本文として出さない */
+  const rt=blk.reportDatetime;
+  const ageH=rt?(Date.now()-new Date(rt).getTime())/3600e3:Infinity;
+  const stamp=rt?`${fmtJ(rt)} ${blk.publishingOffice||""}発表`:"発表日時不明";
+  if(blk.headlineText && ageH<=HEADLINE_MAX_AGE_H){
+    hd.innerHTML=`${esc(blk.headlineText)}<span style="display:block;font-size:11.5px;margin-top:3px">（${esc(stamp)}）</span>`;
+  }else if(blk.headlineText){
+    const days=Math.floor(ageH/24);
+    hd.innerHTML=`<span style="opacity:.75">最新の解説文はありません。`
+      +`<span style="display:block;font-size:11.5px;margin-top:3px">最後の発表は ${esc(stamp)}`
+      +`（約${days}日前）のため、現在の状況を示すものではないので本文は表示していません。</span></span>`;
+  }else{
+    hd.innerHTML=`<span style="font-size:11.5px;opacity:.75">${esc(stamp)}</span>`;
+  }
+  return {rank,list:active};
+}
 async function loadForecast(){
   let d;
-  try{ d = await getJSON(`${BASE}/forecast/data/forecast/${OFFICE}.json`); }
+  try{ d=await getJSON(`${BASE}/forecast/data/forecast/${OFFICE}.json`); }
   catch(e){ $("#fc").innerHTML='<span class="muted">予報の取得に失敗しました。</span>'; return {}; }
-  const s0=d[0].timeSeries;
-  const pick=(ts,code)=>(ts.areas||[]).find(a=>a.area.code===code)||ts.areas[0];
+  const s0=d[0].timeSeries,pick=(ts,c)=>(ts.areas||[]).find(a=>a.area.code===c)||ts.areas[0];
   const a0=pick(s0[0],AREA);
   let h="";
   s0[0].timeDefines.forEach((t,i)=>{
     const wd=a0.winds?a0.winds[i]:"";
-    const strong=/非常に強く|猛烈/.test(wd)?"wind-vs":/やや強く|強く/.test(wd)?"wind-s":"";
+    const s=/非常に強く|猛烈/.test(wd)?"wind-vs":/やや強く|強く/.test(wd)?"wind-s":"";
     h+=`<div class="c"><div class="d">${dayLabel(t)}</div><div class="w">${esc(a0.weathers[i])}</div>
-        <div class="x ${strong}">風 ${esc(wd)}</div>
-        <div class="x" style="color:var(--tx2)">波 ${esc(a0.waves?a0.waves[i]:"—")}</div></div>`;
+      <div class="x ${s}">風 ${esc(wd)}</div><div class="x" style="color:var(--tx2)">波 ${esc(a0.waves?a0.waves[i]:"—")}</div></div>`;
   });
   $("#fc").innerHTML=h;
   const a1=pick(s0[1],AREA);
   let p="<tr><th>時間帯</th>"+s0[1].timeDefines.map(t=>`<th>${dayLabel(t)} ${new Date(t).getHours()}時</th>`).join("")+"</tr>";
   p+="<tr><td>降水確率</td>"+a1.pops.map(v=>`<td class="${+v>=70?"pop-hi":""}">${esc(v)}%</td>`).join("")+"</tr>";
   $("#poptbl").innerHTML=p;
-  const w=d[1].timeSeries, wa=w[0].areas[0], wt=w[1].areas[0];
-  let k="<tr><th>日付</th>"+w[0].timeDefines.map(t=>`<th>${dayLabel(t)}</th>`).join("")+"</tr>";
-  k+="<tr><td>降水確率</td>"+wa.pops.map(v=>`<td class="${+v>=70?"pop-hi":""}">${v===""?"—":esc(v)+"%"}</td>`).join("")+"</tr>";
-  k+="<tr><td>最高/最低</td>"+wt.tempsMax.map((v,i)=>`<td>${v===""?"—":esc(v)+"/"+esc(wt.tempsMin[i])}</td>`).join("")+"</tr>";
-  k+="<tr><td>信頼度</td>"+(wa.reliabilities||[]).map(v=>`<td>${v===""?"—":esc(v)}</td>`).join("")+"</tr>";
-  $("#wk").innerHTML=k;
-  const windTxt=(a0.winds||[]).join(" / ");
-  return {strongWind:/非常に強く|猛烈|強く/.test(windTxt)};
+  return {strongWind:/非常に強く|猛烈|強く/.test((a0.winds||[]).join(" "))};
 }
-
 async function loadOverview(){
   try{
     const d=await getJSON(`${BASE}/forecast/data/overview_forecast/${OFFICE}.json`);
@@ -512,88 +621,152 @@ async function loadOverview(){
   }catch(e){ $("#ov").textContent="概況の取得に失敗しました。"; }
 }
 
+/* ===== レベル ===== */
 const LEVELS=[
-  {cls:"s-ok",     lv:"LEVEL 0", hd:"台風の情報はありません", sub:"通常どおり。平常時の備えの確認だけしておきましょう。"},
-  {cls:"s-info",   lv:"LEVEL 1", hd:"遠方に台風・熱帯低気圧あり", sub:"北谷町への直接の影響は今のところ小さい見込みです。進路を毎日確認してください。"},
-  {cls:"s-warn",   lv:"LEVEL 2", hd:"進路によっては影響の可能性", sub:"数日先に接近する可能性があります。備蓄・予定の見直しを始める段階です。"},
-  {cls:"s-alert",  lv:"LEVEL 3", hd:"台風が接近しています", sub:"暴風・大雨に備える段階です。外出・移動の判断を早めに。"},
-  {cls:"s-danger", lv:"LEVEL 4", hd:"暴風に警戒する段階です", sub:"屋外作業・不要な外出は控え、屋内での安全確保を優先してください。"},
-  {cls:"s-extreme",lv:"LEVEL 5", hd:"極めて危険な状態です", sub:"外出は危険です。頑丈な建物内の安全な場所で待機してください。"}
-];
+ {cls:"s-ok",lv:"LEVEL 0",hd:"台風の情報はありません",sub:"通常どおり。平常時の備えの確認だけしておきましょう。"},
+ {cls:"s-info",lv:"LEVEL 1",hd:"遠方に台風あり",sub:"北谷町への直接の影響は今のところ小さい見込みです。"},
+ {cls:"s-warn",lv:"LEVEL 2",hd:"進路によっては影響の可能性",sub:"数日先に接近する可能性があります。備蓄・予定の見直しを始める段階です。"},
+ {cls:"s-alert",lv:"LEVEL 3",hd:"北谷町が進路に入っています",sub:"予報円または暴風警戒域に北谷町が含まれます。備えを前倒しで進めてください。"},
+ {cls:"s-danger",lv:"LEVEL 4",hd:"強風域に入っています",sub:"屋外作業・不要な外出は控え、屋内での安全確保を優先してください。"},
+ {cls:"s-extreme",lv:"LEVEL 5",hd:"暴風域に入っています",sub:"外出は危険です。頑丈な建物内の安全な場所で待機してください。"}];
 const CHECK={
  0:["非常用持ち出し袋の中身と期限を確認する","懐中電灯・モバイルバッテリーの充電を確認する","ハザードマップで自宅周辺の浸水・土砂リスクを見ておく"],
  1:["台風情報を1日1回確認する","今週の予定（旅行・空路）の変更条件を確認しておく"],
- 2:["飲料水・食料・カセットボンベを3日分そろえる","スマホ・モバイルバッテリー・車のガソリンを満タンにする","ベランダ・庭の飛散物を片づける計画を立てる","航空便／フェリーの欠航方針と払戻条件を確認する"],
- 3:["ベランダ・庭の物を屋内へ収納する（風が強まる前に）","浴槽に水を張る／断水・停電に備える","雨戸・シャッターを閉める、養生テープで窓を補強する","車を冠水・飛来物のない場所へ移動する","冷蔵庫を強めに設定し、保冷剤を凍らせる","避難先と経路を家族で共有する"],
+ 2:["飲料水・食料・カセットボンベを3日分そろえる","スマホ・車のガソリンを満タンにする","ベランダ・庭の飛散物を片づける計画を立てる","航空便／フェリーの欠航方針と払戻条件を確認する"],
+ 3:["ベランダ・庭の物を屋内へ収納する（風が強まる前に）","浴槽に水を張る／断水・停電に備える","雨戸・シャッターを閉める、養生テープで窓を補強する","車を冠水・飛来物のない場所へ移動する","避難先と経路を家族で共有する"],
  4:["屋外での作業・買い出しをこの時点で切り上げる","停電に備え、家電のプラグを抜き明かりを手元に置く","窓から離れた部屋で過ごす","北谷町の避難情報・避難所開設状況を確認する"],
- 5:["外に出ない・様子を見に行かない（最も多い事故要因）","窓・ガラス面から離れ、可能なら内側の部屋へ","停電・断水が起きても復旧作業を待つ","移動が危険な場合は屋内の高い階へ垂直避難"]
-};
-
-function applyStatus(lv, extra){
-  const L=LEVELS[lv], el=$("#status");
+ 5:["外に出ない・様子を見に行かない（最も多い事故要因）","窓・ガラス面から離れ、可能なら内側の部屋へ","停電・断水が起きても復旧作業を待つ","移動が危険な場合は屋内の高い階へ垂直避難"]};
+function applyStatus(lv,extra){
+  const L=LEVELS[lv],el=$("#status");
   el.className=L.cls;
   el.innerHTML=`<div class="lv">${L.lv}</div><div class="hd">${esc(L.hd)}</div><div class="sub">${esc(L.sub)}${extra?" "+esc(extra):""}</div>`;
-  document.querySelector('meta[name=theme-color]').setAttribute("content",
-    ["#16261f","#152539","#2b2110","#33200f","#3a1414","#320a30"][lv]);
+  const m=document.querySelector('meta[name=theme-color]');
+  if(m) m.setAttribute("content",["#16261f","#152539","#2b2110","#33200f","#3a1414","#320a30"][lv]);
   $("#ckhd").textContent=`LEVEL ${lv} に対応する行動の目安です。状況に応じて前倒ししてください。`;
   const items=[];
   for(let i=lv;i>=0;i--) if(CHECK[i]) items.push(...CHECK[i]);
-  let done={};
-  try{ done=JSON.parse(localStorage.getItem("ckDone")||"{}"); }catch(e){}
+  let done={}; try{ done=JSON.parse(localStorage.getItem("ckDone")||"{}"); }catch(e){}
   $("#ck").innerHTML=items.map(x=>`<li class="${done[x]?"on":""}">${esc(x)}</li>`).join("");
-  [...document.querySelectorAll("#ck li")].forEach(li=>{
-    li.addEventListener("click",()=>{
-      li.classList.toggle("on");
-      let d={};
-      try{ d=JSON.parse(localStorage.getItem("ckDone")||"{}"); }catch(e){}
-      d[li.textContent]=li.classList.contains("on");
-      try{ localStorage.setItem("ckDone",JSON.stringify(d)); }catch(e){}
-    });
-  });
+  [...document.querySelectorAll("#ck li")].forEach(li=>li.addEventListener("click",()=>{
+    li.classList.toggle("on");
+    let d={};try{ d=JSON.parse(localStorage.getItem("ckDone")||"{}"); }catch(e){}
+    d[li.textContent]=li.classList.contains("on");
+    try{ localStorage.setItem("ckDone",JSON.stringify(d)); }catch(e){}
+  }));
+}
+function levelOf(tc){
+  const j=judgeTC(tc);
+  if(!tc||j.dist===null) return {lv:0,extra:"",j};
+  let lv=1,ex=`${tc.name}の中心は北谷町から約${Math.round(j.dist).toLocaleString()}km。`;
+  if(j.inStorm){ lv=5; ex+="現在、暴風域の中です。"; }
+  else if(j.inGale){ lv=4; ex+="現在、強風域の中です。"; }
+  else if(j.firstStorm){ lv=3; ex+=`${shortLabel(j.firstStorm.label)}に暴風警戒域に入る見込みです。`; }
+  else if(j.firstCircle){ lv=3; ex+=`${shortLabel(j.firstCircle.label)}の予報円に北谷町が入っています。`; }
+  else if(j.minDist!==null&&j.minDist<600){ lv=2; ex+=`予報上の最接近は約${Math.round(j.minDist).toLocaleString()}km。`; }
+  else if(j.dist<800) lv=2;
+  return {lv,extra:ex,j};
 }
 
+/* ===== デモ ===== */
+function demoData(){
+  const b=Date.now(),iso=h=>new Date(b+h*3600e3).toISOString();
+  const mk=(label,h,lat,lon,pres,cR,sKm)=>{
+    const c={lat,lon};
+    return {label,hours:h,center:c,pressure:String(pres),valid:iso(h),
+      circleR:cR,circleKm:cR,stormKm:sKm?("全域 "+sKm+"km"):null,
+      stormPoly:sKm?hull(circlePts(c,sKm,72)):null,galePoly:null,
+      location:"（デモ）",course:"北北西",speed:{"km/h":"20"},intensity:"強い"};
+  };
+  const nc={lat:24.6,lon:126.9};
+  return {demo:true,id:"DEMO",name:"（デモ）台風99号 サンプル",
+    title:{typhoonNumber:"2699",name:{jp:"サンプル"},category:{jp:"台風"},issue:{JST:new Date(b).toISOString()}},
+    now:{label:"実況",hours:0,center:nc,location:"（デモ）宮古島の南南東",course:"北北西",
+      speed:{"km/h":"20"},pressure:"945",scale:"大型",intensity:"非常に強い",
+      valid:new Date(b).toISOString(),wind:{"m/s":"40",note:"中心付近"},gust:{"m/s":"60"},
+      stormKm:"全域 150km",galeKm:"全域 480km",
+      stormPoly:hull(circlePts(nc,150,72)),galePoly:hull(circlePts(nc,480,72)),circleR:null},
+    forecasts:[mk("予報　１２時間後",12,25.6,126.6,940,70,190),
+               mk("予報　２４時間後",24,26.6,126.4,940,110,240),
+               mk("予報　４８時間後",48,29.0,126.6,955,190,300),
+               mk("予報　７２時間後",72,31.8,127.8,975,280,null)],
+    track:[[21,129.5],[21.8,128.8],[22.6,128.2],[23.4,127.6],[24,127.2],[24.6,126.9]]};
+}
+
+/* ===== 実行 ===== */
+let demoMode=false, tcs=[], sel=0, warnFloor={lv:0,extra:""};
+function renderTabs(){
+  const el=$("#tcTabs");
+  if(!tcs.length){ el.innerHTML=""; return; }
+  el.innerHTML=tcs.map((t,i)=>
+    `<button data-i="${i}" class="${i===sel?"on":""}">${esc(t.name)}`
+    +`<span style="font-weight:400;opacity:.85"> ${t.dist!=null?Math.round(t.dist).toLocaleString()+"km":""}</span></button>`).join("")
+    +(tcs.length>1?`<span style="font-size:11.5px;color:var(--tx2);align-self:center;padding-left:4px">← 台風を切り替え（距離は北谷町から）</span>`:"");
+  [...el.querySelectorAll("button")].forEach(b=>b.addEventListener("click",()=>showTC(+b.dataset.i)));
+}
+/* 選択中の台風で「地図・判定・諸元・サマリー」をすべて揃える */
+function showTC(i){
+  sel=i; renderTabs();
+  const t=tcs[sel];
+  drawMap(t); renderJudge(t); renderSpec(t);
+  const r=levelOf(t);
+  let extra=r.extra;
+  if(tcs.length>1){
+    const others=tcs.filter((_,k)=>k!==sel).map(x=>x.name).join("・");
+    extra+=`　※この表示は${t.name}のものです。ほかに発生中：${others}。`;
+  }
+  applyStatus(Math.max(r.lv,warnFloor.lv), extra+warnFloor.extra);
+}
 async function run(){
   $("#errbox").innerHTML="";
   $("#fetched").textContent="取得中…";
-  let lv=0, extra="";
   try{
-    const [tc, wn, fc] = await Promise.all([loadTyphoon(), loadWarning(), loadForecast()]);
+    /* 先に警報を読み、レベルの下限を確定させてから台風表示を組み立てる */
+    const wn=await loadWarning(), fcst=await loadForecast();
     loadOverview();
-    if(tc && tc.tcs && tc.tcs.length){
-      let mx=1, near=null;
-      for(const t of tc.tcs){
-        const a=t._a||analyzeTC(t), l=tcLevel(a);
-        if(l>mx){mx=l; near=a;}
-      }
-      lv=mx;
-      if(near && near.dist!=null){
-        extra=`最寄りの${near.name}は約${Math.round(near.dist).toLocaleString()}km`;
-        if(near.inStorm) extra+="（暴風域の半径内）";
-        else if(near.inGale) extra+="（強風域の半径内）";
-        if(near.minDist!=null) extra+=`／予報上の最接近は約${Math.round(near.minDist).toLocaleString()}km・${fmtJ(near.minAt)}`;
-        extra+="。";
-      }
+    let flv=0, fex="";
+    if(wn.rank===3) flv=5;
+    else if(wn.rank===2) flv=wn.list.some(w=>/暴風|高潮|大雨警報|洪水警報/.test(w.name))?4:3;
+    else if(wn.rank===1&&wn.list.some(w=>/強風|波浪|高潮/.test(w.name))) flv=2;
+    if(fcst&&fcst.strongWind) flv=Math.max(flv,1);
+    if(wn.list&&wn.list.length) fex=`　発表中：${wn.list.map(w=>w.name).join("・")}。`;
+    warnFloor={lv:flv,extra:fex};
+
+    tcs = demoMode ? [demoData()] : await loadTyphoons();
+    if(tcs.length){
+      // 危険度が高い順（同点なら近い順）＝北谷町にとって重要な台風を先頭に
+      tcs.forEach(t=>t._lv=levelOf(t).lv);
+      tcs.sort((a,b)=>(b._lv-a._lv)||((a.dist==null?1e9:a.dist)-(b.dist==null?1e9:b.dist)));
+      showTC(0);
+    }else{
+      $("#tcTabs").innerHTML=""; $("#judge").innerHTML="";
+      $("#tc").innerHTML=`<div class="calm"><div class="big">🌤</div>
+        <b style="color:var(--tx);font-size:16px">現在、対象となる台風はありません</b><br>
+        気象庁が情報を発表している台風・熱帯低気圧はありません（取得時点）。<br>地図には北谷町の位置のみ表示しています。
+        <div style="margin-top:12px;font-size:12.5px">地図と描画の動作を確認したい場合は、画面下の「デモ」を押してください。</div></div>`;
+      drawMap(null);
+      applyStatus(warnFloor.lv, warnFloor.extra);
     }
-    if(wn.rank===3) lv=Math.max(lv,5);
-    else if(wn.rank===2){
-      const hasStorm=wn.list.some(w=>/暴風|高潮|大雨警報|洪水警報/.test(w.name));
-      lv=Math.max(lv, hasStorm?4:3);
-    }else if(wn.rank===1 && wn.list.some(w=>/強風|波浪|高潮/.test(w.name))) lv=Math.max(lv,2);
-    if(fc && fc.strongWind) lv=Math.max(lv,1);
-    if(wn.list && wn.list.length) extra += `発表中：${wn.list.map(w=>w.name).join("・")}。`;
-    $("#fetched").innerHTML="取得 "+fmtJ(new Date().toISOString())+"<br>出典：気象庁";
+
+    $("#fetched").innerHTML=(demoMode?"<b style='color:#f0b429'>デモ表示中</b>／":"")
+      +"取得 "+fmtJ(new Date().toISOString())+"<br>出典：気象庁";
   }catch(e){
     $("#errbox").innerHTML=`<div class="err"><b>データを取得できませんでした。</b><br>${esc(e.message)}<br><br>
-      通信環境をご確認ください。ファイルを直接開いた場合（file://）はブラウザの制限で取得できません。
-      下の公式リンクから気象庁サイトを直接ご確認ください。</div>`;
+      通信環境をご確認ください。下の公式リンクから気象庁サイトを直接ご確認ください。</div>`;
     $("#fetched").textContent="取得失敗";
+    applyStatus(0,"");
   }
-  applyStatus(lv, extra);
 }
 $("#reload").addEventListener("click",run);
-document.addEventListener("visibilitychange",()=>{ if(!document.hidden) run(); });
+$("#demoBtn").addEventListener("click",()=>{
+  demoMode=!demoMode;
+  document.body.classList.toggle("demo",demoMode);
+  $("#demoBanner").style.display=demoMode?"block":"none";
+  $("#demoBtn").textContent=demoMode?"実データ":"デモ";
+  run();
+});
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden&&!demoMode) run(); });
 run();
-setInterval(run, 10*60*1000);
+setInterval(()=>{ if(!demoMode) run(); },10*60*1000);
 </script>
 </body>
 </html>
