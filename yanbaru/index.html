@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj4gPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJzIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+IDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzExMzQyNiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzE4NDYyZSIvPjwvbGluZWFyR3JhZGllbnQ+IDxjbGlwUGF0aCBpZD0iciI+PHJlY3Qgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIHJ4PSI0MCIvPjwvY2xpcFBhdGg+PC9kZWZzPiA8ZyBjbGlwLXBhdGg9InVybCgjcikiPiA8cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgZmlsbD0idXJsKCNzKSIvPiA8cGF0aCBkPSJNLTUgMTgwVjEwNHEyOC00NiA1NS00IDIyIDM0IDQwIDYgMjYtNDAgNTUgMiAyMiAzMiA0MC00djc2eiIgZmlsbD0iIzQwODQ0RiIvPiA8cGF0aCBkPSJNLTUgMTgwdi01OHE0MC00MCA3MC02IDI2IDMwIDU1IDIgMzAtMjggNjAgOHY1NHoiIGZpbGw9IiMyMjUyMkYiLz4gPGcgZmlsbD0iIzEzMzYxRiI+IDxwYXRoIGQ9Ik0xNiAxMjhsLTkgMCA5LTIyIDkgMjJ6TTE2IDExOGwtNyAwIDctMTcgNyAxN3oiLz4gPHBhdGggZD0iTTE1MCAxMjhsLTkgMCA5LTIyIDkgMjJ6TTE1MCAxMThsLTcgMCA3LTE3IDcgMTd6Ii8+IDxwYXRoIGQ9Ik00NCAxMzFsLTcgMCA3LTE3IDcgMTd6TTEyNiAxMzFsLTcgMCA3LTE3IDcgMTd6Ii8+PC9nPiA8cGF0aCBkPSJNLTYgMTMwcTQ2IDE2IDkyIDR0MTAwIDJ2MjJxLTU2LTE0LTEwMC0yVC02IDE0OHoiIGZpbGw9IiMyRThBQjQiLz4gPHBhdGggZD0iTS02IDEzNnE0NiAxNSA5MiAzdDEwMCAydjExcS01Ni0xMy0xMDAtMVQtNiAxNTB6IiBmaWxsPSIjNjhDMkUyIi8+IDxyZWN0IHk9IjE1MCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIzMCIgZmlsbD0iIzE4M0UyOCIvPiA8cGF0aCBkPSJNNjkgMTY1bDQyLTlNNjkgMTU2bDQyIDkiIHN0cm9rZT0iIzZCNEEyQSIgc3Ryb2tlLXdpZHRoPSI3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4gPHBhdGggZD0iTTkwIDE1OWMxNCAwIDI1LTExIDI1LTI2IDAtMTYtMTMtMjYtMTktNDAtMiA5LTggMTMtMTMgMjAtNiA4LTE4IDEyLTE4IDI2IDAgMTIgMTEgMjAgMjUgMjB6IiBmaWxsPSIjRTI1QzIyIi8+IDxwYXRoIGQ9Ik05MCAxNTljOSAwIDE2LTggMTYtMTggMC0xMS04LTE4LTEyLTI3LTIgNi01IDktOSAxNC00IDYtMTEgOC0xMSAxOCAwIDggNyAxMyAxNiAxM3oiIGZpbGw9IiNGODlFMkMiLz4gPHBhdGggZD0iTTkwIDE1OWM1IDAgOS01IDktMTEgMC02LTUtMTEtNy0xNi0xIDQtMyA1LTUgOC0zIDQtNiA1LTYgMTEgMCA1IDQgOCA5IDh6IiBmaWxsPSIjRkZFNjhDIi8+IDxjaXJjbGUgY3g9IjExNCIgY3k9IjExOCIgcj0iMyIgZmlsbD0iI0ZGQzQ1QSIvPjxjaXJjbGUgY3g9IjY2IiBjeT0iMTI2IiByPSIyLjQiIGZpbGw9IiNGRkI0NDYiLz4gPC9nPjwvc3ZnPg==">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+<link rel="shortcut icon" type="image/png" href="data:image/png;base64,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">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1a14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="奥やんばる">
+<meta name="application-name" content="奥やんばる">
+<title>奥やんばるの里 3泊4日 食事＆買い出しプラン｜2026.8.15-18</title>
+<style>
+:root{
+  --bg:#0f1a14; --panel:#16241c; --panel2:#1c2e23; --line:#2c4536;
+  --txt:#e8f0e9; --dim:#9db3a4; --accent:#4ec98a; --accent2:#ffcf5c;
+  --warn:#ff6b5e; --warnbg:#3a1a17; --blue:#5cc0e8; --pink:#f08fb0;
+  --radius:14px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;
+  line-height:1.7;font-size:15px;padding-bottom:60px;
+  overflow-x:hidden;overflow-wrap:break-word;word-break:normal;line-break:strict}
+.wrap{max-width:1080px;margin:0 auto;padding:0 14px}
+img,table,pre,code{max-width:100%}
+code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12.5px}
+button{touch-action:manipulation}
+
+header{background:linear-gradient(160deg,#1d3a2a,#0f1a14);border-bottom:1px solid var(--line);padding:22px 0 18px}
+h1{margin:0 0 4px;font-size:22px;letter-spacing:.02em}
+.sub{color:var(--dim);font-size:13px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.badge{background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:3px 11px;font-size:12px;color:var(--dim)}
+.badge b{color:var(--accent);font-weight:600}
+
+.alert{background:var(--warnbg);border:1px solid #6b2f28;border-left:4px solid var(--warn);
+  border-radius:10px;padding:12px 14px;margin:14px 0;font-size:13.5px}
+.alert .t{color:var(--warn);font-weight:700;font-size:14px;display:block;margin-bottom:4px}
+.alert ul{margin:6px 0 0;padding-left:18px}
+.alert li{margin:3px 0}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(15,26,20,.96);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);margin-bottom:16px;position:sticky}
+nav .wrap{position:relative}
+/* 右端のフェード＝「まだ横にタブがある」ことを示す */
+nav .wrap:after{content:"";position:absolute;right:0;top:0;bottom:0;width:34px;pointer-events:none;
+  background:linear-gradient(90deg,rgba(15,26,20,0),rgba(15,26,20,.98))}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding:8px 0;scrollbar-width:none;scroll-behavior:smooth}
+.tabs::-webkit-scrollbar{display:none}
+.tab{white-space:nowrap;background:none;border:1px solid transparent;color:var(--dim);
+  padding:7px 13px;border-radius:99px;font-size:13.5px;cursor:pointer;font-family:inherit}
+.tab:hover{color:var(--txt)}
+.tab.on{background:var(--accent);color:#08190f;font-weight:700;border-color:var(--accent)}
+
+section{display:none}
+section.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+h2{font-size:18px;margin:26px 0 10px;padding-left:10px;border-left:4px solid var(--accent)}
+h3{font-size:15px;margin:18px 0 8px;color:var(--accent2)}
+p.note{color:var(--dim);font-size:13px;margin:6px 0}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:15px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+
+/* people control */
+.people{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin:14px 0}
+.prow{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.pgrp{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);
+  border-radius:10px;padding:6px 10px}
+.pgrp span.lbl{font-size:13px;min-width:74px}
+.pgrp span.f{font-size:11px;color:var(--dim)}
+.stp{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);background:var(--bg);
+  color:var(--txt);font-size:16px;cursor:pointer;line-height:1;font-family:inherit}
+.stp:hover{border-color:var(--accent);color:var(--accent)}
+.num{min-width:22px;text-align:center;font-weight:700;font-size:16px}
+.ae{margin-top:10px;font-size:13px;color:var(--dim)}
+.ae b{color:var(--accent2);font-size:16px}
+.resetbtn{background:none;border:1px solid var(--line);color:var(--dim);border-radius:8px;
+  padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit}
+
+/* meal cards */
+.meal{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:0;margin:12px 0;overflow:hidden}
+.mhead{display:flex;align-items:center;gap:10px;padding:12px 15px;background:var(--panel2);flex-wrap:wrap}
+.mtag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.04em}
+.t-b{background:#3a3418;color:var(--accent2)}
+.t-l{background:#16333f;color:var(--blue)}
+.t-d{background:#3a1f2c;color:var(--pink)}
+.mday{font-size:12px;color:var(--dim)}
+.mtitle{font-size:15.5px;font-weight:700;width:100%;margin-top:2px}
+.mbody{padding:13px 15px}
+.mbody h4{margin:12px 0 5px;font-size:13px;color:var(--accent);font-weight:700}
+.mbody h4:first-child{margin-top:0}
+.ing{display:flex;flex-wrap:wrap;gap:6px}
+.ing span{background:var(--panel2);border:1px solid var(--line);border-radius:7px;
+  padding:3px 9px;font-size:12.5px}
+.ing span b{color:var(--accent2);font-weight:700}
+.kid{background:#12291d;border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+  padding:8px 11px;margin-top:10px;font-size:13px}
+.kid b{color:var(--accent)}
+.alt{background:#251f2e;border-left:3px solid #a98ad6;border-radius:0 8px 8px 0;
+  padding:8px 11px;margin-top:8px;font-size:12.8px;color:#d8cde8}
+.alt b{color:#c4a9f0}
+.gear{background:#2a2416;border-left:3px solid var(--accent2);border-radius:0 8px 8px 0;
+  padding:8px 11px;margin-top:8px;font-size:12.8px;color:#f0e2bd}
+.gear b{color:var(--accent2)}
+.otsu{background:#2b1c1c;border-left:3px solid #e07b5c;border-radius:0 8px 8px 0;
+  padding:8px 11px;margin-top:8px;font-size:12.8px;color:#f2d5c9}
+.otsu b{color:#f0956e}
+
+/* checklists */
+.chk{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border-radius:9px;cursor:pointer;
+  border:1px solid transparent}
+.chk:hover{background:var(--panel2)}
+.chk input{margin:4px 0 0;width:17px;height:17px;accent-color:var(--accent);flex:0 0 auto;cursor:pointer}
+.chk .nm{flex:1;font-size:14px}
+.chk .qt{font-size:13px;color:var(--accent2);font-weight:700;white-space:nowrap}
+.chk.done .nm,.chk.done .qt{opacity:.4;text-decoration:line-through}
+.chk .hint{display:block;font-size:11.5px;color:var(--dim);text-decoration:none}
+.chk.done .hint{opacity:.4}
+.owned{font-size:10.5px;background:#1e3a2a;color:var(--accent);border:1px solid #2f5a41;
+  border-radius:5px;padding:1px 6px;margin-left:6px;white-space:nowrap}
+
+.bar{height:7px;background:var(--panel2);border-radius:99px;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;
+  transition:width .3s}
+.barlbl{font-size:12px;color:var(--dim);text-align:right}
+
+.catbox{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:6px 10px 10px;margin:11px 0}
+.cathd{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;font-weight:700;
+  font-size:14.5px;cursor:pointer}
+.cathd .cnt{font-size:12px;color:var(--dim);font-weight:400}
+.catbody{display:block}
+.catbox.closed .catbody{display:none}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:700;font-size:12.5px;color:var(--accent2)}
+td b{color:var(--accent2)}
+
+.timeline{border-left:2px solid var(--line);margin-left:8px;padding-left:16px}
+.tl{position:relative;margin:0 0 16px}
+.tl:before{content:"";position:absolute;left:-22px;top:6px;width:10px;height:10px;border-radius:99px;
+  background:var(--accent);border:2px solid var(--bg)}
+.tl .tm{font-size:12px;color:var(--accent);font-weight:700}
+.tl .tt{font-size:14px}
+.tl .td{font-size:12.5px;color:var(--dim)}
+
+.pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:7px;
+  padding:2px 8px;font-size:12px;margin:2px 3px 2px 0}
+
+.stop{background:#3a1a17;border:1px solid #6b2f28;border-radius:10px;padding:12px 14px;margin:10px 0}
+.stop .h{color:var(--warn);font-weight:700;margin-bottom:6px}
+.go{background:#12291d;border:1px solid #2f5a41;border-radius:10px;padding:12px 14px;margin:10px 0}
+.go .h{color:var(--accent);font-weight:700;margin-bottom:6px}
+ul.tight{margin:6px 0;padding-left:19px}
+ul.tight li{margin:4px 0}
+
+footer{color:var(--dim);font-size:12px;text-align:center;padding:30px 14px 10px;border-top:1px solid var(--line);margin-top:34px}
+/* ===== 子どもと選ぶコーナー ===== */
+.bigbtn{display:block;width:100%;min-height:58px;margin:12px 0;border:none;border-radius:14px;
+  background:linear-gradient(135deg,#4ec98a,#3aa8c9);color:#06231a;font-weight:800;font-size:17px;
+  font-family:inherit;cursor:pointer;box-shadow:0 4px 0 #1f6b52;transition:transform .08s,box-shadow .08s}
+.bigbtn:active{transform:translateY(4px);box-shadow:0 0 0 #1f6b52}
+.bigbtn.alt{background:linear-gradient(135deg,#ffcf5c,#f0956e);box-shadow:0 4px 0 #8a6320;color:#2a1c05}
+.bigbtn:disabled{opacity:.5;box-shadow:none;transform:none}
+
+.kidchip{display:inline-flex;align-items:center;gap:7px;background:var(--panel2);border:2px solid var(--line);
+  border-radius:12px;padding:10px 14px;margin:5px;font-size:15px;font-weight:700;cursor:pointer;
+  min-height:48px;font-family:inherit;color:var(--txt)}
+.kidchip:active{transform:scale(.97)}
+.kidchip .av{font-size:22px}
+.k0{border-color:#4ec98a}.k1{border-color:#ffcf5c}.k2{border-color:#8fd4e8}
+
+.resultcard{background:var(--panel2);border:2px solid var(--line);border-radius:14px;padding:13px;margin:10px 0;
+  opacity:0;transform:translateY(10px) scale(.96);animation:pop .45s cubic-bezier(.2,1.3,.4,1) forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.resultcard .rk{font-size:14px;font-weight:800;margin-bottom:5px}
+.resultcard .rv{font-size:19px;font-weight:800;line-height:1.4}
+.resultcard .rd{font-size:13px;color:var(--dim);margin-top:5px}
+.resultcard.r0{border-color:#4ec98a}.resultcard.r1{border-color:#ffcf5c}.resultcard.r2{border-color:#8fd4e8}
+
+.rolling{animation:roll .5s linear infinite}
+@keyframes roll{0%{transform:translateY(0)}50%{transform:translateY(-7px)}100%{transform:translateY(0)}}
+.slot{font-size:22px;font-weight:800;text-align:center;padding:16px;background:var(--panel2);
+  border:2px dashed var(--line);border-radius:14px;margin:10px 0;min-height:60px}
+
+.picker{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.pick{background:var(--panel2);border:2px solid var(--line);border-radius:12px;padding:12px 14px;
+  font-size:15px;cursor:pointer;font-family:inherit;color:var(--txt);min-height:50px;
+  display:flex;align-items:center;gap:6px;transition:.12s}
+.pick:active{transform:scale(.95)}
+.pick.on{border-color:var(--accent);background:#12291d;color:var(--accent);font-weight:700}
+.pick:disabled{opacity:.35}
+.pick .em{font-size:20px}
+
+.skew{font-size:32px;letter-spacing:6px;text-align:center;padding:14px 6px;background:#12291d;
+  border-radius:12px;margin:10px 0;border:2px solid #2f5a41}
+.votebar{display:flex;height:34px;border-radius:9px;overflow:hidden;margin:8px 0;background:var(--panel2)}
+.votebar i{display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;
+  transition:width .35s;overflow:hidden;white-space:nowrap}
+.voterow{border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;background:var(--panel)}
+.vbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.vb{min-height:56px;border-radius:12px;border:2px solid var(--line);background:var(--panel2);
+  color:var(--txt);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;padding:8px;line-height:1.4}
+.vb:active{transform:scale(.96)}
+.vb.win{border-color:var(--accent);background:#12291d;color:var(--accent)}
+.tally{display:flex;gap:5px;justify-content:center;margin-top:6px;font-size:19px;min-height:24px}
+
+@media(max-width:640px){
+  .bigbtn{min-height:62px;font-size:17px}
+  .kidchip{font-size:14.5px;padding:11px 13px}
+  .pick{font-size:14.5px;padding:13px 13px}
+  .skew{font-size:28px}
+  .vbtns{grid-template-columns:1fr}
+}
+
+/* 横スクロールできる表のラッパー */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;
+    border-radius:10px;position:relative}
+.tw table{margin:0}
+.tw::-webkit-scrollbar{height:6px}
+.tw::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+.swipe{display:none;font-size:11.5px;color:var(--accent2);margin:-4px 0 8px;text-align:right}
+
+/* ストレージ状態 */
+.storage{font-size:12px;border-radius:9px;padding:8px 11px;margin:10px 0;border:1px solid var(--line);
+  background:var(--panel2);color:var(--dim)}
+.storage.ok{border-color:#2f5a41;color:var(--accent)}
+.storage.ng{border-color:#6b2f28;color:var(--warn);background:var(--warnbg)}
+
+/* ---- スマホ最適化（Android Chrome 360〜430px 想定）---- */
+@media(max-width:640px){
+  body{font-size:15px;padding-bottom:40px}
+  .wrap{padding:0 11px}
+  header{padding:16px 0 14px}
+  h1{font-size:18px;line-height:1.45}
+  .sub{font-size:12px}
+  h2{font-size:16.5px;margin:22px 0 9px}
+
+  /* 表は横スクロール（潰さずに読ませる） */
+  .tw{margin:10px -11px;padding:0 11px}
+  .tw table{min-width:560px}
+  .swipe{display:block}
+  th,td{padding:8px;font-size:13px}
+
+  /* タップ領域を拡大（推奨44px） */
+  .stp{width:44px;height:44px;font-size:22px;border-radius:10px}
+  .num{min-width:34px;font-size:19px}
+  .pgrp{padding:5px 9px;gap:6px;width:100%;justify-content:space-between}
+  .pgrp span.lbl{min-width:auto;font-size:14px}
+  .prow{gap:9px}
+  .tab{padding:11px 15px;font-size:14px}
+  .tabs{padding:7px 0}
+  .chk{padding:11px 8px;gap:11px;align-items:center}
+  .chk input{width:24px;height:24px;margin:0}
+  .chk .nm{font-size:14.5px}
+  .chk .hint{font-size:12px;margin-top:2px}
+  .cathd{padding:13px 4px;font-size:15px}
+  .resetbtn{padding:9px 14px;font-size:13px}
+
+  .grid{grid-template-columns:1fr}
+  .card,.mbody,.meal .mhead{padding:13px}
+  .mtitle{font-size:15px;line-height:1.5}
+  .ing span{font-size:13px;padding:4px 10px}
+  .timeline{margin-left:5px;padding-left:14px}
+  .alert{padding:11px 12px;font-size:13px}
+  .alert ul{padding-left:16px}
+  ul.tight{padding-left:17px}
+}
+@media(max-width:380px){
+  .tab{padding:10px 12px;font-size:13.5px}
+  .tw table{min-width:520px}
+  h1{font-size:17px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <h1>奥やんばるの里 3泊4日 食事＆買い出しプラン</h1>
+  <div class="sub">2026年8月15日(土) 14:00 IN &nbsp;→&nbsp; 8月18日(火) 10:00 OUT ／ 沖縄県国頭村字奥1280-1</div>
+  <div class="badges">
+    <span class="badge">全<b id="bgMeals">8</b>食を設計</span>
+    <span class="badge">大人2＋中2男子1＋小4双子2＝<b>5名</b></span>
+    <span class="badge">食材・炭は<b>持参</b></span>
+    <span class="badge">氷・炭酸・水は<b>現地調達</b></span>
+    <span class="badge">全室キッチン＋BBQテラス</span>
+  </div>
+ </div>
+</header>
+
+<div class="wrap">
+ <div class="alert">
+  <span class="t">⚠ この宿の最重要制約 ― 買い忘れ＝詰みます</span>
+  <ul>
+   <li><b>周辺に飲食店が一軒もありません。</b>外食で埋め合わせるという逃げ道がない前提で組んでください。</li>
+   <li><b>最寄りコンビニまで片道約45分</b>（じゃらん施設情報の公式記載）。夜に思い立って買いに行ける距離ではありません。</li>
+   <li>まともな買い物ができるのは<b>辺土名の国頭スーパー（車で約30分・9:00〜19:00）</b>まで。奥集落の奥共同店は徒歩圏ですが品揃えは限定的です。</li>
+   <li><b>夕方以降は「運転できる人がいない」前提。</b>ご夫婦が飲酒されるので、飲んだ後の買い出しは不可能です。<b>必要なものは毎日15時までに揃えきる</b>設計にしてあります。</li>
+   <li>8月15日は<b>お盆の最中</b>。名護・那覇の店舗は混雑、一部は短縮営業や休業の可能性。事前購入は<b>13〜14日までに済ませる</b>のが安全です。</li>
+  </ul>
+ </div>
+</div>
+
+<nav><div class="wrap"><div class="tabs" id="tabs"></div></div></nav>
+
+<div class="wrap">
+
+<!-- ============ 概要 ============ -->
+<section id="s-overview">
+  <div class="people" id="peopleBox">
+    <div style="font-weight:700;margin-bottom:9px">👨‍👩‍👦‍👦 人数設定（変えると全ページの分量が再計算されます）</div>
+    <div class="prow" id="pRow"></div>
+    <div class="ae">合計 <span id="pTotal">5</span>名／<b><span id="pAE">4.7</span></b> 大人換算（AE）
+      　<span style="font-size:11.5px">係数：大人1.0／中高生1.3／小学生0.7　※育ち盛り男子は大人以上に食べるため中高生を1.3で計算しています</span>
+      　<button class="resetbtn" onclick="resetPeople()">初期値に戻す</button></div>
+  </div>
+
+  <h2>食数の数え方（ここが計算の起点）</h2>
+  <div class="card">
+   <table>
+    <tr><th>日付</th><th>朝</th><th>昼</th><th>夕</th><th>備考</th></tr>
+    <tr><td><b>8/15(土)</b></td><td>—</td><td>—</td><td>✅ 1食目</td><td>14:00 IN のため<b>夕食から</b>スタート。道中の昼食は別枠（名護で外食推奨）</td></tr>
+    <tr><td><b>8/16(日)</b></td><td>✅ 2食目</td><td>✅ 3食目<span class="pill">川ピクニック</span></td><td>✅ 4食目</td><td>フル1日</td></tr>
+    <tr><td><b>8/17(月)</b></td><td>✅ 5食目</td><td>✅ 6食目</td><td>✅ 7食目</td><td>フル1日</td></tr>
+    <tr><td><b>8/18(火)</b></td><td>✅ 8食目</td><td>—</td><td>—</td><td>10:00 OUT のため<b>朝食まで</b>。片付け時間を逆算して7:30には食べ始める</td></tr>
+    <tr><th colspan="5" style="text-align:center">合計 <b>8食</b>（朝3・昼2・夕3）＋ 大人の晩酌おつまみ3夜ぶん</th></tr>
+   </table>
+   <p class="note">※ 8/15の道中昼食は宿の食数に含めません。名護市街〜辺土名の間で済ませる想定です。お盆で混むので、11時台の早めの入店を。</p>
+  </div>
+
+  <h2>4日間のタイムライン</h2>
+  <div class="card">
+   <div class="timeline" id="timeline"></div>
+  </div>
+
+  <h2>📱 スマホでの使い方</h2>
+  <div class="card">
+   <div class="storageSlot"></div>
+   <div class="go"><div class="h">✅ オフラインで動きます（アイコン付きで）</div>
+    <p style="margin:4px 0;font-size:13.5px">このアプリは外部のCDN・フォント・スクリプトを<b>一切読み込みません</b>。
+    さらに <b>Service Worker</b> を積んであるので、<b>一度アクセスすればページ一式が端末にキャッシュされ、以降は電波が無くても開けます。</b>
+    国頭村の奥は山間部で電波が不安定ですが、影響を受けません。</p></div>
+
+   <h3>使い方 ― GitHub Pages に置いて「ホーム画面に追加」</h3>
+   <p class="note" style="margin-bottom:8px">
+   <b>ウェブに公開する方式にしたのは、ホーム画面アイコンを正しく出すためです。</b>
+   Androidのホーム画面アイコンは <code>manifest.json</code> で決まりますが、これは <code>file://</code> では機能しません。
+   公開（https）にすれば、アイコンもオフライン動作も両方成立します。</p>
+   <ol style="padding-left:20px;font-size:14px">
+    <li><b>出発前に、家のWi-Fiで一度このページを開く</b><br>
+      <span style="color:var(--dim);font-size:13px">⚠ これが<b>オフライン用のキャッシュを作る作業</b>です。必ず出発前にやってください。</span></li>
+    <li><b>Chromeのメニュー（⋮）→「ホーム画面に追加」</b><br>
+      <span style="color:var(--dim);font-size:13px">たき火のアイコンが付いたショートカットができます。アプリのように全画面で開きます。</span></li>
+    <li><b>機内モードにして、ホーム画面のアイコンから開いてみる</b><br>
+      <span style="color:var(--dim);font-size:13px">⚠ <b>これで開けば準備完了です。</b>必ず出発前に確認してください。開けなければ①からやり直しを。</span></li>
+   </ol>
+   <div class="alert" style="margin-top:12px"><span class="t">⚠ チェックの残り方 ― 二重に守ってあります</span>
+    <ul>
+     <li><b>① 自動保存（localStorage）：</b>通常はこれが働き、ページを閉じても復元されます。
+       ただし<code>file:///</code>で開いた場合、端末やChromeの設定によっては<b>使えないことがあります</b>。
+       シークレットタブでも無効です。</li>
+     <li><b>② URLへの記録（保険）：</b>①が使えなくても、<b>チェック状態はURLの<code>#</code>以降に自動で書き込まれます。</b>
+       リロードしても消えません。<b>閉じる前にブックマーク（Chromeメニュー →☆）しておけば、そこから開き直すだけで復元できます。</b></li>
+     <li><b>いまどちらの状態かは、この上の緑／赤のバナーで判別できます。</b>
+       緑なら何もしなくて大丈夫、赤ならブックマークを取ってください。<b>出発前に一度チェックを入れてみて、色を確認しておくのが確実です。</b></li>
+    </ul></div>
+
+   <h3>念のための保険（紙）</h3>
+   <p class="note">買い出しリストだけは、<b>出発前に一度スクリーンショットを撮るか印刷しておく</b>と完璧です。
+   端末の電池切れという、オフライン対応でも防げない事態への備えになります。ChromeのメニューからPDF保存もできます。</p>
+  </div>
+
+  <h2>この計画の3つの背骨</h2>
+  <div class="grid">
+   <div class="card"><h3>① 生鮮は「傷みやすい順」に食べ切る</h3>
+     <p class="note">冷蔵庫の容量は家庭用サイズ。初日に魚介、2日目に挽き肉、3日目に冷凍で持ち込んだ肉、最終日は残り物一掃、という順番で献立が並んでいます。この順番は崩さないでください。</p></div>
+   <div class="card"><h3>② 買い出しは日中に完結させる</h3>
+     <p class="note">夕方以降は飲酒により運転不可。かつ最寄りコンビニ片道45分。「あ、忘れた」が効かない環境なので、リストのチェックを出発前に100%にしてください。</p></div>
+   <div class="card"><h3>③ 男子3人を「作る側」に入れる</h3>
+     <p class="note">串を刺す・つくねをこねる・飯盒の火を見る・シークヮーサージュースを作る。担当を明記してあるので、そのまま任せてください。手が増えるうえ、思い出の濃さが変わります。</p></div>
+  </div>
+</section>
+
+<!-- ============ 献立 ============ -->
+<section id="s-menu">
+  <h2>全8食の献立</h2>
+  <p class="note">分量は上の人数設定に連動します。<span style="color:#c4a9f0">■代替案</span>／<span style="color:var(--accent2)">■キャンプ道具アレンジ</span>／<span style="color:#f0956e">■大人のおつまみ</span>を各食に添えました。</p>
+  <div id="meals"></div>
+</section>
+
+<!-- ============ 子どもと選ぶ ============ -->
+<section id="s-play">
+  <h2>🎲 子どもと選ぶコーナー</h2>
+  <div class="card" style="padding:14px">
+   <p class="note" style="margin-top:0"><b>献立の本筋は動きません。</b>ここで選べるのは「追加の1品」「串の中身」「飲み物」「朝ごはんの2択」など、
+   <b>外しても food plan が壊れない枠だけ</b>です。出てくるものは<b>すべて買い出しリストに入っている食材</b>なので、
+   「当たったのに材料がない」は起こりません。</p>
+   <div class="go" style="margin-bottom:0"><div class="h">👬 双子でモメないための3つの仕掛け</div>
+    <ul class="tight" style="margin-bottom:0">
+     <li><b>ガチャは「かぶらない」</b> — 3人が同じものを引くことは仕組み上ありません（引いたものは山から抜かれます）</li>
+     <li><b>役割は3日で1周</b> — 3人 × 3役 × 3日を組み、<b>全員が全部の役を1回ずつ</b>やります。順番が違うだけで不公平は発生しません</li>
+     <li><b>串づくりに点数をつけない</b> — 勝ち負けではなく、それぞれに名前と味のコメントが付くだけです</li>
+    </ul></div>
+  </div>
+
+  <h3>👦 メンバー（名前をタップで変更できます）</h3>
+  <div class="card" id="kidNames"></div>
+
+  <h2>① 担当決めくじ ― 3日で全員が全部の役をやる</h2>
+  <div class="card">
+   <p class="note" style="margin-top:0">くじを引くと3日分の担当が一気に決まります。並び順はランダムですが、
+   <b>「誰が損をするか」は構造上ありえません。</b>3日たてば全員が同じ役を1回ずつ経験します。</p>
+   <button class="bigbtn" onclick="drawRoles()">🎯 3日分の担当をきめる</button>
+   <div id="roleOut"></div>
+  </div>
+
+  <h2>② 今日の一品ガチャ ― BBQの追加メニュー</h2>
+  <div class="card">
+   <p class="note" style="margin-top:0">その日のBBQに<b>1品だけ足せる枠</b>。3人が順に引き、<b>同じものは出ません</b>。
+   引いたものは、その子が焼く担当になります。</p>
+   <div id="gachaDay"></div>
+   <button class="bigbtn" onclick="drawGacha()">🎁 ガチャを回す（3人ぶん）</button>
+   <div id="gachaOut"></div>
+  </div>
+
+  <h2>③ 串づくりビルダー ― 自分だけの1本</h2>
+  <div class="card">
+   <p class="note" style="margin-top:0">8/16の夜の「手作り串パーティー」用。具材を<b>3つ</b>選ぶと、その串に名前と味のコメントが付きます。
+   <b>点数はありません。</b>誰の串が上とか下とかはナシです。</p>
+   <div id="skewerWho"></div>
+   <div id="skewerPick"></div>
+   <div id="skewerOut"></div>
+  </div>
+
+  <h2>④ ごほうびドリンク抽選 ― 川あがりの一杯</h2>
+  <div class="card">
+   <p class="note" style="margin-top:0">川から帰ってきた後に飲むものを決めます。これも<b>かぶりません</b>。</p>
+   <button class="bigbtn" onclick="drawDrink()">🥤 ドリンクを抽選する</button>
+   <div id="drinkOut"></div>
+  </div>
+
+  <h2>⑤ 明日の朝ごはん投票</h2>
+  <div class="card">
+   <p class="note" style="margin-top:0">2つの案から家族で選びます。<b>どちらの材料も買い出しリストに入っている</b>ので、当日決めても大丈夫。
+   同数になったら、<b>その前夜のキャプテン（①で決まった火起こし長官）が決定権</b>を持ちます。</p>
+   <div id="voteOut"></div>
+  </div>
+
+  <h2>📖 旅の記録</h2>
+  <div class="card">
+   <div id="logOut"></div>
+   <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="resetbtn" onclick="copyLog()">📋 記録をコピー</button>
+    <button class="resetbtn" onclick="resetPlay()">🔄 ぜんぶリセット</button>
+   </div>
+   <p class="note" id="logNote"></p>
+  </div>
+</section>
+
+<!-- ============ 川 ============ -->
+<section id="s-river">
+  <h2>奥川ピクニック ― まず安全、次にごはん</h2>
+  <div class="alert">
+   <span class="t">⚠ 台風13号の影響を必ず織り込んでください</span>
+   <p style="margin:4px 0">8月上旬に台風13号が沖縄周辺を通過しています。<b>川の増水は雨が止んだ後も続きます</b>。上流のやんばるの森に降った雨が下ってくるまでに数時間〜半日以上の時間差があるため、「宿の上は晴れているのに川だけ増水している」という状況が普通に起こります。宿泊直前の降雨状況を必ず確認してください。</p>
+  </div>
+
+  <h3>入水前チェック ― 1つでも当てはまったら中止</h3>
+  <div class="stop">
+   <div class="h">🚫 即中止の基準</div>
+   <ul class="tight">
+    <li><b>水が茶色く濁っている</b>／透明度が落ちて川底の石が見えない</li>
+    <li><b>落ち葉・小枝・流木・泡が流れている</b>（上流で増水が始まっているサイン）</li>
+    <li><b>岸の石の「濡れている線」が今の水位より高い</b>＝つい先ほどまで水位が高かった、または上がってきている</li>
+    <li><b>川の音がいつもより大きい・低く響く</b>（水量が増えて石が転がる音）</li>
+    <li><b>上流の山側（与那覇岳・奥岳方面）に黒い雲がある</b>／宿は晴れていても関係ありません</li>
+    <li><b>雷鳴が聞こえた</b>＝距離に関係なく即撤収。遠雷でも30分は戻らない</li>
+    <li>台風・大雨の直後：<b>台風通過後は最低48時間、まとまった雨の後は24時間</b>は入水を見送る</li>
+    <li>体に<b>切り傷・擦り傷がある人がいる</b>（後述のレプトスピラ症対策）</li>
+   </ul>
+  </div>
+  <div class="go">
+   <div class="h">✅ 遊んでよい日の条件と、その日の守りごと</div>
+   <ul class="tight">
+    <li>水が澄んでいて川底が見える／浮遊物がない／前日から24時間まとまった雨がない</li>
+    <li><b>小学生2人にはライフジャケット必須。</b>浅い川でも足を滑らせて頭を打つ事故が最も多い。中2男子も着用を基本に</li>
+    <li><b>マリンシューズ／かかとの留まるサンダル。</b>ビーチサンダルとはだしは禁止（ガラス片・とがった石）</li>
+    <li><b>大人は必ず「下流側」に立つ。</b>流された時に受け止められる位置。上流側にいても追いつけません</li>
+    <li><b>15分に1回、全員の頭数を声に出して数える。</b>「1・2・3」を習慣に</li>
+    <li><b>川の水は絶対に飲まない・傷口をつけない。</b>沖縄本島北部の河川では<b>レプトスピラ症</b>（動物の尿由来の細菌感染症）の感染例が報告されています。遊んだ後は真水でよく洗い流す。数日〜2週間後に発熱・頭痛・筋肉痛が出たら「沖縄の川で遊んだ」と伝えて受診を</li>
+    <li><b>ハブに注意。</b>やんばるはハブの生息地。草むら・落ち葉の下・積み石に手を入れない。素手で石をどかさない。長靴か厚手の靴。夜間の川辺には近づかない</li>
+    <li><b>携帯の電波が弱い可能性。</b>コテージを離れる時は「どこで・何時に戻る」を紙に書いて残す</li>
+    <li>ハブクラゲとは無関係ですが、海に切り替える場合は別途海の危険生物への注意が必要です</li>
+   </ul>
+  </div>
+
+  <h3>川に持っていくもの（ピクニックセット）</h3>
+  <div class="card"><div id="riverGear"></div></div>
+
+  <h3>川ピクニックの昼ごはん（8/16 昼・3食目）</h3>
+  <div class="card">
+   <p class="note">火は使わず、宿で作って持ち出す構成。<b>沢の水で冷やす「流しそうめん風」</b>が本日のメインイベントです。ペットボトルを縦半分に切って樋にすれば十分楽しめます（カッターは大人が扱う）。生ものは持ち出さず、保冷バッグ＋保冷剤で運びます。</p>
+   <div id="riverMenu"></div>
+  </div>
+</section>
+
+<!-- ============ ドリンク ============ -->
+<section id="s-drink">
+  <h2>🍶 酒種別 × おつまみ 対応表</h2>
+  <p class="note">「何を飲むか」から「何をつまむか」を引ける表です。BBQの合間につまめるもの（<span style="color:var(--accent)">即席</span>）と、子どもが寝た後にゆっくり味わうもの（<span style="color:#c4a9f0">じっくり</span>）を分けてあります。</p>
+  <div id="pairing"></div>
+
+  <h2>🏝 沖縄でしか買えない酒</h2>
+  <p class="note">これらは<b>現地でしか手に入らない、または現地が圧倒的に安い</b>ものです。買える場所も併記しました。ただし<b>買い出しに行けるのは日中だけ</b>である点に注意してください。</p>
+  <div id="localBooze"></div>
+
+  <h2>☕ シーン別 ドリンク設計</h2>
+  <p class="note">「いつ、何を飲むか」を先に決めておくと、湯を沸かすタイミングと器具の出し入れが整理されて、現地で慌てません。</p>
+  <div id="scenes"></div>
+
+  <h2>コーヒーの持ち物と豆の量</h2>
+  <div class="card">
+   <h3>豆・茶葉の必要量</h3>
+   <div id="beanCalc"></div>
+   <h3>器具（持っていく前提で）</h3>
+   <ul class="tight">
+    <li><b>ドリッパー＋ペーパーフィルター</b>（円錐型が湯量の調整が効きやすい）／またはフレンチプレス（豆を挽く手間が同じで洗い物が少ない）</li>
+    <li><b>細口ケトル</b>があると仕上がりが安定します。無ければコテージのやかん＋落ち着いて注ぐで十分。<b>キャンプ用ケトルを炭火にかけて湯を沸かす</b>と、BBQの熾火が最後まで無駄になりません</li>
+    <li><b>手挽きミル</b>（挽きたては段違い。ただし朝の静かな時間に子どもを起こさない配慮を）／面倒なら<b>中細挽きで購入して密閉袋で持参</b>でまったく問題ありません</li>
+    <li><b>デジタルスケール</b>があれば理想ですが、なければ「1杯＝大さじ山盛り2杯」で十分です</li>
+    <li><b>保温ポット／山専ボトル</b>：朝に多めに淹れて入れておくと、川から帰ってすぐ温かいものが飲めます。<b>これが地味に効きます</b></li>
+    <li><b>耐熱グラス</b>：水出しコーヒーとアイスティー用。プラカップだと熱で歪みます</li>
+   </ul>
+   <h3>水の選び方 ― これは味に直結します</h3>
+   <div class="card" style="background:var(--panel2)">
+    <ul class="tight">
+     <li><b>コーヒー・日本茶には「軟水」を選んでください。</b>硬度50〜80mg/L程度の国産ミネラルウォーターが最適。日本の水道水も基本は軟水なので、味の面では悪くありません。</li>
+     <li><b>⚠ 沖縄の水道水は本土より硬度が高い傾向があります。</b>沖縄本島は琉球石灰岩の地層を通った水を使う地域が多く、カルシウム・マグネシウムを多く含みます。これで日本茶を淹れると<b>渋みが立ち、香りが飛びます</b>。コーヒーも重く濁った味になりがちです。</li>
+     <li>したがって<b>コーヒーと緑茶用には、軟水のペットボトルを別に用意する</b>のが正解です。1日1L程度あれば足ります。買い出しリストの「現地調達」に入れてあります。</li>
+     <li>逆に<b>硬水が向くもの：</b>麦茶・さんぴん茶（ジャスミン茶）・うっちん茶は硬度が高くても味が崩れにくく、むしろすっきりします。沖縄で麦茶とさんぴん茶が定番なのは理にかなっています。</li>
+     <li><b>湯温：</b>コーヒー88〜92℃（沸騰後30秒〜1分置く）／煎茶70〜80℃（一度湯呑に移して冷ます）／さんぴん茶・ほうじ茶・麦茶は熱湯でOK。</li>
+    </ul>
+   </div>
+  </div>
+
+  <h2>🍵 沖縄のお茶を楽しむ</h2>
+  <div class="grid">
+   <div class="card"><h3>さんぴん茶</h3><p class="note">沖縄の日常茶。ジャスミン茶の一種で、香りが高く脂っこい料理と抜群に合います。<b>BBQの日の食中茶はこれ一択</b>。ペットボトルでも茶葉でも。冷たくしても香りが落ちにくいのが強みです。</p></div>
+   <div class="card"><h3>うっちん茶（ウコン茶）</h3><p class="note">「うっちん」＝ウコン。沖縄では飲酒の前後に飲む習慣があります。<b>晩酌のお供、そして翌朝の一杯に。</b>クセはありますが慣れると悪くありません。ペットボトルが手に入りやすい。</p></div>
+   <div class="card"><h3>奥みどり（奥集落の銘茶）</h3><p class="note">⚠ <b>まさに奥集落で作られている緑茶。</b>徒歩で行ける奥共同店で買えます。日本最南端クラスの茶産地の味を、その土地で飲む——この旅でしかできない体験です。<b>これは絶対に買ってください。</b>お土産にも最適。<b>軟水で70〜80℃で淹れる</b>と本領を発揮します。</p></div>
+   <div class="card"><h3>シークヮーサー冷茶</h3><p class="note">濃いめに淹れた緑茶またはさんぴん茶を氷で急冷し、<b>シークヮーサー原液を数滴</b>。川から帰った体に染みます。子どもにも大人にも。はちみつを少し足せば子ども向けに。</p></div>
+   <div class="card"><h3>水出しコーヒー</h3><p class="note">粗挽き豆を<b>お茶パックに入れて、軟水のペットボトルに投入 → 冷蔵庫に8時間</b>。夜に仕込めば翌朝には完成。<b>器具ゼロで本格的な味</b>が出るので、旅先では最強の手段です。</p></div>
+   <div class="card"><h3>シークヮーサージュース（子ども担当）</h3><p class="note">原液：炭酸＝1：5が基本。はちみつで甘さを調整。<b>比率を変えて採点する「シークヮーサー・ラボ」</b>は雨天時の遊びとしても優秀です。大人はここに泡盛かウォッカを足すだけでサワーになります。</p></div>
+  </div>
+
+  <div class="alert">
+   <span class="t">🌡 熱中症対策 ― 川遊びの日は「安全に関わる」項目です</span>
+   <ul>
+    <li>8月の沖縄は<b>気温より湿度が体にこたえます</b>。川の水は冷たくても、<b>水の中にいると喉の渇きを自覚しにくく、脱水に気づくのが遅れます</b>。これが川遊びでの熱中症が見落とされやすい理由です。</li>
+    <li><b>経口補水液を必ず持参してください。</b>大量に汗をかいた後の水分補給は、水やお茶だけでは血中のナトリウム濃度が下がり、かえって危険な場合があります。</li>
+    <li><b>塩分タブレット／塩飴</b>をポケットに。子ども3人には「1時間に1個」とルールで渡すのが確実です。</li>
+    <li><b>のどが渇く前に、30分ごとに全員で飲む。</b>時計を見て声をかける役を大人が担ってください。子どもは遊びに夢中で自分から飲みません。</li>
+    <li><b>危険なサイン：</b>顔が赤いのに汗が止まっている／頭痛・吐き気を訴える／急に静かになる・ぼんやりする／足がつる。<b>1つでも出たら即座に日陰へ移して冷やし、経口補水液を少しずつ。</b>意識がはっきりしない・自分で飲めない場合は迷わず救急要請を。</li>
+    <li>日陰が少ない場所ではタープや大きめの傘を。<b>帽子とラッシュガードは日焼け対策であると同時に熱中症対策</b>です。</li>
+    <li>⚠ <b>飲酒は脱水を促進します。</b>大人も昼間に飲む場合は、酒と同量以上の水を並行して飲んでください。</li>
+   </ul>
+  </div>
+
+  <h2>👦 子ども3人の飲み物</h2>
+  <div class="card">
+   <div id="kidsDrink"></div>
+   <p class="note">⚠ 育ち盛りの男子3人は<b>想像の1.5倍飲みます</b>。特に川遊びの日。飲み物の買い足しに夕方は行けないので、<b>初日に多すぎるくらい積んでおく</b>のが正解です。ペットボトルは常温保存できるので、余っても帰りの車で消費できます。</p>
+  </div>
+</section>
+
+<!-- ============ 買い出し ============ -->
+<section id="s-shop">
+  <h2>買い出しリスト</h2>
+  <div class="alert">
+   <span class="t">🛒 買う場所の結論</span>
+   <ul>
+    <li><b>【事前購入・持参】</b>食材・調味料・炭・その他すべて。お盆前の<b>8月13〜14日まで</b>にお住まいの近くで購入し、クーラーボックスに詰めて車で持ち込み。</li>
+    <li><b>【現地調達】氷・炭酸・水の3点のみ。</b>買う場所は下の「氷・炭酸・水はどこで買うか」を参照。</li>
+    <li><b>ルート上の順番が重要：</b>那覇 →（名護で昼食・トイレ）→ <b>辺土名の国頭スーパー</b> → 奥（車で約30分）。国頭スーパーは奥へ向かう国道58号沿い、<b>宿の手前</b>にあります。<b>氷は宿に一番近いこの店で最後に買う</b>のが鉄則。溶ける時間を最小にできます。</li>
+   </ul>
+  </div>
+
+  <h3>氷・炭酸・水はどこで買うか（確実な順）</h3>
+  <div class="card">
+   <table>
+    <tr><th>店</th><th>宿からの距離</th><th>営業時間</th><th>氷</th><th>炭酸</th><th>水</th><th>コメント</th></tr>
+    <tr><td><b>国頭スーパー</b><br>国頭村字辺土名1566-1<br>TEL 0980-41-2253</td><td>車で約30分<br>（宿へ向かう途中）</td><td>9:00〜19:00<br>無休</td><td>◎</td><td>◎</td><td>◎</td><td><b>ここが本命。</b>地域唯一のフルサイズのスーパー。食料品・日用品・釣具まで揃う。<b>チェックイン当日、ここで氷と飲料を積んでから宿へ入るのが最適解</b></td></tr>
+    <tr><td>道の駅ゆいゆい国頭</td><td>車で約25分</td><td>10:30〜18:00<br>無休<br>（年末年始・お盆は17:00まで）</td><td>△</td><td>○</td><td>○</td><td>板氷は置いていない可能性あり。土産・島野菜・シークヮーサー原液の調達地として優秀。<b>お盆期間は17:00閉店の可能性</b>に注意</td></tr>
+    <tr><td>奥共同店</td><td>徒歩圏（集落内）</td><td>短め・不定</td><td>×〜△</td><td>△</td><td>○</td><td>1906年創業の歴史ある共同売店。日用品・島野菜・銘茶「奥みどり」。<b>氷と炭酸をあてにしてはいけません</b>。緊急の1本を買う場所</td></tr>
+    <tr><td>最寄りコンビニ</td><td><b>片道約45分</b></td><td>—</td><td>○</td><td>○</td><td>○</td><td>酒類も扱いますが往復1時間半。<b>実質「行かない場所」</b>として計画してください</td></tr>
+    <tr><td>名護市街のスーパー</td><td>車で1時間強</td><td>店舗による</td><td>◎</td><td>◎</td><td>◎</td><td>道中に通るので<b>保険として飲料と水だけ積んでおく</b>のはあり。ただしお盆で大混雑。氷はここで買うと着くまでに溶けます</td></tr>
+   </table>
+   <p class="note"><b>保険プラン：</b>チェックイン日に渋滞などで国頭スーパーの到着が遅れると、19:00の閉店に間に合わない事態があり得ます。<b>名護で水と炭酸だけは先に確保</b>しておき、氷は国頭スーパーで、という二段構えが安全です。</p>
+  </div>
+
+  <h3>4日間に必要な氷の量</h3>
+  <div class="card">
+   <div id="iceCalc"></div>
+   <p class="note">※ 板氷（ブロック氷）は溶けにくくクーラーボックスの保冷用、ロックアイス（クラッシュ／キューブ）は泡盛の水割りと飲み物用、と用途を分けて買ってください。<b>製氷皿を2〜3枚持参</b>して、コテージの冷凍室で毎晩氷を作れば、現地調達の依存度を大きく下げられます（これは持ち物リストにも入れてあります）。</p>
+  </div>
+
+  <div class="card">
+   <div class="bar"><i id="shopBar"></i></div>
+   <div class="barlbl"><span id="shopCount">0 / 0</span> 品目 完了</div>
+   <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+     <button class="resetbtn" onclick="clearChecks('shop')">チェックを全解除</button>
+     <button class="resetbtn" onclick="toggleAllCat('shop',false)">全カテゴリを開く</button>
+     <button class="resetbtn" onclick="toggleAllCat('shop',true)">全カテゴリを閉じる</button>
+   </div>
+   <div class="storageSlot"></div>
+  </div>
+  <div id="shopList"></div>
+</section>
+
+<!-- ============ 持ち物 ============ -->
+<section id="s-gear">
+  <h2>持ち物リスト</h2>
+  <p class="note"><span class="owned">所持済</span> のタグが付いているものは、masaoさんが「あり」と回答済みの品です。チェックだけ確認してください。</p>
+  <div class="card">
+   <div class="bar"><i id="gearBar"></i></div>
+   <div class="barlbl"><span id="gearCount">0 / 0</span> 品目 完了</div>
+   <div style="margin-top:8px"><button class="resetbtn" onclick="clearChecks('gear')">チェックを全解除</button></div>
+   <div class="storageSlot"></div>
+  </div>
+  <div id="gearList"></div>
+
+  <h2>クーラーボックス運用術（3泊を保冷しきる）</h2>
+  <div class="card">
+   <h3>1. ボックスは必ず2つに分ける</h3>
+   <ul class="tight">
+    <li><b>【A】生鮮ボックス（大）</b>＝肉・魚介・乳製品・卵。<b>絶対に頻繁に開けない。</b>1日1回、朝に「今日使う分」をまとめて取り出し、あとは閉じたまま。</li>
+    <li><b>【B】飲み物ボックス（中〜大）</b>＝ビール・泡盛・水・炭酸・お茶・氷。<b>ここは何度開けてもよい。</b>子どもが自分で飲み物を取れるようにする。</li>
+    <li>この2分割をしないと、飲み物を出し入れするたびに冷気が逃げて<b>生鮮が2日目でダメになります</b>。これが最大のポイントです。</li>
+   </ul>
+   <h3>2. 保冷剤の量</h3>
+   <div id="coolerCalc"></div>
+   <h3>2.5 容量配分 ― 酒種が増えたぶんの見直し</h3>
+   <div id="capacityCalc"></div>
+   <h3>3. 詰め方（下から順に）</h3>
+   <ul class="tight">
+    <li>底：<b>板氷／大型保冷剤</b>を敷き詰める（冷気は下に落ちるので下が正解）</li>
+    <li>中：肉・魚は<b>冷凍状態で持ち込み</b>、これ自体が保冷剤になります。使う順が遅いものほど下・奥へ</li>
+    <li>上：卵・乳製品・当日使うもの。凍らせたくないものは氷に直接触れさせない</li>
+    <li>最後：<b>すき間を新聞紙やタオルで埋める。</b>空気の層が最大の敵。ボックスは「満杯」が最も長持ちします</li>
+    <li>アルミシート／銀マットをフタの内側に一枚かませると体感で数時間伸びます</li>
+   </ul>
+   <h3>4. 氷の追加タイミング</h3>
+   <table>
+    <tr><th>タイミング</th><th>やること</th></tr>
+    <tr><td><b>8/15 到着直後</b></td><td>コテージの冷蔵庫へ生鮮を<b>即移す</b>。冷蔵庫が本体、クーラーボックスは補助へ役割転換。製氷皿をセット</td></tr>
+    <tr><td>8/15 夜</td><td>飲み物ボックスに国頭スーパーで買ったロックアイスを投入。板氷は生鮮ボックスへ</td></tr>
+    <tr><td><b>8/16 昼（15時まで）</b></td><td>氷の残量を確認。減っていれば国頭スーパーへ。<b>この日の買い出しはこれが最後のチャンス</b>（夕方は飲酒で運転不可）</td></tr>
+    <tr><td>8/16 夜</td><td>製氷皿の氷を回収して保存袋へ。空いた皿に水を入れて再セット（毎晩の習慣に）</td></tr>
+    <tr><td><b>8/17 昼（15時まで）</b></td><td>最終補充のチャンス。ここで足りるか判断。以降は買い足せない前提で</td></tr>
+    <tr><td>8/18 朝</td><td>溶け残りの水は捨てず、帰路の飲み物冷却に使う</td></tr>
+   </table>
+   <h3>5. クーラーボックスが足りない場合の代用</h3>
+   <p class="note">今回は「あり」と伺っていますが、容量が足りない場合は<b>発泡スチロール箱（鮮魚店やスーパーで無料でもらえることが多い）</b>が有効です。ガムテープでフタを目張りし、アルミシートで包めば市販の中級クーラーに近い保冷力が出ます。到着後は<b>とにかく全部コテージの冷蔵庫へ移す</b>のが最善で、クーラーボックスは「移動用」と割り切ってください。</p>
+  </div>
+</section>
+
+<!-- ============ 下ごしらえ ============ -->
+<section id="s-prep">
+  <h2>下ごしらえリスト</h2>
+  <p class="note">現地でやる作業を減らすほど、川と炭火に時間を回せます。出発前の仕込みが旅の質を決めます。</p>
+  <div class="card">
+   <div class="bar"><i id="prepBar"></i></div>
+   <div class="barlbl"><span id="prepCount">0 / 0</span> 項目 完了</div>
+   <div style="margin-top:8px"><button class="resetbtn" onclick="clearChecks('prep')">チェックを全解除</button></div>
+  </div>
+  <div id="prepList"></div>
+</section>
+
+<!-- ============ 雨天 ============ -->
+<section id="s-rain">
+  <h2>雨天・強風時の代替プラン</h2>
+
+  <div class="alert">
+   <span class="t">🌀 強風時、炭火BBQは「やらない」判断を</span>
+   <p style="margin:4px 0">テラスは屋根があっても横殴りの風は防げません。<b>風速が強い日に炭を熾すのは、火の粉が飛ぶ・灰が舞う・煙が室内に入る・そもそも温度が上がらない</b>という四重苦です。台風接近時は論外。<b>「今日は室内」と早めに宣言してしまうほうが全員のストレスが少ない</b>です。献立は室内版に丸ごと差し替えられるように設計してあります。</p>
+  </div>
+
+  <h3>献立の差し替え（炭火 → 室内）</h3>
+  <div class="card">
+   <table>
+    <tr><th>本来の献立</th><th>室内版への差し替え</th><th>必要な道具</th></tr>
+    <tr><td>8/15 夕：海鮮＆やんばる肉BBQ</td><td><b>海鮮と肉のフライパン焼き＋アヒージョ</b>。海老とイカはオリーブオイル＋にんにくでアヒージョにすると、むしろご馳走感が上がります</td><td>フライパン／スキレット</td></tr>
+    <tr><td>8/16 夕：手作り串パーティー</td><td><b>つくねを「肉団子鍋」または照り焼きハンバーグへ。</b>串を刺す工程は残せるので、フライパンで焼けば体験は失われません</td><td>フライパン・鍋</td></tr>
+    <tr><td>8/17 夕：やんばるカレー＆炭火ステーキ</td><td><b>そのまま室内で成立します。</b>カレーは元々鍋料理。ステーキはフライパンで。この日を雨の日に充てるのが最も損失が小さい</td><td>鍋・フライパン</td></tr>
+    <tr><td>8/16 昼：川ピクニック</td><td><b>「室内流しそうめん」または沖縄そば。</b>浴室で樋を組む案は掃除が大変なので、テーブルで冷やしそうめんに切り替えるのが現実的</td><td>鍋</td></tr>
+   </table>
+  </div>
+
+  <h3>雨の日の過ごし方（室内・子ども向け）</h3>
+  <div class="grid">
+   <div class="card"><h3>🍳 タコライス選手権</h3><p class="note">具を各自で盛って自分だけのタコライスを作る。辛さ・チーズ量・野菜の比率を競う。中2男子は「大盛り部門」で確実に勝ちます。</p></div>
+   <div class="card"><h3>🥤 シークヮーサー・ラボ</h3><p class="note">原液・炭酸・はちみつ・氷の比率を変えて味を採点。ベストレシピを紙に記録して持ち帰る。大人はここに泡盛を足すだけでサワーになります。</p></div>
+   <div class="card"><h3>🍜 沖縄そば食べ比べ</h3><p class="note">そばだしの濃さを変える、コーレーグースを1滴ずつ足していく。「何滴で限界か」は男子3人が確実に盛り上がる遊びです。</p></div>
+   <div class="card"><h3>🎲 持参推奨</h3><p class="note">トランプ・UNO・ボードゲーム1つ。Wi-Fiは無料であるものの、電波と回線に過度な期待はしないほうが安全です。</p></div>
+  </div>
+
+  <h3>雨でも行ける外の選択肢（車移動）</h3>
+  <div class="card">
+   <ul class="tight">
+    <li><b>道の駅ゆいゆい国頭</b>（車約25分／10:30〜18:00）― 屋内。土産・島野菜・食事処。雨宿りの定番</li>
+    <li><b>大石林山</b>（車約15分）― 奇岩の亜熱帯自然公園。<b>小雨なら可、強風・雷は不可</b>。足元が滑るので雨具と靴の準備を</li>
+    <li><b>辺戸岬</b>（車約10分）― 本島最北端。<b>荒天時は波が岸壁を越えるので絶対に近づかない</b>。晴れ間限定</li>
+    <li><b>名護方面</b>（車1時間強）― ネオパークオキナワ、名護市街の屋内施設。1日つぶす覚悟なら</li>
+   </ul>
+   <p class="note">⚠ 全て<b>ドライバーが飲酒していない日中のみ</b>。夕方以降は移動できない前提で計画してください。</p>
+  </div>
+
+  <h3>停電・断水に備える（台風シーズンの基本）</h3>
+  <div class="card">
+   <ul class="tight">
+    <li>飲料水は<b>1人1日2L</b>を目安に多めに。現地調達品の水はここも兼ねます</li>
+    <li>モバイルバッテリー、懐中電灯／ランタン、乾電池</li>
+    <li>停電すると冷蔵庫が止まります。<b>その時こそクーラーボックスの出番</b>。生鮮を戻し、氷を投入</li>
+    <li>火を使わずに食べられるもの（パン・缶詰・レトルト）を1食分だけ確保しておく</li>
+    <li>宿の連絡先を紙に控える：<b>奥やんばるの里 0980-50-4141</b></li>
+   </ul>
+  </div>
+</section>
+
+<footer>
+ 奥やんばるの里 3泊4日プラン ／ 2026年8月15日-18日 ／ 情報は制作時点のもの。<br>
+ 料金・営業時間・設備は必ず予約時に施設へご確認ください（奥やんばるの里 TEL 0980-50-4141）。<br>
+ エアコンがコイン式（1時間100円）との情報が一部媒体にあります。予約時にご確認を。
+</footer>
+</div>
+
+<script>
+/* ============================================================
+   人数・スケーリング
+   ============================================================ */
+const FACTORS = {adult:1.0, teen:1.3, kid:0.7};
+const DEFAULT_PEOPLE = {adult:2, teen:1, kid:2};
+let people = Object.assign({}, DEFAULT_PEOPLE);
+const BASE_AE = 2*1.0 + 1*1.3 + 2*0.7; // 4.7
+
+function ae(){ return people.adult*FACTORS.adult + people.teen*FACTORS.teen + people.kid*FACTORS.kid; }
+function ratio(){ return ae() / BASE_AE; }
+function headcount(){ return people.adult + people.teen + people.kid; }
+
+/* 単位ごとの丸め */
+function fmt(base, unit, scale){
+  if(scale === false) return base + unit;
+  let v = base * ratio();
+  if(unit==='g'||unit==='ml'){ v = Math.round(v/25)*25; if(v<25) v=25; }
+  else if(unit==='kg'||unit==='L'){ v = Math.round(v*10)/10; }
+  else if(unit==='個'||unit==='本'||unit==='尾'||unit==='玉'||unit==='丁'||unit==='枚'||unit==='パック'||unit==='袋'||unit==='缶'||unit==='束'||unit==='斤'||unit==='人前'||unit==='串'||unit==='合'){
+    v = Math.ceil(v*10)/10; v = (v%1===0)? v : Math.ceil(v);
+  } else { v = Math.round(v*10)/10; }
+  return v + unit;
+}
+function q(base, unit, scale){ return '<b>'+fmt(base,unit,scale)+'</b>'; }
+
+/* ============================================================
+   データ：献立
+   ============================================================ */
+const MEALS = [
+{ day:'8/15(土)', type:'夕', tag:'t-d', no:1,
+  title:'【1食目】海鮮＆やんばる肉BBQ 第1夜 ― 傷みやすいものから',
+  why:'魚介は最も足が早い。初日の夕食で使い切るのが3泊を通しての鉄則です。',
+  ing:[['大正海老／車海老',6,'尾'],['するめいか',1.2,'杯'],['ホタテ（冷凍）',6,'個'],['あぐー豚バラ焼肉用',450,'g'],['県産鶏もも肉',450,'g'],['ソーセージ',8,'本'],['とうもろこし',3,'本'],['かぼちゃ（スライス）',250,'g'],['玉ねぎ',1.5,'個'],['ピーマン',4,'個'],['焼肉のたれ',1,'本',false],['塩・こしょう',1,'式',false]],
+  steps:'鶏もも肉は出発前に塩麹または塩こうじ＋おろしにんにくで下味を付けて冷凍。海老は背わたを取り、殻に切れ目を入れておく。炭は着火から30分見て、白く灰をかぶってから焼き始める。締めは残りごはんで焼きおにぎり。',
+  kid:'長男（中2）＝火の番と焼き係。双子＝うちわで火加減、とうもろこしの皮むき、焼き上がりの声かけ担当。「焼く人」を任せると食べる量が倍になります。',
+  alt:'魚介が苦手な場合 → <b>鶏手羽先（'+'）＋ソーセージ増量</b>に差し替え。海老・イカを抜いても献立は成立します。／ かぼちゃが苦手 → <b>さつまいも</b>または<b>厚切りベーコン</b>へ。',
+  gear:'<b>鉄板／グリドルがあれば：</b>網と併用して、鉄板側で焼きそばと野菜、網側で肉と魚介。汁気のあるものが落ちずに済みます。<br><b>スキレットがあれば：</b>余った海老とにんにくで「海老のアヒージョ」を炭火の端で。そのまま大人のつまみになります。',
+  otsu:'<b>BBQの合間につまむ：</b>島らっきょうの塩漬け（生のまま鰹節と醤油）／砂肝の塩焼き串／厚揚げにした島豆腐を炭火で炙って生姜醤油。<br><b>子どもが寝た後：</b>豆腐ようを爪楊枝で少しずつ崩しながら泡盛のロック。テラスで星を見ながらが最高の使い方です。<br><b>🍷 この夜の酒：</b>オリオンビールで乾杯 → <b>白ワイン／スパークリングを開ける夜。</b>海老・イカ・ホタテと白の相性が最高で、初日は魚介を使い切る日なので白の出番はここに集中します。氷水のバケツで急冷を。締めに泡盛「山原くいな」（隣の大宜味村・田嘉里酒造所の地酒）の水割り。' },
+
+{ day:'8/16(日)', type:'朝', tag:'t-b', no:2,
+  title:'【2食目】ポーク玉子おにぎり＆島豆腐の味噌汁',
+  why:'沖縄の朝の定番。ポーク缶は常温保存なので冷蔵庫の場所を取りません。',
+  ing:[['ごはん',3,'合'],['ポーク缶（スパム等）',1.5,'缶'],['卵',6,'個'],['焼きのり',6,'枚'],['島豆腐',0.8,'丁'],['乾燥わかめ',1,'式',false],['味噌',1,'式',false],['マヨネーズ',1,'式',false]],
+  steps:'ポークは7〜8mm厚に切って両面を焼く。卵は溶いて厚めの薄焼きに。ラップの上にごはん→のり→具→ごはんの順に重ねて包み、5分置いてから半分に切ると断面がきれいです。<b>この時に昼の川ピクニック用のおにぎりも一緒に作ってしまうのが時短の要。</b>',
+  kid:'双子＝ラップの上でおにぎりを組み立てる係。ポークと卵を「同じ大きさに切る」のが地味に楽しい工程です。長男＝卵焼き担当。',
+  alt:'ポークが苦手 → <b>ベーコンエッグサンド</b>（食パン・ベーコン・卵・レタス）に差し替え。材料は買い出しリストに入っています。／ 味噌汁が苦手 → <b>もずくスープ</b>（もずく＋鰹だし＋醤油少々）へ。',
+  gear:'<b>スキレットがあれば：</b>ポークと目玉焼きをスキレットのまま食卓へ。熱々が保てて洗い物も減ります。',
+  otsu:'—（朝は休肝）' },
+
+{ day:'8/16(日)', type:'昼', tag:'t-l', no:3,
+  title:'【3食目】川ピクニック ― 沢で冷やす流しそうめん風',
+  why:'火を使わない・持ち運べる・現地で冷やせる。本日のメインイベント。',
+  ing:[['そうめん',5,'束'],['めんつゆ（ストレート）',400,'ml'],['朝仕込みのおにぎり',6,'個'],['鶏の唐揚げ（前夜仕込み）',450,'g'],['きゅうり',2,'本'],['ミニトマト',1,'パック'],['シークヮーサー原液',1,'本',false],['麦茶（水筒）',2,'L']],
+  steps:'そうめんは宿で茹でて冷水で締め、一口ずつ丸めて保存容器へ（くっつき防止にごま油を少量）。<b>めんつゆのボトルを沢の水に浸けて冷やす</b>のがこの日のハイライト。ペットボトルを縦半分に切って樋にすれば簡易流しそうめんが成立します（カッター作業は必ず大人が）。',
+  kid:'全員＝樋づくり。長男が設計、双子が流す係と受ける係を交代。<b>「食べ物を絶対に川に落とさない」ルールを最初に宣言</b>してください（環境保護と、単純に食べ物が減るため）。',
+  alt:'そうめんが苦手 → <b>サンドイッチ</b>（ハム・チーズ・きゅうり）または<b>冷やし中華</b>。／ 川の状況が悪い日 → 中止してテラスまたは室内で同じメニューを。<b>「川がだめでも昼ごはんは成立する」構成</b>にしてあります。',
+  gear:'<b>クーラーボックス（小）または保冷バッグ必須。</b>唐揚げは常温で持ち出さない。／ レジャーシート、折りたたみテーブルがあれば快適さが段違いです。',
+  otsu:'<b>川では飲酒しない。</b>足元が不安定な場所と酒の相性は最悪です。冷えたビールは宿に戻ってからのお楽しみに。' },
+
+{ day:'8/16(日)', type:'夕', tag:'t-d', no:4,
+  title:'【4食目】手作り串パーティー BBQ 第2夜 ― 挽き肉はここで使い切る',
+  why:'挽き肉は肉の中で最も傷みやすい。2日目の夜が使用期限です。',
+  ing:[['鶏ひき肉',400,'g'],['あぐー豚バラ（串用）',350,'g'],['長ねぎ',1.5,'本'],['ピーマン',3,'個'],['しめじ・エリンギ',1.5,'パック'],['ミニトマト',1,'パック'],['ソーセージ',6,'本'],['焼きそば麺',3,'玉'],['キャベツ',0.4,'玉'],['竹串',30,'本'],['大葉・生姜',1,'式',false]],
+  steps:'つくねは鶏ひき肉＋刻んだ長ねぎ＋生姜＋片栗粉＋醤油をよく練り、串に巻きつける。<b>「よく練る」のが弾力の秘訣</b>なので、ここは力のある長男に。豚バラは野菜と交互に刺す。締めは鉄板で焼きそば。',
+  kid:'長男＝つくねをこねる（10分は練る）。双子＝串に具材を刺す。<b>「自分が刺した串」は必ず自分で焼いて食べる</b>ルールにすると、驚くほど真剣に作ります。',
+  alt:'つくねが苦手 → <b>豚こま肉を丸めた「豚巻き串」</b>へ。こねる工程は同じで、材料だけ差し替え。／ 焼きそばが苦手 → <b>焼きうどん</b>または<b>ガーリックライス</b>（鉄板で）。',
+  gear:'<b>鉄板／グリドルがあれば：</b>締めの焼きそばが劇的にやりやすい。網の上で焼きそばは無理があります。<br><b>ダッチオーブンがあれば：</b>串の合間に「丸ごと玉ねぎのホイル蒸し」を熾火に埋めておくと、驚くほど甘いおかずが1品増えます。',
+  otsu:'<b>BBQの合間：</b>ミミガーのポン酢和え（買ってきて和えるだけ）／島らっきょうの天ぷら（キッチンで揚げてテラスへ）／砂肝串。<br><b>子どもが寝た後：</b>スクガラス豆腐（島豆腐にスクガラスを載せるだけ）＋泡盛。塩気が強いので少量で長く飲めます。<br><b>酒：</b>県産クラフトビール（名護の75BEERなど）→ シークヮーサーサワー（泡盛＋シークヮーサー原液＋炭酸＋氷）。' },
+
+{ day:'8/17(月)', type:'朝', tag:'t-b', no:5,
+  title:'【5食目】スキレットのフレンチトースト＆ベーコンエッグ',
+  why:'牛乳と卵を消費する日。パンは日持ちしますが、牛乳は3日目が限界です。',
+  ing:[['食パン（厚切り）',6,'枚'],['卵',5,'個'],['牛乳',400,'ml'],['砂糖',1,'式',false],['バター',1,'式',false],['ベーコン',150,'g'],['ヨーグルト',3,'個'],['シークヮーサー原液',1,'式',false]],
+  steps:'卵液（卵＋牛乳＋砂糖）に食パンを浸す。<b>前夜のうちに浸けて冷蔵庫に入れておくと、朝の手間がゼロになり、味も染みます</b>。バターで両面をこんがりと。仕上げにシークヮーサー原液をひとかけすると爽やかになります。',
+  kid:'双子＝卵液づくりと食パン浸し（前夜に）。長男＝焼き係。ひっくり返すタイミングを任せる。',
+  alt:'フレンチトーストが苦手 → <b>ホットケーキ</b>（ホットケーキミックスを持参しておくと保険になります）。／ 甘い朝食が苦手な人には<b>トースト＋目玉焼き＋ベーコン</b>を別途。',
+  gear:'<b>スキレットがあれば：</b>フレンチトーストはスキレットで焼くと縁がカリッとして格が変わります。そのまま食卓へ。<br><b>ダッチオーブンがあれば：</b>朝から「ちぎりパン」を焼く手もありますが、朝の時間を考えると欲張らないほうが吉。',
+  otsu:'—（朝は休肝）' },
+
+{ day:'8/17(月)', type:'昼', tag:'t-l', no:6,
+  title:'【6食目】タコライス＆沖縄そば ハーフ&ハーフ',
+  why:'沖縄の二大ローカルフードを同時に。合いびき肉を使い切る日でもあります。',
+  ing:[['合いびき肉',400,'g'],['タコスシーズニング',1,'袋',false],['レタス',0.5,'玉'],['トマト',2,'個'],['ピザ用チーズ',150,'g'],['ごはん',3,'合'],['沖縄そば（生麺）',3,'玉'],['そばだし',600,'ml'],['豚三枚肉（味付け済）',200,'g'],['紅生姜・コーレーグース',1,'式',false]],
+  steps:'ひき肉をシーズニングで炒めるだけ。ごはんに載せ、レタス・トマト・チーズを各自で盛る。沖縄そばは麺を熱湯で温めてだしを注ぐだけ。<b>両方を少しずつ、が家族全員の満足度が最も高い構成</b>です。',
+  kid:'双子＝レタスをちぎる、トマトを切る（子ども用包丁で）。長男＝ひき肉を炒める。「盛り付けは自分で」がタコライスの本質です。',
+  alt:'辛いのが苦手 → シーズニングを減らし<b>ケチャップ＋ウスターソースのミートソース味</b>へ。子ども用と大人用で鍋を分けるのが確実。／ 沖縄そばが苦手 → <b>そうめんチャンプルー</b>（余ったそうめんの活用にもなります）。',
+  gear:'<b>スキレットがあれば：</b>ひき肉をスキレットで炒めてそのまま卓上へ。チーズが溶け続けて最後まで熱いタコライスになります。',
+  otsu:'昼から飲む場合は<b>この日の午後の運転を完全に諦める</b>こと。買い出しが必要なら<b>飲む前に済ませてください</b>。オリオンビール1本とタコライスの相性は文句なしです。' },
+
+{ day:'8/17(月)', type:'夕', tag:'t-d', no:7,
+  title:'【7食目】飯盒炊飯の「やんばるカレー」＆炭火ステーキ ― 旅のクライマックス',
+  why:'日持ちする根菜と、冷凍で持ち込んだ肉を最後に。この日を一番の御馳走にします。',
+  ing:[['県産牛ステーキ用',500,'g'],['カレールー（中辛）',1,'箱',false],['カレールー（甘口・小)',1,'箱',false],['玉ねぎ',2,'個'],['にんじん',1.5,'本'],['じゃがいも',3,'個'],['米（飯盒用）',3,'合'],['ゴーヤー',1,'本'],['島豆腐',1,'丁'],['卵',3,'個'],['豚バラ薄切り',150,'g'],['鰹節',1,'式',false]],
+  steps:'カレーは早めに作って寝かせる（味が締まります）。<b>ごはんは炊飯器ではなく、あえて鍋または飯盒で。</b>「はじめちょろちょろ中ぱっぱ、赤子泣いてもふた取るな」を子どもに教えながら、沸騰後は弱火12分＋蒸らし10分。ステーキは炭火の強火で表面を焼き固め、アルミホイルで包んで休ませる。ゴーヤーチャンプルーは島豆腐の水切りが命。',
+  kid:'<b>長男＝飯盒炊飯の全責任者。</b>火加減・時間・蒸らしを任せる。双子＝野菜の皮むきとカレールーを割って入れる係。焦げた「おこげ」が出たら、それは失敗ではなくご褒美だと伝えてください。',
+  alt:'カレーが苦手 → <b>ハヤシライス</b>または<b>シチュー</b>（ルーを差し替えるだけ）。／ 辛さが不安 → <b>甘口ルーの小箱を別に持参</b>して2鍋体制に（買い出しリストに入れてあります）。／ ゴーヤーが苦手 → <b>もやしと豚肉のチャンプルー</b>へ。ゴーヤーは薄切り＋塩もみ＋さっと湯通しで苦味が大きく減ります。',
+  gear:'<b>ダッチオーブンがあれば、この日の主役を「丸鶏のロースト」に格上げできます。</b>丸鶏の腹に島にんにく・ローズマリー・くし切り玉ねぎを詰め、下に根菜を敷いて炭火で上下加熱、40〜50分。<b>男子3人が確実に忘れない一皿</b>になります（丸鶏は要事前購入・冷凍で持参）。<br><b>飯盒／メスティンがあれば：</b>上記の飯盒炊飯をそのまま。無ければコテージの鍋でも同じ手順で炊けます（最悪、炊飯器で問題ありません）。<br><b>スキレットがあれば：</b>ステーキを休ませた後、肉汁でガーリックライスを。',
+  otsu:'<b>BBQの合間：</b>ステーキの端肉を炭火で炙って塩だけで。焼きたてを立ったままつまむのが一番うまい。<br><b>子どもが寝た後：</b>最終夜なので<b>島らっきょう・豆腐よう・海ぶどう・ジーマーミ豆腐</b>を並べて「沖縄の肴フルコース」。<b>島豆腐の燻製</b>（燻製器や中華鍋＋チップがあれば15分）はウイスキーと泡盛の両方に圧倒的に合います。<br><b>🍷 この夜の酒：</b><b>赤ワインを開ける夜。</b>タンニンがステーキと丸鶏の脂を切り、炭火の香ばしさと樽香が重なります。赤は冷やさないので容量も食いません。締めは<b>泡盛の古酒（クース）</b>をロックで。<b>この一杯のために氷を取っておいてください。</b>ハイボール派はスモークチーズと一緒に。' },
+
+{ day:'8/18(火)', type:'朝', tag:'t-b', no:8,
+  title:'【8食目】残りもの一掃 ― カレートースト＆野菜スープ',
+  why:'冷蔵庫を空にして帰るのが目的。新たに何も買わずに成立する構成です。',
+  ing:[['食パン',5,'枚'],['前夜のカレー（残り）',1,'式',false],['ピザ用チーズ',100,'g'],['残り野菜（何でも）',1,'式',false],['コンソメ',1,'式',false],['卵',5,'個'],['バナナ・果物',5,'本']],
+  steps:'食パンに残りカレーを塗ってチーズを載せ、オーブントースター（フロント貸出）で焼くだけ。スープは残り野菜を全部刻んでコンソメで煮る。<b>7:30には食べ始めてください。</b>10:00チェックアウトから逆算すると、片付け・ゴミ整理・荷積みに90分は必要です。',
+  kid:'全員＝「冷蔵庫の中のものを全部出して並べる」ところから。何が残っているかを見せてから献立を決めると、食べ物を無駄にしない感覚が育ちます。',
+  alt:'カレーが残っていない場合 → <b>ピザトースト</b>（ケチャップ＋チーズ＋残り野菜）。／ 何も残っていない → <b>目玉焼きトースト＋果物</b>で十分です。',
+  gear:'<b>スキレットがあれば：</b>目玉焼きをスキレットで。最後に洗って乾かす時間を忘れずに（鉄は錆びます）。',
+  otsu:'—（帰路の運転があります。<b>前夜の飲酒は量とタイミングに注意</b>。アルコールは体重60kgでビール500ml換算あたり3〜4時間で抜けると言われますが個人差が大きく、朝まで残ることは普通にあります。運転する方は前夜早めに切り上げてください）' }
+];
+
+/* ============================================================
+   データ：買い出し
+   ============================================================ */
+const SHOP = [
+ {cat:'🥩 肉類（すべて冷凍して持参）', pre:true, items:[
+  ['あぐー豚バラ 焼肉用', 800,'g','1日目・2日目のBBQ用。小分けにして冷凍'],
+  ['県産鶏もも肉', 450,'g','塩麹に漬けて冷凍。1日目BBQ'],
+  ['鶏もも肉（唐揚げ用）', 400,'g','前夜に揚げて2日目の川ピクニックへ'],
+  ['県産牛ステーキ用', 500,'g','3日目夕食の主役。冷凍で持参し当日朝に冷蔵解凍'],
+  ['鶏ひき肉（つくね用）', 400,'g','2日目夕食。最も傷みやすいので必ず冷凍'],
+  ['合いびき肉（タコライス用）', 400,'g','3日目昼。冷凍で'],
+  ['豚三枚肉（味付け済／ラフテー）', 200,'g','沖縄そばの具。市販の味付け済が楽'],
+  ['豚バラ薄切り', 150,'g','ゴーヤーチャンプルー用'],
+  ['ソーセージ（あらびき）', 14,'本','子どもの保険。多めに'],
+  ['ベーコン（厚切り）', 150,'g','朝食用'],
+  ['ポーク缶（スパム等）', 2,'缶','常温保存可。朝食の主役'],
+  ['砂肝', 200,'g','大人のおつまみ・串焼き用'],
+  ['ミミガー（味付け済）', 1,'パック','おつまみ。和えるだけ'],
+  ['丸鶏（1羽）', 1,'羽','⚠ダッチオーブンがある場合のみ。3日目の主役に格上げ。冷凍で持参'],
+ ]},
+ {cat:'🦐 魚介（初日に使い切る）', pre:true, items:[
+  ['大正海老／車海老', 8,'尾','1日目BBQ。背わたを取って冷凍'],
+  ['するめいか', 1.2,'杯','1日目BBQ。輪切りにして冷凍'],
+  ['ホタテ（冷凍）', 8,'個','冷凍のまま持参。保冷剤代わりにもなる'],
+  ['もずく', 2,'パック','スープ・酢の物に。日持ちする'],
+  ['スクガラス（缶）', 1,'缶','島豆腐に載せるだけの最強のつまみ'],
+  ['海ぶどう', 1,'パック','⚠冷蔵禁止・常温保存。冷やすとしぼみます'],
+ ]},
+ {cat:'🥬 野菜・果物', pre:true, items:[
+  ['玉ねぎ', 5,'個','日持ち組。カレー・BBQ'],
+  ['にんじん', 3,'本','日持ち組'],
+  ['じゃがいも', 5,'個','日持ち組。カレー'],
+  ['ピーマン', 8,'個','串・BBQ'],
+  ['とうもろこし', 3,'本','BBQ。皮ごと焼くと甘い'],
+  ['かぼちゃ', 0.5,'個','BBQ。スライスして'],
+  ['ゴーヤー', 2,'本','チャンプルー。道の駅で島産を買うのも手'],
+  ['キャベツ', 1,'玉','焼きそば・付け合わせ'],
+  ['レタス', 1,'玉','タコライス。傷みやすいので早めに'],
+  ['トマト', 4,'個','タコライス'],
+  ['ミニトマト', 2,'パック','串・ピクニック'],
+  ['きゅうり', 3,'本','浅漬け・サンドイッチ'],
+  ['長ねぎ', 2,'本','つくね'],
+  ['しめじ・エリンギ', 2,'パック','串・BBQ'],
+  ['大葉・生姜・にんにく', 1,'式','薬味。にんにくは多めに',false],
+  ['島らっきょう', 1,'袋','⚠最重要おつまみ。塩漬け・天ぷら・生で鰹節'],
+  ['バナナ・りんご等', 5,'本','朝食の果物'],
+  ['レモン', 2,'個','海鮮・肉の仕上げ'],
+ ]},
+ {cat:'🥚 卵・乳製品・豆腐', pre:true, items:[
+  ['卵', 20,'個','全食で使用。多めに'],
+  ['牛乳', 1,'L','フレンチトースト。3日目までに使い切る'],
+  ['ピザ用チーズ', 300,'g','タコライス・カレートースト'],
+  ['バター', 1,'箱','フレンチトースト・海鮮',false],
+  ['ヨーグルト', 4,'個','朝食'],
+  ['島豆腐', 2,'丁','⚠沖縄の島豆腐は現地の温かいものが最高。国頭スーパーで買えれば最良'],
+  ['豆腐よう', 1,'パック','⚠泡盛のための最強の肴。少量で長く飲める'],
+  ['ジーマーミ豆腐', 1,'パック','おつまみ・デザート兼用'],
+ ]},
+ {cat:'🍚 主食・乾物', pre:true, items:[
+  ['米', 4,'kg','飯盒炊飯・カレー・おにぎり。多めに'],
+  ['食パン（厚切り）', 2,'斤','朝食2回分'],
+  ['そうめん', 6,'束','川ピクニック。多めに'],
+  ['沖縄そば（生麺）', 3,'玉','+ そばだしも忘れずに'],
+  ['そばだし（濃縮）', 1,'本','沖縄そば用',false],
+  ['焼きそば麺', 3,'玉','BBQの締め'],
+  ['カレールー（中辛）', 1,'箱','大人用',false],
+  ['カレールー（甘口・小箱）', 1,'箱','⚠子ども用の別鍋。辛さが不安なら必須',false],
+  ['タコスシーズニング', 1,'袋','タコライス。なければケチャップ＋ソースで代用',false],
+  ['ホットケーキミックス', 1,'袋','朝食の保険',false],
+  ['焼きのり', 1,'袋','おにぎり',false],
+  ['乾燥わかめ', 1,'袋','味噌汁',false],
+  ['レトルトカレー・缶詰', 2,'個','⚠停電・悪天候時の非常食。火が使えない時用',false],
+ ]},
+ {cat:'🧂 調味料（小分けにして持参）', pre:true, items:[
+  ['塩・こしょう', 1,'式','',false],
+  ['醤油', 1,'本','',false],
+  ['味噌', 1,'パック','',false],
+  ['砂糖', 1,'袋','',false],
+  ['サラダ油・オリーブオイル', 1,'式','アヒージョ用にオリーブ油は多めに',false],
+  ['焼肉のたれ', 2,'本','子どもが多いと消費が早い',false],
+  ['めんつゆ（ストレート）', 1,'本','そうめん・煮物',false],
+  ['マヨネーズ・ケチャップ', 1,'式','',false],
+  ['ポン酢', 1,'本','ミミガー・チャンプルー',false],
+  ['コーレーグース（島唐辛子泡盛漬け）', 1,'本','⚠沖縄そばの必需品。男子が盛り上がる',false],
+  ['鰹節（パック）', 1,'袋','チャンプルー・島らっきょう',false],
+  ['和風だし・コンソメ', 1,'式','',false],
+  ['片栗粉', 1,'袋','つくね',false],
+  ['塩麹', 1,'パック','鶏の下味',false],
+  ['ごま油', 1,'本','そうめんのくっつき防止',false],
+ ]},
+ {cat:'🔥 炭・BBQ用品（持参）', pre:true, items:[
+  ['木炭（バーベキュー用）', 6,'kg','3夜ぶん。1夜あたり2kgが目安。⚠必ず多めに'],
+  ['着火剤', 1,'箱','⚠フロントでも購入可（宿の公式情報）。念のため持参',false],
+  ['チャッカマン・ライター', 2,'本','',false],
+  ['竹串', 50,'本','串パーティー用。多めに'],
+  ['アルミホイル（厚手）', 2,'本','ホイル焼き・ステーキの休ませ用',false],
+  ['アルミトレー・使い捨て皿', 1,'式','洗い物を減らす',false],
+  ['軍手・トング・火ばさみ', 1,'式','',false],
+  ['うちわ', 3,'本','火起こしは子どもの担当',false],
+  ['キッチンペーパー', 2,'本','',false],
+  ['ラップ・ジップ袋（大中小）', 1,'式','残り物の保存に大量に使います',false],
+  ['ゴミ袋（45L）', 10,'枚','⚠分別方法は宿で確認。BBQのゴミは想像より出ます',false],
+ ]},
+ {cat:'🍺 お酒（大人用）', pre:true, items:[
+  ['オリオンビール（350ml缶）', 15,'本','⚠3夜ぶん。乾杯の定番。缶が扱いやすい'],
+  ['県産クラフトビール（75BEERなど）', 4,'本','⚠沖縄でしか買えない枠。名護のブルワリー。2夜目の特別枠'],
+  ['赤ワイン', 2,'本','⚠ステーキ・丸鶏の夜（8/17）に。冷やさないのでクーラー容量を使いません'],
+  ['白ワイン／スパークリング', 2,'本','⚠海鮮の夜（8/15）に。要冷却'],
+  ['ウイスキー（ハイボール用）', 1,'本','⚠氷を最も使う酒。角瓶クラスの700mlで3夜は十分',false],
+  ['缶チューハイ', 9,'本','手軽枠。冷やしておくと重宝します'],
+  ['泡盛「山原くいな」（田嘉里酒造所）', 1,'本','⚠隣の大宜味村の地酒。現地で購入推奨',false],
+  ['泡盛の古酒（クース）', 1,'本','⚠最終夜用。現地でしか買えない銘柄を狙う',false],
+  ['シークヮーサー系リキュール', 1,'本','⚠現地調達枠。炭酸で割るだけでご当地サワー',false],
+  ['シークヮーサー原液（大瓶）', 1,'本','⚠サワー・ジュース・冷茶・料理に。最も汎用性が高い1本',false],
+  ['ワインオープナー・栓抜き', 1,'式','⚠これを忘れると詰みます。最重要',false],
+ ]},
+ {cat:'☕ コーヒー・お茶', pre:true, items:[
+  ['コーヒー豆（中細挽き）', 250,'g','⚠朝の一杯用。挽いた状態で密閉袋に'],
+  ['コーヒー豆（粗挽き・水出し用）', 160,'g','前夜に仕込んで翌朝に。器具ゼロで本格的'],
+  ['ペーパーフィルター', 20,'枚','多めに。忘れがちな品',false],
+  ['お茶パック（水出し用）', 10,'枚','水出しコーヒー・冷茶に',false],
+  ['煎茶／ほうじ茶（茶葉）', 50,'g','⚠奥みどりは現地の奥共同店で買うのが一興',false],
+  ['さんぴん茶（ティーバッグ）', 20,'個','⚠脂っこいBBQの食中茶に最適'],
+  ['紅茶（ティーバッグ）', 10,'個','アイスティー用',false],
+  ['うっちん茶（ウコン茶）', 4,'本','⚠沖縄の飲酒前後の習慣。翌朝の一杯にも'],
+  ['砂糖・はちみつ・ミルク', 1,'式','ジュースの甘さ調整にも使います',false],
+ ]},
+ {cat:'🧃 子どもの飲み物・熱中症対策', pre:true, items:[
+  ['経口補水液（500ml）', 6,'本','⚠<b>安全に関わる項目。</b>大量発汗時は水やお茶では不十分'],
+  ['スポーツドリンク（粉末）', 1,'箱','水に溶かすだけ。かさばらない',false],
+  ['塩分タブレット／塩飴', 1,'袋','⚠川では「1時間に1個」ルールで',false],
+  ['乳酸菌飲料・牛乳', 2,'本','朝食用'],
+  ['子ども用の水筒', 3,'本','⚠川へ持っていく。氷を入れられるものを',false],
+ ]},
+ {cat:'❄️ 現地調達 ― 氷・炭酸・水', pre:false, items:[
+  ['板氷（ブロック氷・約2kg）', 4,'枚','⚠クーラーボックスの保冷用。溶けにくい。国頭スーパーで'],
+  ['ロックアイス（1.1kg袋）', 10,'袋','⚠ハイボール・チューハイ・水割り用。「ドリンク」タブの氷量計算を参照'],
+  ['炭酸水（1.5L）', 6,'本','⚠ハイボール＋チューハイ＋子どものジュース。酒種が増えたので増量'],
+  ['ミネラルウォーター（2L・硬度不問）', 8,'本','⚠飲料＋非常用。1人1日2Lが目安'],
+  ['⚠ 軟水（コーヒー・緑茶用・2L）', 2,'本','⚠<b>硬度50〜80mg/Lの国産を。</b>沖縄の水道水は硬度が高めで、緑茶の渋みが立ちます'],
+  ['麦茶（2L）', 5,'本','子ども用。川ピクニックの水筒にも。消費が激しい'],
+  ['（現地の酒）泡盛の古酒・山原くいな・県産クラフト', 1,'式','⚠道の駅ゆいゆい国頭／国頭スーパーで。日中のみ',false],
+  ['（お楽しみ）奥みどり茶・島豆腐・島野菜', 1,'式','⚠奥共同店（徒歩圏）の銘茶「奥みどり」は集落の名産',false],
+  ['（買い足し用）牛乳・パン・卵', 1,'式','⚠足りなくなったらここで。ただし夕方以降は行けません',false],
+ ]},
+];
+
+/* ============================================================
+   データ：持ち物
+   ============================================================ */
+const GEAR = [
+ {cat:'🧊 保冷・運搬', items:[
+  ['クーラーボックス（大）＝生鮮用', 'owned', '肉・魚・乳製品専用。開閉を1日1回に絞る'],
+  ['クーラーボックス（中〜大）＝飲み物用', 'owned', 'ビール・水・炭酸・氷。何度開けてもよい方'],
+  ['保冷剤', '', '下の計算を参照。最低でも大4個＋中6個'],
+  ['保冷バッグ（小）', '', '川ピクニックの持ち出し用'],
+  ['アルミシート／銀マット', '', 'クーラーのフタ裏に敷くと保冷力が伸びる'],
+  ['新聞紙', '', 'クーラーのすき間埋め＋火起こし＋濡れた靴の乾燥。万能'],
+  ['製氷皿 2〜3枚', '', '⚠現地の冷凍室で氷を自作。氷の現地調達依存を減らす切り札'],
+ ]},
+ {cat:'🍳 キャンプ調理道具（ある分だけ）', items:[
+  ['ダッチオーブン', 'maybe', '⚠あれば3日目に丸鶏ロースト。無くてもカレーで成立'],
+  ['スキレット', 'maybe', '⚠あれば朝食とアヒージョが劇的に良くなる。無ければフライパンで'],
+  ['飯盒／メスティン', 'maybe', '⚠あれば3日目の飯盒炊飯体験。無ければ鍋、最悪は炊飯器'],
+  ['鉄板／グリドル', 'maybe', '⚠あれば焼きそばと野菜が段違いに楽。無ければ網＋アルミトレーで'],
+  ['燻製器またはチップ', 'maybe', '⚠あれば島豆腐・チーズの燻製。最終夜のつまみに'],
+  ['焚き火グローブ・火ばさみ', '', '施設のBBQ器具はありますが使い慣れた道具が安全'],
+  ['調理ばさみ', '', '肉を切るのに包丁より速い。BBQでは必需品'],
+  ['クッカー・シェラカップ', '', '川ピクニックの取り分けに便利'],
+ ]},
+ {cat:'☕ コーヒー・お茶の器具', items:[
+  ['ドリッパー＋ペーパーフィルター', '', '円錐型が湯量を調整しやすい。フィルターは多めに'],
+  ['細口ケトル（またはキャンプ用ケトル）', 'maybe', '⚠キャンプ用ケトルを炭火にかけると熾火が最後まで活きます'],
+  ['手挽きミル', 'maybe', '⚠あれば挽きたて。無ければ中細挽きで購入して持参で十分'],
+  ['保温ポット／山専ボトル', '', '⚠朝に多めに淹れて入れておく。川から帰って即温かい一杯'],
+  ['耐熱グラス（アイス用）', '', 'プラカップは熱で歪みます'],
+  ['お茶パック（水出し用）', '', '粗挽き豆を入れてペットボトルへ→冷蔵庫8時間で水出しコーヒー'],
+  ['急須または茶こし', '', '奥みどりを淹れるために。無ければお茶パックで代用可'],
+  ['デジタルスケール', 'maybe', '無くても「1杯＝大さじ山盛り2杯」で足ります'],
+ ]},
+ {cat:'🍷 酒まわり', items:[
+  ['⚠ ワインオープナー・栓抜き', '', '⚠<b>これを忘れると赤ワインが飲めません。</b>最寄りコンビニ片道45分'],
+  ['グラス（割れないもの・多めに）', '', 'ハイボール用の背の高いもの／ワイン用／ロック用'],
+  ['アイスペール（氷入れ）＋トング', '', '⚠氷をその都度クーラーから出すと開閉が増えます。卓上に氷を置く'],
+  ['アイスピック（板氷を割る用）', 'maybe', 'ロック用の大きい氷を作れると格が上がります'],
+  ['マドラー・計量カップ', '', '泡盛の水割りは1:1.5〜2が基本'],
+  ['ワインクーラー代わりのバケツ', 'maybe', '白・スパークリングの急冷用。洗い桶で代用可'],
+ ]},
+ {cat:'🏊 川遊び', items:[
+  ['⚠ 経口補水液（500ml×6本）', '', '⚠<b>熱中症対策の本命。安全に関わります。</b>川では喉の渇きに気づきにくい'],
+  ['⚠ 塩分タブレット／塩飴', '', '⚠子ども3人に「1時間に1個」ルールで渡す'],
+  ['子ども用の水筒（氷を入れられるもの）', '', '30分ごとに全員で飲むルールを'],
+  ['タープまたは大きめの傘', 'maybe', '日陰が少ない場所では熱中症対策として重要'],
+  ['ライフジャケット（子ども用×2）', '', '⚠小4双子に必須。浅い川でも省略しない'],
+  ['ライフジャケット（中2用）', '', '基本は着用。最低でも1着は予備を'],
+  ['マリンシューズ（全員分）', '', '⚠ビーチサンダル・はだしは禁止'],
+  ['ラッシュガード', '', '日焼けと擦り傷の両方を防ぐ'],
+  ['防水バッグ／ドライバッグ', '', 'スマホ・タオル・救急セット'],
+  ['レジャーシート', '', ''],
+  ['虫除けスプレー・かゆみ止め', '', '⚠やんばるは虫が多い。強めのものを'],
+  ['救急セット（絆創膏・消毒・テーピング）', '', '⚠傷があると川に入れません。手当ては早めに'],
+  ['タオル（多め）', '', '⚠宿にタオル類の備え付けはありません（公式情報）。人数×日数＋川用'],
+  ['着替え（濡れる前提で多め）', '', ''],
+ ]},
+ {cat:'🏠 コテージ生活', items:[
+  ['バスタオル・フェイスタオル', '', '⚠再掲・重要：宿はタオル持参制です'],
+  ['歯ブラシ', '', 'ボディソープとリンスインシャンプーは備え付けあり'],
+  ['スリッパ', '', ''],
+  ['洗濯洗剤', '', '⚠洗濯機・乾燥機あり。フロントでも購入可'],
+  ['ハンガー・洗濯バサミ', '', '濡れた水着と着替えを干す'],
+  ['モバイルバッテリー・充電器', '', ''],
+  ['ランタン／懐中電灯', '', '⚠夜のテラスは真っ暗。停電対策も兼ねて'],
+  ['常備薬・酔い止め・虫刺され薬', '', '薬局も遠いです'],
+  ['日焼け止め', '', ''],
+  ['トランプ・UNO・ボードゲーム', '', '雨天時の切り札'],
+  ['現金', '', '⚠共同店など現金のみの店があります'],
+  ['宿の連絡先メモ 0980-50-4141', '', '電波が弱い時に備えて紙で'],
+ ]},
+];
+
+/* ============================================================
+   データ：下ごしらえ
+   ============================================================ */
+const PREP = [
+ {cat:'📅 8/13〜14（出発前々日〜前日）― お盆前に買い切る', items:[
+  ['食材・調味料・炭をすべて購入する','⚠8/15はお盆。名護・那覇の店は混雑し、一部は短縮営業の可能性。前倒しが安全'],
+  ['肉・魚をすべて小分けにして冷凍する','使う日ごとにジップ袋へ。袋に「8/15夕」などと日付を書く'],
+  ['鶏もも肉を塩麹＋にんにくで下味をつけて冷凍','1日目BBQ用。漬けたまま凍らせる'],
+  ['唐揚げを揚げて冷凍（または当日朝に揚げる）','2日目の川ピクニック用'],
+  ['カレー用の玉ねぎ・にんじん・じゃがいもを切って冷凍','現地の包丁作業が激減する'],
+  ['つくねのタネを作って冷凍','鶏ひき肉＋ねぎ＋生姜＋片栗粉。現地では串に巻くだけ'],
+  ['調味料を小さい容器に小分けする','一升瓶や大袋を持っていくと荷物が破綻します'],
+  ['保冷剤を全部冷凍庫へ入れる','⚠前日では凍りきりません。2日前から'],
+  ['クーラーボックスを前日から冷やしておく','保冷剤を1個入れて予冷。効果は想像以上'],
+  ['⚠ ワインオープナー・栓抜きをバッグに入れる','⚠これを忘れると赤ワインが飲めません。最寄りコンビニ片道45分'],
+  ['コーヒー豆を中細挽きにして密閉袋へ／水出し用は粗挽きで別袋','ミルを持たない場合は購入時に挽いてもらう'],
+  ['⚠ 経口補水液・塩分タブレットを購入','⚠川遊びの熱中症対策。安全に関わる項目です'],
+  ['子ども用の水筒を人数分そろえる','氷を入れられるタイプを'],
+ ]},
+ {cat:'🚗 8/15（当日・出発〜チェックイン）', items:[
+  ['出発直前にクーラーボックスへ詰める','底から板氷／保冷剤 → 凍った肉 → 卵・乳製品の順'],
+  ['すき間を新聞紙・タオルで埋める','空気の層が保冷の最大の敵'],
+  ['名護で昼食（11時台の早めに）','⚠お盆で混雑。宿の食数には含まれていません'],
+  ['名護で水・炭酸を確保（保険）','氷はここでは買わない。着くまでに溶けます'],
+  ['⚠辺土名の国頭スーパーで氷を購入（9:00〜19:00）','宿の手前・車で30分。ここが最後のまともな買い物'],
+  ['14:00 チェックイン → 生鮮を即・冷蔵庫へ','⚠これが到着後の最優先タスク。荷ほどきより先'],
+  ['製氷皿に水を入れて冷凍室へ','毎晩の習慣にする'],
+  ['炭を熾す（夕食の30分前から）','白く灰をかぶるまで待つ。急ぐと生焼けの原因'],
+ ]},
+ {cat:'🌅 8/16（2日目）', items:[
+  ['朝食のおにぎりと一緒に、昼のピクニック用おにぎりも作る','2度手間を防ぐ最大のポイント'],
+  ['そうめんを茹でて冷水で締め、一口ずつ丸めて容器へ','ごま油を少量まぶすとくっつかない'],
+  ['⚠川に出る前に安全チェックを全項目確認','「川」タブの中止基準を必ず読む'],
+  ['⚠15時までに氷・炭酸の残量を確認、必要なら国頭スーパーへ','これ以降は飲酒により運転不可'],
+  ['朝：多めにコーヒーを淹れて保温ポットへ','川から帰った時に温かい一杯が飲める'],
+  ['⚠川へ出る前に経口補水液と塩分タブレットを持ったか確認','⚠30分ごとに全員で飲むルールを宣言してから出発'],
+  ['夜：翌朝のフレンチトーストの卵液にパンを浸けて冷蔵','朝の手間がゼロになる'],
+  ['夜：水出しコーヒーを仕込む（粗挽き80g＋軟水1L→冷蔵8時間）','器具ゼロで翌朝に本格的な一杯'],
+  ['夜：製氷皿の氷を袋に回収し、皿に水を入れ直す',''],
+ ]},
+ {cat:'🌄 8/17（3日目）', items:[
+  ['朝：冷凍のステーキ肉を冷蔵室へ移して解凍','⚠常温解凍はしない。夕方までに冷蔵でゆっくり'],
+  ['ダッチオーブンで丸鶏を焼く場合は前夜から解凍','⚠丸鶏は解凍に時間がかかります'],
+  ['カレーを早めに作って寝かせる','夕方前に作っておくと味が締まる'],
+  ['⚠15時までに最終買い出し判断','これが最後のチャンス。以降は買い足せません'],
+  ['夕方：飯盒炊飯の段取りを長男と確認','火加減・時間・蒸らしを任せる'],
+  ['夜：冷蔵庫の残りを確認し、翌朝の献立を決める','買い足さずに成立する構成にしてあります'],
+ ]},
+ {cat:'🧹 8/18（最終日・10:00 OUT）', items:[
+  ['7:30 朝食開始','⚠逆算すると片付けに90分必要'],
+  ['生ゴミ・BBQの灰を分別（方法は宿で確認）','灰は完全に消火してから'],
+  ['冷蔵庫・冷凍室を空にする','⚠忘れ物の定番。製氷皿の氷も回収'],
+  ['クーラーボックスに残り物と溶け残りの氷を詰める','帰路の飲み物冷却に使える'],
+  ['借りた備品（オーブントースター等）をフロントへ返却',''],
+  ['濡れたもの・砂のついたものを別袋に','車内が砂だらけになるのを防ぐ'],
+  ['10:00 チェックアウト',''],
+ ]},
+];
+
+const RIVER_GEAR = ['ライフジャケット（子ども3人分）','マリンシューズ','ラッシュガード','防水バッグ','救急セット','虫除け','タオル多め','飲み water（水筒）','保冷バッグに入れた昼食','レジャーシート','ゴミ袋','日焼け止め','帽子','時計（15分ごとの点呼用）','宿の電話番号を書いた紙'];
+
+const RIVER_MENU = [
+ ['そうめん（宿で茹でて持参）',5,'束'],
+ ['めんつゆ（沢で冷やす）',400,'ml'],
+ ['おにぎり（朝に一緒に握る）',6,'個'],
+ ['鶏の唐揚げ（前夜に揚げて冷蔵）',450,'g'],
+ ['きゅうりの浅漬け',2,'本'],
+ ['ミニトマト',1,'パック'],
+ ['シークヮーサージュース（原液＋炭酸＋氷）',1.5,'L'],
+ ['麦茶（水筒）',2,'L'],
+];
+
+/* ============================================================
+   レンダリング
+   ============================================================ */
+const TABS = [
+ ['s-overview','📋 概要・食数'],
+ ['s-menu','🍽 全8食の献立'],
+ ['s-play','🎲 子どもと選ぶ'],
+ ['s-river','🏞 川ピクニック＆安全'],
+ ['s-drink','🍷 ドリンク（酒・珈琲・茶）'],
+ ['s-shop','🛒 買い出し'],
+ ['s-gear','🎒 持ち物・保冷術'],
+ ['s-prep','🔪 下ごしらえ'],
+ ['s-rain','🌧 雨天・強風代替'],
+];
+
+function buildTabs(){
+  const el = document.getElementById('tabs');
+  el.innerHTML = TABS.map((t,i)=>`<button class="tab${i===0?' on':''}" data-t="${t[0]}">${t[1]}</button>`).join('');
+  el.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    el.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.querySelectorAll('section').forEach(s=>s.classList.remove('on'));
+    document.getElementById(b.dataset.t).classList.add('on');
+    // 選んだタブを画面内に寄せる（スマホの横スクロール対策）
+    try{ b.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }catch(e){}
+    try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){ window.scrollTo(0,0); }
+  });
+  document.getElementById('s-overview').classList.add('on');
+}
+
+function buildPeople(){
+  const defs=[['adult','大人','×1.0'],['teen','中高生','×1.3'],['kid','小学生','×0.7']];
+  document.getElementById('pRow').innerHTML = defs.map(d=>
+    `<div class="pgrp"><span class="lbl">${d[1]}<span class="f"> ${d[2]}</span></span>
+     <button class="stp" onclick="chg('${d[0]}',-1)">−</button>
+     <span class="num" id="n-${d[0]}">${people[d[0]]}</span>
+     <button class="stp" onclick="chg('${d[0]}',1)">＋</button></div>`).join('');
+}
+function chg(k,d){ people[k]=Math.max(0,people[k]+d); renderAll(); }
+function resetPeople(){ people=Object.assign({},DEFAULT_PEOPLE); renderAll(); }
+
+function buildTimeline(){
+  const T=[
+   ['8/15 11:00','名護で昼食＋水・炭酸を確保','お盆で混雑。早め入店を。宿の食数には含まず'],
+   ['8/15 13:00','辺土名・国頭スーパーで氷を購入','9:00〜19:00・無休。宿の手前、車で30分。氷は最後に買う'],
+   ['8/15 14:00','チェックイン → 生鮮を即冷蔵庫へ','荷ほどきより先。製氷皿もセット'],
+   ['8/15 17:00','炭を熾す（夕食の30分前）','子どもがうちわ担当'],
+   ['8/15 18:00','🍖 1食目：海鮮＆やんばる肉BBQ','魚介を使い切る夜。おつまみは島らっきょう'],
+   ['8/16 07:30','🍙 2食目：ポーク玉子おにぎり','昼のおにぎりも同時に握る'],
+   ['8/16 10:00','⚠ 川の安全チェック → 奥川へ','1項目でも該当したら中止'],
+   ['8/16 12:00','🍜 3食目：川ピクニック・流しそうめん','沢でめんつゆを冷やす'],
+   ['8/16 15:00','⚠ 氷の残量確認・買い足しの最終判断','これ以降は飲酒により運転不可'],
+   ['8/16 18:00','🍢 4食目：手作り串パーティー','挽き肉を使い切る夜'],
+   ['8/17 07:30','🍞 5食目：フレンチトースト','前夜に浸けておく'],
+   ['8/17 09:00','ステーキ肉を冷蔵解凍へ移す','常温解凍はしない'],
+   ['8/17 12:00','🌮 6食目：タコライス＆沖縄そば',''],
+   ['8/17 15:00','⚠ 最終買い出しのチャンス','以降は買い足せない前提'],
+   ['8/17 18:00','🍛 7食目：飯盒カレー＆炭火ステーキ','旅のクライマックス。長男が飯盒担当'],
+   ['8/17 21:00','🍶 沖縄の肴フルコース＋泡盛','子どもが寝た後。取っておいた氷で'],
+   ['8/18 07:30','🍳 8食目：残りもの一掃','片付けに90分を確保'],
+   ['8/18 10:00','チェックアウト','⚠運転する方は前夜の飲酒量に注意'],
+  ];
+  document.getElementById('timeline').innerHTML = T.map(t=>
+   `<div class="tl"><div class="tm">${t[0]}</div><div class="tt">${t[1]}</div>${t[2]?`<div class="td">${t[2]}</div>`:''}</div>`).join('');
+}
+
+function buildMeals(){
+  document.getElementById('meals').innerHTML = MEALS.map(m=>{
+    const ing = m.ing.map(i=>`<span>${i[0]} ${q(i[1],i[2],i[3])}</span>`).join('');
+    return `<div class="meal">
+      <div class="mhead">
+        <span class="mtag ${m.tag}">${m.type}</span>
+        <span class="mday">${m.day}</span>
+        <div class="mtitle">${m.title}</div>
+      </div>
+      <div class="mbody">
+        <p class="note" style="margin-top:0">💡 ${m.why}</p>
+        <h4>材料（${headcount()}名分）</h4>
+        <div class="ing">${ing}</div>
+        <h4>作り方・段取り</h4>
+        <div style="font-size:13.5px">${m.steps}</div>
+        <div class="kid"><b>👦 男子3人の担当：</b>${m.kid}</div>
+        <div class="alt"><b>🔁 苦手だった場合の代替案：</b>${m.alt}</div>
+        <div class="gear"><b>🍳 キャンプ道具アレンジ（あれば）：</b>${m.gear}</div>
+        <div class="otsu"><b>🍶 大人のおつまみ・お酒：</b>${m.otsu}</div>
+      </div></div>`;
+  }).join('');
+}
+
+function buildRiver(){
+  document.getElementById('riverGear').innerHTML =
+    RIVER_GEAR.map(g=>`<span class="pill">${g}</span>`).join('');
+  document.getElementById('riverMenu').innerHTML =
+    '<div class="ing">'+RIVER_MENU.map(i=>`<span>${i[0]} ${q(i[1],i[2])}</span>`).join('')+'</div>';
+}
+
+/* ============================================================
+   データ：ドリンク
+   ============================================================ */
+const PAIRING = [
+ {drink:'🍺 ビール（オリオン／県産クラフト）', color:'#ffcf5c',
+  why:'炭酸と苦味が油を流す。BBQの最初の一杯はこれ以外にありません。',
+  quick:['ソーセージの炭火焼き','島らっきょうの天ぷら','鶏の唐揚げ（川ピクニックの残り）','枝豆','とうもろこしの醤油焼き'],
+  slow:['ミミガーのポン酢和え','厚揚げにした島豆腐の生姜醤油','砂肝の塩焼き'],
+  tip:'⚠ 揚げ物と塩気のあるものが本命。1食目・2食目のBBQ開始直後に。'},
+ {drink:'🍷 赤ワイン', color:'#e0708f',
+  why:'タンニンが肉の脂を切る。炭火の香ばしさ（メイラード反応）と赤ワインの樽香は相性が良い。',
+  quick:['県産牛ステーキ','あぐー豚バラの炭火焼き','ダッチオーブンの丸鶏','きのこの炭火焼き'],
+  slow:['スモークチーズ','生ハム','ナッツ','ドライフルーツ'],
+  tip:'⚠ <b>赤は冷やさない</b>のでクーラーボックスの容量を使いません。ただし真夏の沖縄では室温が高すぎるので、飲む30分前だけ軽く冷やすと締まります。3食目（8/17夕・ステーキの夜）が主戦場。'},
+ {drink:'🥂 白ワイン・スパークリング', color:'#e8e2a8',
+  why:'酸味が魚介の甘みを引き立て、生臭さを抑える。島豆腐のような淡白なものにも寄り添います。',
+  quick:['海老の塩焼き','イカのバター醤油','ホタテの炭火焼き','海ぶどう'],
+  slow:['島豆腐の冷奴＋オリーブオイルと塩','ジーマーミ豆腐','海老のアヒージョ'],
+  tip:'⚠ <b>1食目（8/15夕・海鮮BBQの夜）に開けるべき一本。</b>初日は魚介を使い切る日なので、白の出番はここに集中します。氷水のバケツで急冷を。'},
+ {drink:'🥃 ウイスキー（ハイボール／ロック）', color:'#d8a05c',
+  why:'燻香と燻製・乾き物の相性は鉄板。ハイボールは炭酸で口内をリセットするので脂の多い料理にも強い。',
+  quick:['焼き鳥（つくね串）の塩','スモークチーズ','ビーフジャーキー','ナッツ'],
+  slow:['<b>島豆腐の燻製</b>（燻製器があれば15分）','燻製ゆで卵','豆腐よう','チョコレート'],
+  tip:'⚠ <b>氷を最も消費するのがハイボール。</b>グラス満杯の氷が必須なので、氷の残量はこれを基準に管理してください。ロックで飲むなら大きめの氷が欲しいので、製氷皿より板氷を割るほうが溶けにくい。'},
+ {drink:'🍋 チューハイ・サワー（シークヮーサー）', color:'#9ad86a',
+  why:'柑橘の酸味と炭酸。揚げ物・脂・塩気をすべてリセットします。暑い日の一杯目にも。',
+  quick:['島らっきょうの天ぷら','鶏の唐揚げ','ポーク（スパム）の炭火焼き','焼きそば'],
+  slow:['きゅうりの浅漬け','冷やしトマト','枝豆'],
+  tip:'⚠ <b>シークヮーサー原液＋泡盛（またはウォッカ）＋炭酸＋氷</b>で自作するのが一番うまく、一番安い。子どものジュースと同じ原液を使えるので荷物も減ります。'},
+ {drink:'🍶 泡盛（水割り／ロック／古酒）', color:'#8fd4e8',
+  why:'沖縄の食べ物のために存在する酒。塩気の強い発酵food系と圧倒的に合います。',
+  quick:['スクガラス豆腐','島らっきょうの塩漬け','ミミガー'],
+  slow:['<b>豆腐よう</b>（爪楊枝で少しずつ崩す。泡盛のためだけにある食べ物）','海ぶどう','ジーマーミ豆腐','奥みどり茶で作った水割り（⚠茶割り。地元の飲み方）'],
+  tip:'⚠ <b>最終夜（8/17）に古酒を。</b>子どもが寝た後、テラスで星を見ながらゆっくり。この夜のために氷を取っておいてください。水割りは「泡盛1：水1.5〜2」が基本。'},
+];
+
+const LOCAL_BOOZE = [
+ ['🍶 泡盛の古酒（クース）','3年以上熟成させたもの。まろやかで香りが深く、本土ではほぼ流通しない銘柄が現地には並びます。<b>この旅で一番の買い物になり得ます。</b>','道の駅ゆいゆい国頭／国頭スーパー／那覇の酒販店'],
+ ['🍶 山原くいな（田嘉里酒造所）','<b>隣の大宜味村・田嘉里の地酒。</b>やんばるの水で作られた、まさにこの土地の泡盛。奥に泊まってこれを飲まない手はありません。','道の駅ゆいゆい国頭／国頭スーパー'],
+ ['🍺 オリオンビールの限定・季節銘柄','定番の「ザ・ドラフト」以外に、季節限定や沖縄限定の銘柄が並びます。<b>本土のコンビニでは見かけないものを選ぶのが正解。</b>','国頭スーパー／道の駅／名護のスーパー'],
+ ['🍺 県産クラフトビール（75BEER など）','名護のクラフトブルワリー。IPA系はBBQの肉に驚くほど合います。<b>やや高価ですが2日目の特別枠に1本。</b>','名護市街／道の駅ゆいゆい国頭'],
+ ['🍋 シークヮーサー系リキュール','シークヮーサーを使った柑橘リキュール。炭酸で割るだけでご当地サワーが完成。<b>お土産としても喜ばれます。</b>','道の駅ゆいゆい国頭／国頭スーパー'],
+ ['🍹 シークヮーサー原液（果汁100%）','⚠ <b>この旅で最も汎用性の高い一本。</b>サワーの割り材、子どものジュース、冷茶に数滴、魚介や肉の仕上げ、フレンチトーストにも。<b>大きめのボトルを1本必ず。</b>','道の駅ゆいゆい国頭（品揃えが良い）／国頭スーパー'],
+ ['🍵 奥みどり（奥集落の緑茶）','⚠ 酒ではありませんが。<b>泊まっている集落そのもので作られている茶。</b>徒歩圏の奥共同店で買えます。泡盛の茶割りにも使えます。','<b>奥共同店（徒歩圏）</b>'],
+];
+
+const SCENES = [
+ ['🌅 朝いちばん（6:30-7:30）','<b>ハンドドリップの熱いコーヒー。</b>やんばるの朝は鳥の声で始まります。前夜に豆を計量しておけば、湯を沸かして注ぐだけ。<b>軟水を使ってください</b>（沖縄の水道水は硬度が高めで、コーヒーが重くなりがちです）。多めに淹れて保温ポットへ移しておくのがこの旅のコツ。','#ffcf5c'],
+ ['🍳 朝食と一緒（7:30-8:30）','<b>さんぴん茶（温）または水出しコーヒー。</b>ポーク玉子おにぎりやフレンチトーストには、香りの高いさんぴん茶がよく合います。水出しコーヒーは前夜に仕込んでおけば器具ゼロで完成。','#9ad86a'],
+ ['🏞 川へ持っていく（10:00-14:00）','<b>⚠ 経口補水液・麦茶・スポーツドリンク。</b>ここは嗜好より安全の話です。真夏の川遊びは脱水に気づきにくいので、<b>30分ごとに全員で飲むルール</b>を。カフェインの多いコーヒーや緑茶は利尿作用があるため、川での水分補給には向きません。','#5cc0e8'],
+ ['🚿 川から帰って（14:00-15:00）','<b>シークヮーサー冷茶、または氷を入れた麦茶。</b>体温を下げつつ、柑橘の酸味で気分をリセット。保温ポットに入れておいた温かいものも、意外に体が冷えた時に効きます。大人はここでビールに切り替えても。','#e8e2a8'],
+ ['☕ 昼下がりのひと息（15:00-16:00）','<b>アイスコーヒーまたは奥みどりの冷茶。</b>大人が一息つく時間。子どもたちが川の道具を片付けている間に。<b>この時間帯が「氷の残量を確認する」タイミング</b>でもあります（15時までに買い出し判断）。','#d8a05c'],
+ ['🍖 BBQ中（17:30-20:00）','<b>大人はビール→ワイン／ハイボール。子どもはシークヮーサージュースと麦茶。</b>脂っこい食事の食中茶には<b>さんぴん茶</b>が最適。ペットボトルを氷水で冷やしておいてください。','#ff9a5c'],
+ ['🌙 子どもが寝た後（21:00-23:00）','<b>泡盛の古酒、赤ワイン、ウイスキー。</b>この旅で最も贅沢な時間。テラスで星を見ながら、豆腐ようを少しずつ。<b>灯りを落とすと、やんばるの星空が出ます。</b>ランタンは足元用の弱い光だけに。','#c4a9f0'],
+ ['🌃 締めの一杯（23:00-）','<b>うっちん茶（ウコン茶）または白湯。</b>沖縄では飲酒の前後にうっちん茶を飲む習慣があります。<b>翌朝の一杯にも。</b>寝る前にコップ一杯の水を飲んでおくと、翌朝がまるで違います。','#8fd4e8'],
+];
+
+const KIDS_DRINK = [
+ ['麦茶（2L）', 5,'本','⚠ 川遊びの日は消費が激増。常温保存可なので多めに'],
+ ['経口補水液（500ml）', 6,'本','⚠ <b>熱中症対策の本命。</b>大量発汗時は水やお茶では不十分'],
+ ['スポーツドリンク（粉末）', 1,'箱','水に溶かすだけ。かさばらないので効率的',false],
+ ['シークヮーサー原液', 1,'本','炭酸で割ってジュースに。子ども担当の楽しみ枠',false],
+ ['炭酸水（ジュース用）', 2,'本','ジュース作り用'],
+ ['牛乳・乳酸菌飲料', 2,'本','朝食用'],
+ ['塩分タブレット／塩飴', 1,'袋','⚠ ポケットに。「1時間に1個」ルールで',false],
+];
+
+/* 氷・炭酸の量の計算（酒種の拡大を反映） */
+function iceNumbers(){
+  const adults = people.adult, n = headcount();
+  const nights = 3, days = 4;
+  // 1晩あたり大人1人の杯数配分（酒種が広いので多様な割り物を想定）
+  const hiballGlasses = 2.0, chuhaiGlasses = 1.5, mizuwariGlasses = 2.0;
+  const ICE_HIBALL = 160, ICE_CHUHAI = 130, ICE_MIZUWARI = 110; // g/杯
+  const iceHiball   = adults*hiballGlasses*ICE_HIBALL*nights/1000;
+  const iceChuhai   = adults*chuhaiGlasses*ICE_CHUHAI*nights/1000;
+  const iceMizuwari = adults*mizuwariGlasses*ICE_MIZUWARI*nights/1000;
+  const iceWine     = adults*0.25*nights;          // 白・スパークリングの氷冷用
+  const iceSoft     = n*0.28*days;                  // ジュース・お茶・アイスコーヒー
+  const iceCooler   = 4 + n*0.4;                    // クーラー保冷（板氷）※到着後は冷蔵庫が主力になる前提
+  const drinkIce = iceHiball+iceChuhai+iceMizuwari+iceWine+iceSoft;
+  const total = drinkIce + iceCooler;
+  // 炭酸水
+  const sodaHiball = adults*hiballGlasses*130*nights/1000; // L
+  const sodaChuhai = adults*chuhaiGlasses*150*nights/1000;
+  const sodaKids   = (people.teen+people.kid)*0.35*days;   // シークヮーサージュース用
+  const soda = sodaHiball+sodaChuhai+sodaKids;
+  const r1=v=>Math.round(v*10)/10;
+  return {adults,n,nights,days,hiballGlasses,chuhaiGlasses,mizuwariGlasses,
+    iceHiball:r1(iceHiball),iceChuhai:r1(iceChuhai),iceMizuwari:r1(iceMizuwari),
+    iceWine:r1(iceWine),iceSoft:r1(iceSoft),iceCooler:r1(iceCooler),
+    drinkIce:r1(drinkIce),total:r1(total),
+    rockBags:Math.ceil(drinkIce/1.1), blocks:Math.ceil(iceCooler/2),
+    soda:r1(soda), sodaBottles:Math.ceil(soda/1.5)};
+}
+
+function buildIce(){
+  const I = iceNumbers();
+  document.getElementById('iceCalc').innerHTML = `
+   <p class="note" style="margin-top:0">⚠ <b>ワイン・ウイスキー・チューハイ・ビールと酒種が広がったため、氷の必要量を計算し直しました。</b>
+   ハイボールとチューハイは1杯あたりの氷の使用量が水割りより多く（グラス一杯を氷で満たすため）、ここが効いてきます。</p>
+   <table>
+    <tr><th>用途</th><th>計算根拠</th><th>必要量</th></tr>
+    <tr><td><b>ハイボール</b></td><td>大人${I.adults}名 × ${I.hiballGlasses}杯/晩 × 氷160g × ${I.nights}晩<br><span style="font-size:11.5px;color:var(--dim)">グラスいっぱいに氷を詰めるのが基本。最も氷を食う</span></td><td><b>約 ${I.iceHiball} kg</b></td></tr>
+    <tr><td><b>チューハイ・サワー</b></td><td>大人${I.adults}名 × ${I.chuhaiGlasses}杯/晩 × 氷130g × ${I.nights}晩<br><span style="font-size:11.5px;color:var(--dim)">シークヮーサーサワー含む</span></td><td><b>約 ${I.iceChuhai} kg</b></td></tr>
+    <tr><td><b>泡盛の水割り・ロック</b></td><td>大人${I.adults}名 × ${I.mizuwariGlasses}杯/晩 × 氷110g × ${I.nights}晩</td><td><b>約 ${I.iceMizuwari} kg</b></td></tr>
+    <tr><td><b>ワインの氷冷</b></td><td>白・スパークリングをバケツで急冷する分</td><td><b>約 ${I.iceWine} kg</b></td></tr>
+    <tr><td><b>ソフトドリンク</b></td><td>${I.n}名 × 約280g/日 × ${I.days}日<br><span style="font-size:11.5px;color:var(--dim)">ジュース・麦茶・アイスコーヒー・冷茶</span></td><td><b>約 ${I.iceSoft} kg</b></td></tr>
+    <tr><td><b>クーラーボックス保冷用（板氷）</b></td><td>2ボックス分の底敷き＋日々の追い足し</td><td><b>約 ${I.iceCooler} kg</b></td></tr>
+    <tr><th>合計</th><th>―</th><th style="font-size:16px">約 ${I.total} kg</th></tr>
+   </table>
+   <p class="note" style="margin-top:10px"><b>買い方の目安：</b>
+    板氷（約2kg／溶けにくい）を <b>${I.blocks}枚</b>　＋　ロックアイス（1.1kg袋）を <b>${I.rockBags}袋</b>。<br>
+    一度には積めないので、<b>チェックイン当日に板氷${I.blocks}枚＋ロックアイス${Math.ceil(I.rockBags/2)}袋</b>を国頭スーパーで、
+    残りのロックアイス<b>${I.rockBags - Math.ceil(I.rockBags/2)}袋</b>を<b>8/16または8/17の15時までに追加購入</b>する2回に分けるのが現実的です。<br>
+    <b>製氷皿を2〜3枚持参して毎晩コテージの冷凍室で作れば、ロックアイスを2〜3袋減らせます。</b>グラス用の小さい氷はこれで十分まかなえます。</p>
+   <table style="margin-top:14px">
+    <tr><th>炭酸水の必要量</th><th>計算根拠</th><th>必要量</th></tr>
+    <tr><td>ハイボール＋チューハイの割り材</td><td>ハイボール130ml/杯・チューハイ150ml/杯 × ${I.nights}晩</td><td><b>約 ${Math.round((I.soda - (people.teen+people.kid)*0.35*I.days)*10)/10} L</b></td></tr>
+    <tr><td>子どものシークヮーサージュース</td><td>${people.teen+people.kid}名 × 約350ml/日 × ${I.days}日</td><td><b>約 ${Math.round((people.teen+people.kid)*0.35*I.days*10)/10} L</b></td></tr>
+    <tr><th>合計</th><th>1.5Lボトル換算</th><th style="font-size:15px">約 ${I.soda} L ＝ <b>${I.sodaBottles} 本</b></th></tr>
+   </table>
+   <div class="alert" style="margin-top:12px"><span class="t">⚠ 氷と炭酸の追加購入は「日中のみ」</span>
+    ご夫婦が飲酒される以上、夕方以降は誰も運転できません。<b>ハイボールを作ろうとして氷が無いことに夜21時に気づいても、翌朝まで手立てがありません。</b>
+    毎日15時に「氷と炭酸の残量確認」を習慣にしてください（下ごしらえリストに入れてあります）。<br>
+    <b>迷ったら多めに。</b>氷は溶けても水になるだけ、炭酸は余っても持ち帰れます。足りない損失のほうが圧倒的に大きい状況です。</div>`;
+}
+
+/* クーラーボックス容量配分 */
+function buildCapacity(){
+  const I = iceNumbers();
+  const n = headcount();
+  document.getElementById('capacityCalc').innerHTML = `
+   <p class="note" style="margin-top:0">酒種が増えてボトル類が増えたので、<b>2ボックスでは入り切らない可能性</b>があります。以下の配分で検討してください。</p>
+   <table>
+    <tr><th>ボックス</th><th>推奨容量</th><th>中身</th><th>開閉ルール</th></tr>
+    <tr><td><b>【A】生鮮ボックス</b></td><td><b>40〜50L</b></td>
+        <td>肉・魚介（冷凍）・乳製品・卵・島豆腐。<br>板氷 <b>${I.blocks}枚</b>と大型保冷剤はここへ</td>
+        <td style="color:var(--warn)"><b>1日1回だけ。</b>朝に今日の分をまとめて出す</td></tr>
+    <tr><td><b>【B】飲み物ボックス</b></td><td><b>35〜50L</b></td>
+        <td>ビール・チューハイ・白ワイン・炭酸水 <b>${I.sodaBottles}本</b>・水・お茶。<br>ロックアイスの一部</td>
+        <td style="color:var(--accent)">自由。子どもが自分で取れるように</td></tr>
+    <tr><td><b>【C】氷専用ボックス<br><span style="font-size:11.5px">（推奨・小型で可）</span></b></td><td><b>15〜25L</b></td>
+        <td>ロックアイス <b>${I.rockBags}袋</b>のうち未開封分。<br>グラス用の氷はここから</td>
+        <td style="color:var(--accent2)"><b>氷だけを入れると溶けにくい</b>。開閉は最小限に</td></tr>
+   </table>
+   <div class="go"><div class="h">💡 3つ目のボックスが無い場合の現実解</div>
+    <ul class="tight">
+     <li><b>コテージの冷凍室を「氷専用ボックス」として使う。</b>これが最も確実です。到着後すぐ生鮮を冷蔵庫へ移せば、クーラーボックスAが丸ごと空きます。</li>
+     <li>常温保存できるもの（赤ワイン・ウイスキー・泡盛・未開封の水・お茶のペットボトル）は<b>クーラーに入れない。</b>赤ワインとウイスキーを冷やす必要はありません。ここを間違えると容量を無駄にします。</li>
+     <li>発泡スチロール箱をひとつ用意して氷専用にするだけで、驚くほど楽になります。</li>
+    </ul></div>
+   <p class="note"><b>常温でよいもの（クーラーに入れない）：</b>
+    <span class="pill">赤ワイン</span><span class="pill">ウイスキー</span><span class="pill">泡盛</span><span class="pill">未開封の水・お茶</span>
+    <span class="pill">米・パン・乾物</span><span class="pill">ポーク缶</span><span class="pill">海ぶどう（⚠冷やすとしぼみます）</span>
+    <span class="pill">玉ねぎ・じゃがいも・かぼちゃ</span></p>`;
+}
+
+/* 保冷剤の量 */
+function buildCooler(){
+  const n = headcount();
+  const big = Math.max(4, Math.ceil(n*0.8));
+  const mid = Math.max(6, Math.ceil(n*1.4));
+  document.getElementById('coolerCalc').innerHTML = `
+   <table>
+    <tr><th>種類</th><th>数量の目安</th><th>役割</th></tr>
+    <tr><td>大型保冷剤（1kg級・長時間タイプ）</td><td><b>${big} 個</b></td><td>生鮮ボックスの底。移動中の主力</td></tr>
+    <tr><td>中型保冷剤（500g級）</td><td><b>${mid} 個</b></td><td>生鮮の上段＋川ピクニック用の保冷バッグへ</td></tr>
+    <tr><td>凍らせたペットボトル（500ml）</td><td><b>4 本</b></td><td>保冷剤兼・溶けたら飲める。すき間埋めに最適</td></tr>
+    <tr><td>板氷（現地調達）</td><td>上記の氷計算を参照</td><td>到着後の保冷の主力</td></tr>
+   </table>
+   <p class="note"><b>⚠ 保冷剤は出発の2日前から冷凍庫へ。</b>前日に入れても中心まで凍りません。冷凍した肉・魚そのものも強力な保冷剤になるので、
+   「凍った食材＋保冷剤＋板氷」の三層で運ぶのが最も長持ちします。到着後は<b>とにかく全部コテージの冷蔵庫へ移し</b>、
+   クーラーボックスは飲み物置き場へ役割を変えてください。</p>`;
+}
+
+/* ドリンク各種のレンダリング */
+function buildDrinks(){
+  document.getElementById('pairing').innerHTML = PAIRING.map(p=>`
+   <div class="meal">
+    <div class="mhead" style="border-left:5px solid ${p.color}">
+      <div class="mtitle" style="margin:0">${p.drink}</div></div>
+    <div class="mbody">
+      <p class="note" style="margin-top:0">💡 ${p.why}</p>
+      <h4 style="color:var(--accent)">⚡ BBQの合間につまむ（即席）</h4>
+      <div class="ing">${p.quick.map(x=>`<span>${x}</span>`).join('')}</div>
+      <h4 style="color:#c4a9f0">🌙 子どもが寝た後（じっくり）</h4>
+      <div class="ing">${p.slow.map(x=>`<span>${x}</span>`).join('')}</div>
+      <div class="otsu">${p.tip}</div>
+    </div></div>`).join('');
+
+  document.getElementById('localBooze').innerHTML = `<div class="card"><table>
+    <tr><th>銘柄・カテゴリ</th><th>なぜこれか</th><th>買える場所</th></tr>
+    ${LOCAL_BOOZE.map(b=>`<tr><td><b>${b[0]}</b></td><td>${b[1]}</td><td style="font-size:12.5px">${b[2]}</td></tr>`).join('')}
+   </table>
+   <p class="note">⚠ <b>買えるのは日中だけ。</b>道の駅ゆいゆい国頭は10:30〜18:00（お盆期間は17:00閉店の可能性）、国頭スーパーは9:00〜19:00。
+   飲み始めてからでは買いに行けないので、<b>チェックイン当日か、翌日の15時までに調達</b>してください。</p></div>`;
+
+  document.getElementById('scenes').innerHTML = '<div class="timeline">' + SCENES.map(s=>
+    `<div class="tl"><div class="tm" style="color:${s[2]}">${s[0]}</div><div class="td" style="color:var(--txt);font-size:13.5px">${s[1]}</div></div>`
+  ).join('') + '</div>';
+
+  const n = headcount(), adults = people.adult, days = 4;
+  const cups = Math.round(adults*2.5*days);          // コーヒー杯数
+  const beans = Math.ceil(cups*12/10)*10;            // g（1杯12g）
+  const teaCups = Math.round(n*2*days);
+  const leaves = Math.ceil(teaCups*3/10)*10;         // g（1杯3g）
+  document.getElementById('beanCalc').innerHTML = `<table>
+    <tr><th>品目</th><th>計算根拠</th><th>必要量</th></tr>
+    <tr><td><b>コーヒー豆（中細挽き）</b></td><td>大人${adults}名 × 約2.5杯/日 × ${days}日 ＝ 約${cups}杯<br>1杯あたり12g</td><td><b>約 ${beans} g</b><br><span style="font-size:11.5px;color:var(--dim)">200g袋なら${Math.ceil(beans/200)}袋</span></td></tr>
+    <tr><td><b>水出しコーヒー用（粗挽き）</b></td><td>1L仕込みあたり80g × 2回</td><td><b>約 160 g</b><br><span style="font-size:11.5px;color:var(--dim)">上記と別枠で。お茶パックも忘れずに</span></td></tr>
+    <tr><td><b>茶葉（奥みどり／煎茶）</b></td><td>${n}名 × 約2杯/日 × ${days}日 ＝ 約${teaCups}杯<br>1杯あたり3g</td><td><b>約 ${leaves} g</b><br><span style="font-size:11.5px;color:var(--dim)">⚠ 奥みどりは現地の奥共同店で購入推奨</span></td></tr>
+    <tr><td><b>さんぴん茶（ティーバッグ）</b></td><td>食中茶として。BBQの日は消費が増える</td><td><b>${Math.ceil(n*days*0.8)} 個</b><br><span style="font-size:11.5px;color:var(--dim)">ペットボトルとの併用が現実的</span></td></tr>
+    <tr><td><b>コーヒー・緑茶用の軟水</b></td><td>約1L/日 × ${days}日</td><td><b>${days} L</b><br><span style="font-size:11.5px;color:var(--dim)">⚠ 硬度50〜80mg/Lの国産を</span></td></tr>
+   </table>`;
+
+  document.getElementById('kidsDrink').innerHTML =
+    '<div class="ing">'+KIDS_DRINK.map(i=>`<span>${i[0]} ${q(i[1],i[2],i[4])}</span>`).join('')+'</div>'
+    + '<ul class="tight" style="margin-top:12px">'+KIDS_DRINK.filter(i=>i[3]).map(i=>`<li><b>${i[0]}</b>：${i[3]}</li>`).join('')+'</ul>';
+}
+
+/* ============================================================
+   子どもと選ぶコーナー
+   ============================================================ */
+const ROLES = [
+ {icon:'🔥', name:'火起こし長官', desc:'炭に火をつけて、白くなるまで見張る。この日のキャプテン'},
+ {icon:'🍢', name:'串マイスター', desc:'つくねをこねて、串に刺す。焼き加減も見る'},
+ {icon:'🥤', name:'ドリンク長',   desc:'全員の飲み物を作って配る。氷の残りも管理'},
+];
+const ROLE_DAYS = ['8/15(土) 夜','8/16(日) 夜','8/17(月) 夜'];
+
+/* ガチャ：すべて買い出しリストにある食材だけ */
+const GACHA = [
+ {em:'🌽', n:'焼きとうもろこし',       d:'皮ごと炭火に入れて蒸し焼き。甘みが段違い'},
+ {em:'🧈', n:'ホタテのバター醤油焼き', d:'貝柱にバターをひとかけ、最後に醤油をひとたらし'},
+ {em:'🍢', n:'厚揚げ島豆腐の炭火焼き', d:'外はカリッ、中はふわっ。生姜醤油で'},
+ {em:'🎃', n:'かぼちゃのホイル焼き',   d:'ホイルに包んで熾火の端へ。ほくほく'},
+ {em:'🍙', n:'焼きおにぎり',           d:'醤油を塗って網へ。締めの定番'},
+ {em:'🌭', n:'切り込みソーセージ',     d:'斜めに切れ目を入れると花みたいに開く'},
+ {em:'🍄', n:'しめじのホイル蒸し',     d:'バターと塩だけ。うまみが濃い'},
+ {em:'🫑', n:'ピーマンの丸ごと焼き',   d:'切らずに焼くと苦くない。中が蒸される'},
+];
+const DRINKS = [
+ {em:'🍋', n:'シークヮーサーソーダ',   d:'原液1：炭酸5。はちみつでお好みの甘さに'},
+ {em:'🍵', n:'キンキンのさんぴん茶',   d:'氷たっぷり。沖縄の定番'},
+ {em:'🧊', n:'シークヮーサー冷茶',     d:'濃いめのお茶を氷で急冷、原液を数滴'},
+ {em:'🌾', n:'氷たっぷり麦茶',         d:'川あがりの体に一番しみる'},
+ {em:'🥛', n:'乳酸菌飲料',             d:'冷やしておいたやつ'},
+ {em:'🫧', n:'炭酸水シークヮーサー割り', d:'甘くないさっぱり系。大人の味'},
+];
+/* 串の具材：8/16夕食の買い出しリストの範囲内 */
+const SKEWER = [
+ {em:'🍡', n:'鶏つくね',   t:'meat'}, {em:'🥓', n:'豚バラ',   t:'meat'},
+ {em:'🌭', n:'ソーセージ', t:'meat'}, {em:'🫑', n:'ピーマン', t:'veg'},
+ {em:'🧅', n:'長ねぎ',     t:'veg'},  {em:'🍄', n:'しめじ',   t:'mush'},
+ {em:'🍄', n:'エリンギ',   t:'mush'}, {em:'🍅', n:'ミニトマト', t:'veg'},
+ {em:'🎃', n:'かぼちゃ',   t:'veg'},
+];
+const VOTES = [
+ {day:'8/16(日) の朝', a:{em:'🍙',n:'ポーク玉子おにぎり',d:'沖縄の朝の定番。自分で握れる'},
+                        b:{em:'🥪',n:'ベーコンエッグサンド',d:'パン派ならこっち'}},
+ {day:'8/17(月) の朝', a:{em:'🍞',n:'フレンチトースト',  d:'前の夜に浸けておくやつ'},
+                        b:{em:'🥞',n:'ホットケーキ',      d:'焼くのが楽しい'}},
+ {day:'8/18(火) の朝', a:{em:'🍛',n:'カレートースト',    d:'前夜のカレーの残りで'},
+                        b:{em:'🍕',n:'ピザトースト',      d:'ケチャップとチーズで'}},
+];
+
+let playState = {names:['お兄ちゃん','双子・兄','双子・弟'], roles:null, gacha:null,
+                 gachaDay:0, drinks:null, skewers:{}, skewerWho:0, skewerPick:[], votes:{}};
+const AVATARS=['🧒','👦','👦'];
+
+function loadPlay(){
+  if(!STORAGE_OK) return;
+  try{ const s=localStorage.getItem('okuyanbaru2026_play');
+       if(s) playState=Object.assign(playState, JSON.parse(s)); }catch(e){}
+}
+function savePlay(){
+  if(!STORAGE_OK) return;
+  try{ localStorage.setItem('okuyanbaru2026_play', JSON.stringify(playState)); }catch(e){}
+}
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function buildKidNames(){
+  document.getElementById('kidNames').innerHTML =
+   playState.names.map((n,i)=>`<button class="kidchip k${i}" onclick="renameKid(${i})">
+     <span class="av">${AVATARS[i]}</span>${n} <span style="font-size:11px;color:var(--dim)">✎</span></button>`).join('')
+   + '<p class="note" style="margin:8px 0 0">名前をタップすると変えられます。実際の呼び名にすると盛り上がります。</p>';
+}
+function renameKid(i){
+  const v = prompt('名前を入力してください', playState.names[i]);
+  if(v && v.trim()){ playState.names[i]=v.trim().slice(0,10); savePlay(); buildPlay(); }
+}
+
+/* ① 担当決め：ラテン方格で「3日で全員が全役を1回ずつ」を保証 */
+function drawRoles(){
+  const kidOrder = shuffle([0,1,2]);
+  const roleOrder = shuffle([0,1,2]);
+  const table = ROLE_DAYS.map((_,day)=>
+    kidOrder.map((kid,idx)=>({kid, role: roleOrder[(idx+day)%3]}))
+  );
+  playState.roles = table; savePlay();
+  animateThen('roleOut', ()=>renderRoles(true));
+}
+function renderRoles(anim){
+  const el=document.getElementById('roleOut');
+  if(!playState.roles){ el.innerHTML='<p class="note">まだ引いていません。上のボタンを押してください。</p>'; return; }
+  let h='';
+  playState.roles.forEach((day,di)=>{
+    h+=`<div class="resultcard" style="${anim?`animation-delay:${di*0.14}s`:'animation:none;opacity:1;transform:none'}">
+      <div class="rk" style="color:var(--accent2)">${ROLE_DAYS[di]}</div>`;
+    day.forEach(a=>{
+      const r=ROLES[a.role];
+      h+=`<div style="display:flex;gap:9px;align-items:flex-start;margin:7px 0">
+        <span style="font-size:24px">${r.icon}</span>
+        <div><b style="font-size:15px">${playState.names[a.kid]}</b> ＝ <b style="color:var(--accent)">${r.name}</b>
+        <div class="rd">${r.desc}</div></div></div>`;
+    });
+    h+='</div>';
+  });
+  h+=`<div class="go" style="margin-top:10px"><div class="h">✅ 公平さの確認</div>
+    <div style="font-size:13px">${playState.names.map((n,k)=>{
+      const got=playState.roles.map(day=>ROLES[day.find(a=>a.kid===k).role].icon).join(' ');
+      return `<b>${n}</b>：${got}`;}).join(' ／ ')}
+    <br><span style="color:var(--dim)">3人とも 🔥🍢🥤 を1回ずつ。順番が違うだけです。</span></div></div>`;
+  el.innerHTML=h;
+  renderLog();
+}
+
+/* 演出：スロットが回ってから結果を出す */
+function animateThen(id, done){
+  const el=document.getElementById(id);
+  const faces=['🎲','🎯','✨','🔥','🍢','🥤','🎁','🌟'];
+  el.innerHTML='<div class="slot"><span class="rolling" id="__spin">🎲</span></div>';
+  const sp=document.getElementById('__spin');
+  let i=0;
+  const t=setInterval(()=>{ sp.textContent=faces[i++%faces.length]; },90);
+  setTimeout(()=>{ clearInterval(t); done(); }, 900);
+}
+
+/* ② ガチャ：重複なしで3人ぶん引く */
+function buildGachaDay(){
+  const days=['8/15(土) の夜','8/16(日) の夜','8/17(月) の夜'];
+  document.getElementById('gachaDay').innerHTML =
+   '<div class="picker">'+days.map((d,i)=>
+    `<button class="pick ${playState.gachaDay===i?'on':''}" onclick="playState.gachaDay=${i};savePlay();buildPlay()">${d}</button>`
+   ).join('')+'</div>';
+}
+function drawGacha(){
+  const pool=shuffle(GACHA).slice(0,3);
+  playState.gacha=pool.map((g,i)=>({kid:i,item:g})); savePlay();
+  animateThen('gachaOut', ()=>renderGacha(true));
+}
+function renderGacha(anim){
+  const el=document.getElementById('gachaOut');
+  if(!playState.gacha){ el.innerHTML='<p class="note">まだ回していません。</p>'; return; }
+  el.innerHTML = playState.gacha.map((g,i)=>
+   `<div class="resultcard r${i}" style="${anim?`animation-delay:${i*0.16}s`:'animation:none;opacity:1;transform:none'}">
+     <div class="rk" style="color:var(--accent)">${AVATARS[i]} ${playState.names[i]} の1品</div>
+     <div class="rv">${g.item.em} ${g.item.n}</div>
+     <div class="rd">${g.item.d}</div></div>`).join('')
+   + '<p class="note">⚠ 3人とも別のものが出る仕組みです。引いた人が焼く担当。</p>';
+  renderLog();
+}
+
+/* ③ 串ビルダー */
+function buildSkewer(){
+  document.getElementById('skewerWho').innerHTML =
+   '<div class="picker">'+playState.names.map((n,i)=>
+     `<button class="pick ${playState.skewerWho===i?'on':''}" onclick="playState.skewerWho=${i};playState.skewerPick=[];savePlay();buildPlay()">
+      <span class="em">${AVATARS[i]}</span>${n}</button>`).join('')+'</div>';
+  const picked=playState.skewerPick||[];
+  document.getElementById('skewerPick').innerHTML =
+   `<p class="note" style="margin:10px 0 4px">具材を3つえらぶ（${picked.length}/3）</p>`
+   +'<div class="picker">'+SKEWER.map((s,i)=>{
+     const on=picked.includes(i);
+     const full=picked.length>=3 && !on;
+     return `<button class="pick ${on?'on':''}" ${full?'disabled':''} onclick="pickSkewer(${i})">
+       <span class="em">${s.em}</span>${s.n}${on?' <b>'+(picked.indexOf(i)+1)+'</b>':''}</button>`;
+   }).join('')+'</div>'
+   + (picked.length===3?'<button class="bigbtn alt" onclick="makeSkewer()">🍢 この串を完成させる</button>':'');
+  renderSkewerOut();
+}
+function pickSkewer(i){
+  const p=playState.skewerPick||[];
+  const at=p.indexOf(i);
+  if(at>=0) p.splice(at,1); else if(p.length<3) p.push(i);
+  playState.skewerPick=p; savePlay(); buildPlay();
+}
+function makeSkewer(){
+  const p=playState.skewerPick, items=p.map(i=>SKEWER[i]);
+  const meat=items.filter(x=>x.t==='meat').length;
+  const veg =items.filter(x=>x.t==='veg').length;
+  const mush=items.filter(x=>x.t==='mush').length;
+  let name, cm, tag;
+  if(meat===3){ name='肉・肉・肉スペシャル'; tag='ごほうび系'; cm='野菜はどこへ行ったのか。でも今日はそれでいい。焼くのに少し時間がかかるので、火の弱いところでじっくり。'; }
+  else if(veg===3){ name='やんばる畑の一本'; tag='さっぱり系'; cm='野菜だけの串は火の通りが早い。焦がさないように端のほうで。肉のあとに食べると口がさっぱりします。'; }
+  else if(mush>=2){ name='きのこの森'; tag='うまみ系'; cm='きのこは焼くと water が出てうまみが濃くなる。塩だけで十分。'; }
+  else if(meat===2&&veg===1){ name='王道バランス串'; tag='鉄板'; cm='いちばん外さない組み合わせ。肉の脂を野菜が受け止めてくれます。'; }
+  else if(meat===1&&veg===2){ name='さっぱり肉入り'; tag='バランス'; cm='肉の味が野菜にうつって、野菜のほうがおいしくなるパターン。'; }
+  else { name='オリジナル創作串'; tag='挑戦者'; cm='この組み合わせは誰も試していない。うまくいったら家の定番にしよう。'; }
+  if(items.some(x=>x.n==='ミニトマト')) cm+=' ミニトマトは焼くと甘くなるけど、かじると中が熱いので注意。';
+  if(items.some(x=>x.n==='鶏つくね')) cm+=' つくねはよく練るほど弾力が出ます。';
+  if(items.some(x=>x.n==='かぼちゃ')) cm+=' かぼちゃは火が通りにくいので、薄めに切っておくこと。';
+  playState.skewers[playState.skewerWho]={items:items.map(x=>({em:x.em,n:x.n})),name,cm,tag};
+  playState.skewerPick=[]; savePlay();
+  animateThen('skewerOut', ()=>{ buildPlay(); });
+}
+function renderSkewerOut(){
+  const el=document.getElementById('skewerOut');
+  const keys=Object.keys(playState.skewers||{});
+  if(!keys.length){ el.innerHTML='<p class="note">まだ作っていません。</p>'; return; }
+  el.innerHTML = keys.map(k=>{
+    const s=playState.skewers[k];
+    return `<div class="resultcard r${k}" style="animation:none;opacity:1;transform:none">
+      <div class="rk" style="color:var(--accent)">${AVATARS[k]} ${playState.names[k]} の串　<span style="color:var(--accent2)">［${s.tag}］</span></div>
+      <div class="skew">${s.items.map(i=>i.em).join('')}</div>
+      <div class="rv">${s.name}</div>
+      <div class="rd">${s.items.map(i=>i.n).join(' → ')}</div>
+      <div class="rd" style="color:var(--txt);margin-top:6px">${s.cm}</div></div>`;
+  }).join('');
+}
+
+/* ④ ドリンク抽選（重複なし） */
+function drawDrink(){
+  const pool=shuffle(DRINKS).slice(0,3);
+  playState.drinks=pool; savePlay();
+  animateThen('drinkOut', ()=>renderDrink(true));
+}
+function renderDrink(anim){
+  const el=document.getElementById('drinkOut');
+  if(!playState.drinks){ el.innerHTML='<p class="note">まだ抽選していません。</p>'; return; }
+  el.innerHTML=playState.drinks.map((d,i)=>
+   `<div class="resultcard r${i}" style="${anim?`animation-delay:${i*0.16}s`:'animation:none;opacity:1;transform:none'}">
+     <div class="rk" style="color:var(--accent)">${AVATARS[i]} ${playState.names[i]}</div>
+     <div class="rv">${d.em} ${d.n}</div><div class="rd">${d.d}</div></div>`).join('')
+   +'<p class="note">⚠ 川あがりは水分補給が最優先。まず経口補水液か麦茶を飲んでから、ごほうびの一杯へ。</p>';
+  renderLog();
+}
+
+/* ⑤ 朝ごはん投票 */
+function vote(vi, side){
+  const v=playState.votes[vi]||{a:0,b:0};
+  v[side]++; playState.votes[vi]=v; savePlay(); buildVotes(); renderLog();
+}
+function resetVote(vi){ delete playState.votes[vi]; savePlay(); buildVotes(); renderLog(); }
+function buildVotes(){
+  document.getElementById('voteOut').innerHTML = VOTES.map((V,vi)=>{
+    const v=playState.votes[vi]||{a:0,b:0};
+    const tot=v.a+v.b;
+    const pa=tot? Math.round(v.a/tot*100):50, pb=100-pa;
+    let winner='';
+    if(tot>0){
+      if(v.a>v.b) winner=`<b style="color:var(--accent)">→ ${V.a.em} ${V.a.n} に決定</b>`;
+      else if(v.b>v.a) winner=`<b style="color:var(--accent)">→ ${V.b.em} ${V.b.n} に決定</b>`;
+      else {
+        const cap = playState.roles ? playState.names[playState.roles[Math.min(vi,2)].find(a=>a.role===0).kid] : 'その夜のキャプテン';
+        winner=`<b style="color:var(--accent2)">同数！ ${cap}（火起こし長官）が決めます</b>`;
+      }
+    }
+    return `<div class="voterow">
+      <div style="font-weight:700;margin-bottom:2px">${V.day}</div>
+      <div class="vbtns">
+        <button class="vb ${tot&&v.a>v.b?'win':''}" onclick="vote(${vi},'a')">${V.a.em} ${V.a.n}<div style="font-size:11.5px;font-weight:400;color:var(--dim)">${V.a.d}</div></button>
+        <button class="vb ${tot&&v.b>v.a?'win':''}" onclick="vote(${vi},'b')">${V.b.em} ${V.b.n}<div style="font-size:11.5px;font-weight:400;color:var(--dim)">${V.b.d}</div></button>
+      </div>
+      <div class="tally">${'●'.repeat(v.a)}<span style="color:var(--dim)">${tot?' ':''}</span>${'○'.repeat(v.b)}</div>
+      <div class="votebar"><i style="width:${pa}%;background:#2f6b4c;color:#cfe">${v.a?v.a+'票':''}</i><i style="width:${pb}%;background:#3a4a66;color:#cfe">${v.b?v.b+'票':''}</i></div>
+      <div style="font-size:13px;text-align:center">${winner||'<span style="color:var(--dim)">タップして投票（5人ぶん）</span>'}</div>
+      ${tot?`<div style="text-align:right"><button class="resetbtn" onclick="resetVote(${vi})">やり直す</button></div>`:''}
+    </div>`;
+  }).join('');
+}
+
+/* 記録 */
+function logText(){
+  let L=['【奥やんばるの里 3泊4日・子どもと選んだ記録】',''];
+  if(playState.roles){ L.push('■ 担当');
+    playState.roles.forEach((day,di)=>{ L.push(' '+ROLE_DAYS[di]);
+      day.forEach(a=>L.push('   '+playState.names[a.kid]+' … '+ROLES[a.role].name)); }); L.push(''); }
+  if(playState.gacha){ L.push('■ 今日の一品ガチャ');
+    playState.gacha.forEach((g,i)=>L.push('   '+playState.names[i]+' … '+g.item.n)); L.push(''); }
+  const sk=Object.keys(playState.skewers||{});
+  if(sk.length){ L.push('■ 串');
+    sk.forEach(k=>L.push('   '+playState.names[k]+' …「'+playState.skewers[k].name+'」('+playState.skewers[k].items.map(i=>i.n).join('+')+')')); L.push(''); }
+  if(playState.drinks){ L.push('■ ごほうびドリンク');
+    playState.drinks.forEach((d,i)=>L.push('   '+playState.names[i]+' … '+d.n)); L.push(''); }
+  const vk=Object.keys(playState.votes||{});
+  if(vk.length){ L.push('■ 朝ごはん投票');
+    vk.forEach(vi=>{ const v=playState.votes[vi],V=VOTES[vi];
+      L.push('   '+V.day+'：'+V.a.n+' '+v.a+'票 / '+V.b.n+' '+v.b+'票'
+        +(v.a===v.b?'（同数）':' → '+(v.a>v.b?V.a.n:V.b.n))); }); }
+  return L.join('\n');
+}
+function renderLog(){
+  const has = playState.roles||playState.gacha||playState.drinks
+           || Object.keys(playState.skewers||{}).length || Object.keys(playState.votes||{}).length;
+  document.getElementById('logOut').innerHTML = has
+    ? '<pre style="white-space:pre-wrap;font-size:13px;margin:0;font-family:inherit">'+logText().replace(/</g,'&lt;')+'</pre>'
+    : '<p class="note" style="margin:0">まだ何も決まっていません。上のコーナーで遊ぶと、ここに記録がたまります。</p>';
+  document.getElementById('logNote').innerHTML = STORAGE_OK
+    ? '💾 記録はこの端末に自動保存されます。'
+    : '⚠ このブラウザでは自動保存が使えません。<b>「記録をコピー」でメモアプリに貼り付けて残してください。</b>';
+}
+function copyLog(){
+  const t=logText();
+  const done=()=>alert('記録をコピーしました。メモアプリなどに貼り付けられます。');
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(done, ()=>fallbackCopy(t,done));
+  } else fallbackCopy(t,done);
+}
+function fallbackCopy(t,done){
+  const ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); done(); }catch(e){ prompt('この文章をコピーしてください', t); }
+  document.body.removeChild(ta);
+}
+function resetPlay(){
+  if(!confirm('担当・ガチャ・串・ドリンク・投票をすべて消します。よろしいですか？')) return;
+  playState={names:playState.names, roles:null, gacha:null, gachaDay:0, drinks:null,
+             skewers:{}, skewerWho:0, skewerPick:[], votes:{}};
+  savePlay(); buildPlay();
+}
+function buildPlay(){
+  buildKidNames(); buildGachaDay(); buildSkewer(); buildVotes();
+  renderRoles(false); renderGacha(false); renderDrink(false); renderLog();
+}
+
+/* チェックリスト共通 */
+const checkState = {};
+let STORAGE_OK = null;   // null=未判定 / true=保存できる / false=できない
+
+function testStorage(){
+  try{
+    const k='__oku_test__';
+    localStorage.setItem(k,'1');
+    if(localStorage.getItem(k)!=='1') throw new Error('readback failed');
+    localStorage.removeItem(k);
+    STORAGE_OK = true;
+  }catch(e){ STORAGE_OK = false; }
+  return STORAGE_OK;
+}
+/* 保険その2：チェック状態をURLの#に載せる。
+   localStorage が使えない環境でも、リロード・ブックマークで復元できる */
+function stateToHash(){
+  const on = Object.keys(checkState).filter(k=>checkState[k]);
+  if(!on.length) return '';
+  try{ return 'c=' + btoa(on.join(',')).replace(/=+$/,''); }catch(e){ return ''; }
+}
+function hashToState(){
+  try{
+    const m = (location.hash||'').match(/c=([A-Za-z0-9+/]+)/);
+    if(!m) return false;
+    let b = m[1]; while(b.length%4) b+='=';
+    atob(b).split(',').forEach(k=>{ if(k) checkState[k]=true; });
+    return true;
+  }catch(e){ return false; }
+}
+function syncHash(){
+  const h = stateToHash();
+  // ① replaceState（履歴を汚さない）
+  try{
+    history.replaceState(null,'', location.pathname + location.search + (h?'#'+h:''));
+    return;
+  }catch(e){ /* file:// などで拒否される場合がある */ }
+  // ② 直接 location.hash を書き換える（file:// でも動く）
+  try{ if((location.hash||'').replace(/^#/,'') !== h) location.hash = h; }catch(e){}
+}
+
+function loadState(){
+  testStorage();
+  if(STORAGE_OK){
+    try{ const s=localStorage.getItem('okuyanbaru2026'); if(s) Object.assign(checkState, JSON.parse(s)); }
+    catch(e){ STORAGE_OK=false; }
+  }
+  hashToState();   // #があれば上書き（別端末へ引き継ぐ場合に有効）
+}
+function saveState(){
+  if(STORAGE_OK){
+    try{ localStorage.setItem('okuyanbaru2026', JSON.stringify(checkState)); }
+    catch(e){ STORAGE_OK=false; renderStorageBanner(); }
+  }
+  syncHash();      // ストレージの可否にかかわらず常にURLへ反映
+}
+function renderStorageBanner(){
+  const html = STORAGE_OK
+   ? '<div class="storage ok">💾 <b>チェックは自動保存されます。</b>ページを閉じても、同じ端末の同じブラウザで開き直せば残ります。'
+     + 'あわせてURLにも記録しているので、<b>ブックマークすれば別の端末へも引き継げます</b>。'
+     + '　<button class="resetbtn" style="margin-left:6px" onclick="wipeAll()">保存データを全消去</button></div>'
+   : '<div class="storage ng">⚠ <b>このブラウザでは自動保存（localStorage）が使えません。</b>'
+     + 'シークレットタブ、または端末の設定によるものです。<br>'
+     + '<b>代わりにURLの末尾（#以降）へチェック状態を記録しています。</b>'
+     + 'リロードしても消えませんが、<b>閉じる前に必ずブックマークしてください</b>（Chromeメニュー →☆）。'
+     + 'ブックマークから開き直せばチェックが復元されます。通常タブで開き直せば自動保存も有効になります。</div>';
+  document.querySelectorAll('.storageSlot').forEach(el=>el.innerHTML = html);
+}
+function wipeAll(){
+  if(!confirm('すべてのチェック（買い出し・持ち物・下ごしらえ）を消去します。よろしいですか？')) return;
+  Object.keys(checkState).forEach(k=>delete checkState[k]);
+  try{ localStorage.removeItem('okuyanbaru2026'); }catch(e){}
+  renderAll();
+}
+
+/* 表をスクロール可能なラッパーで包む（スマホ対策） */
+function wrapTables(root){
+  (root||document).querySelectorAll('table').forEach(t=>{
+    if(t.parentNode && t.parentNode.classList && t.parentNode.classList.contains('tw')) return;
+    const w = document.createElement('div');
+    w.className = 'tw';
+    t.parentNode.insertBefore(w, t);
+    w.appendChild(t);
+    const hint = document.createElement('div');
+    hint.className = 'swipe';
+    hint.textContent = '← 横にスワイプできます →';
+    w.parentNode.insertBefore(hint, w.nextSibling);
+  });
+}
+
+function chkRow(id, name, qty, hint, ownedTag){
+  const on = checkState[id] ? ' done':'';
+  return `<label class="chk${on}" data-id="${id}">
+    <input type="checkbox" ${checkState[id]?'checked':''} onchange="toggleChk(this)">
+    <span class="nm">${name}${ownedTag||''}${hint?`<span class="hint">${hint}</span>`:''}</span>
+    ${qty?`<span class="qt">${qty}</span>`:''}</label>`;
+}
+function toggleChk(inp){
+  const lb = inp.closest('.chk');
+  checkState[lb.dataset.id] = inp.checked;
+  lb.classList.toggle('done', inp.checked);
+  saveState(); updateBars();
+}
+function clearChecks(prefix){
+  Object.keys(checkState).forEach(k=>{ if(k.indexOf(prefix+'-')===0) delete checkState[k]; });
+  saveState(); renderAll();
+}
+function toggleAllCat(prefix, closed){
+  document.querySelectorAll('#'+(prefix==='shop'?'shopList':prefix)+' .catbox')
+    .forEach(b=>b.classList.toggle('closed', closed));
+}
+
+function buildShop(){
+  document.getElementById('shopList').innerHTML = SHOP.map((c,ci)=>{
+    const rows = c.items.map((it,ii)=>{
+      const id = 'shop-'+ci+'-'+ii;
+      const scale = it[4]===false ? false : true;
+      const qty = fmt(it[1], it[2], scale);
+      return chkRow(id, it[0], qty, it[3]);
+    }).join('');
+    const badge = c.pre
+      ? '<span class="owned" style="background:#2a2416;color:var(--accent2);border-color:#4a3f20">事前購入</span>'
+      : '<span class="owned" style="background:#16333f;color:var(--blue);border-color:#28596e">現地調達</span>';
+    return `<div class="catbox"><div class="cathd" onclick="this.parentNode.classList.toggle('closed')">
+      <span>${c.cat} ${badge}</span><span class="cnt">${c.items.length}品 ▾</span></div>
+      <div class="catbody">${rows}</div></div>`;
+  }).join('');
+}
+
+function buildGear(){
+  document.getElementById('gearList').innerHTML = GEAR.map((c,ci)=>{
+    const rows = c.items.map((it,ii)=>{
+      const id='gear-'+ci+'-'+ii;
+      let tag='';
+      if(it[1]==='owned') tag='<span class="owned">所持済</span>';
+      if(it[1]==='maybe') tag='<span class="owned" style="background:#2a2416;color:var(--accent2);border-color:#4a3f20">あれば</span>';
+      return chkRow(id, it[0], '', it[2], tag);
+    }).join('');
+    return `<div class="catbox"><div class="cathd" onclick="this.parentNode.classList.toggle('closed')">
+      <span>${c.cat}</span><span class="cnt">${c.items.length}項目 ▾</span></div>
+      <div class="catbody">${rows}</div></div>`;
+  }).join('');
+}
+
+function buildPrep(){
+  document.getElementById('prepList').innerHTML = PREP.map((c,ci)=>{
+    const rows = c.items.map((it,ii)=>chkRow('prep-'+ci+'-'+ii, it[0], '', it[1])).join('');
+    return `<div class="catbox"><div class="cathd" onclick="this.parentNode.classList.toggle('closed')">
+      <span>${c.cat}</span><span class="cnt">${c.items.length}項目 ▾</span></div>
+      <div class="catbody">${rows}</div></div>`;
+  }).join('');
+}
+
+function countPrefix(p){
+  let t=0,d=0;
+  document.querySelectorAll('.chk').forEach(l=>{ if(l.dataset.id.indexOf(p+'-')===0){ t++; if(checkState[l.dataset.id]) d++; }});
+  return [d,t];
+}
+function updateBars(){
+  [['shop','shopBar','shopCount'],['gear','gearBar','gearCount'],['prep','prepBar','prepCount']].forEach(x=>{
+    const [d,t]=countPrefix(x[0]);
+    const bar=document.getElementById(x[1]), lbl=document.getElementById(x[2]);
+    if(bar) bar.style.width = t? (d/t*100)+'%' : '0%';
+    if(lbl) lbl.textContent = d+' / '+t;
+  });
+}
+
+function renderAll(){
+  document.getElementById('n-adult').textContent = people.adult;
+  document.getElementById('n-teen').textContent  = people.teen;
+  document.getElementById('n-kid').textContent   = people.kid;
+  document.getElementById('pTotal').textContent  = headcount();
+  document.getElementById('pAE').textContent     = Math.round(ae()*10)/10;
+  buildMeals(); buildRiver(); buildIce(); buildCooler(); buildCapacity(); buildDrinks();
+  buildShop(); buildGear(); buildPrep(); updateBars();
+  renderStorageBanner();
+  wrapTables();
+}
+
+loadState(); loadPlay();
+buildTabs(); buildPeople(); buildTimeline(); renderAll(); buildPlay();
+
+/* Service Worker（https配信時のみ。file:// では登録されない） */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
+</script>
+</body>
+</html>
