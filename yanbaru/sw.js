@@ -2,7 +2,7 @@
    キャッシュ名にバージョンを付け、activate時に古いものを必ず削除する。
    更新時は CACHE の日付部分を上げるだけでよい。 */
 const PREFIX = 'yanbaru-';
-const CACHE  = PREFIX + 'v1-2026-08-07';
+const CACHE  = PREFIX + 'v3-2026-08-09b';
 
 /* スコープ配下の相対パスで登録する（サブフォルダ配信に対応） */
 const ASSETS = [
