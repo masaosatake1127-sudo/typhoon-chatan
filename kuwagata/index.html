@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#123524">
+<meta name="description" content="沖縄・国頭村やんばるで、クワガタ採りと小魚釣りを安全に・合法的に楽しむための子ども向けフィールドガイド。オフライン動作。">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="やんばる図鑑">
+<meta name="mobile-web-app-capable" content="yes">
+<title>やんばる クワガタ＆さかな ずかん</title>
+<style>
+:root{
+  --bg:#0d1f16; --bg2:#14301f; --card:#1b3d29; --card2:#22492f;
+  --line:#2f6642; --txt:#eaf6ee; --sub:#a9cdb5;
+  --gold:#f2c14e; --gold2:#ffdc7a;
+  --red:#e5484d; --redbg:#3a1416; --redline:#8f2226;
+  --blue:#4aa3df; --bluebg:#12293a;
+  --green:#57c98a;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--txt);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+  font-size:16px; line-height:1.75; padding-bottom:86px;
+  -webkit-text-size-adjust:100%;
+}
+rt{font-size:.5em; color:var(--sub); font-weight:400}
+h1,h2,h3{line-height:1.45; margin:0}
+a{color:var(--gold)}
+button{font-family:inherit}
+
+/* header */
+header{
+  position:sticky; top:0; z-index:50;
+  background:linear-gradient(180deg,#0d1f16 70%,rgba(13,31,22,.0));
+  padding:12px 14px 10px;
+}
+.brand{display:flex; align-items:center; gap:10px}
+.brand h1{font-size:19px; letter-spacing:.02em}
+.brand .sub{font-size:11px; color:var(--sub); font-weight:400; display:block; letter-spacing:.06em}
+.logo{width:38px;height:38px;flex:0 0 38px}
+
+/* page */
+main{padding:0 14px; max-width:680px; margin:0 auto}
+section{display:none; animation:fade .22s ease}
+section.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; margin:12px 0}
+.card h2{font-size:17px; margin-bottom:8px}
+.card h3{font-size:15px; margin:14px 0 4px; color:var(--gold2)}
+.card p{margin:6px 0; font-size:15px}
+.card ul{margin:6px 0; padding-left:1.15em}
+.card li{margin:4px 0; font-size:15px}
+.muted{color:var(--sub); font-size:13px; line-height:1.6}
+
+.danger{background:var(--redbg); border:2px solid var(--redline)}
+.danger h2{color:#ff9a9d}
+.warn{background:#3a2e12; border:1px solid #8a6a1e}
+.warn h2{color:var(--gold2)}
+.ok{background:#12331f; border:1px solid #2f7a48}
+.ok h2{color:var(--green)}
+.info{background:var(--bluebg); border:1px solid #2b587a}
+.info h2{color:#8fd0ff}
+
+.pill{display:inline-block; font-size:11px; padding:3px 9px; border-radius:999px; margin:2px 4px 2px 0; font-weight:700; letter-spacing:.03em}
+.p-no{background:var(--red); color:#fff}
+.p-ok{background:var(--green); color:#06280f}
+.p-care{background:var(--gold); color:#3a2a00}
+.p-tag{background:#2b4d38; color:var(--sub)}
+
+.big{font-size:20px; font-weight:800; line-height:1.5}
+.huge{font-size:26px; font-weight:900; color:#ff9a9d; line-height:1.45}
+
+/* nav */
+nav{
+  position:fixed; left:0; right:0; bottom:0; z-index:60;
+  display:flex; background:#0a1811; border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+nav button{
+  flex:1; background:none; border:0; color:var(--sub);
+  padding:8px 2px 9px; font-size:10.5px; cursor:pointer; line-height:1.3;
+}
+nav button svg{display:block; margin:0 auto 2px; width:23px; height:23px}
+nav button.on{color:var(--gold)}
+nav button.on svg{filter:drop-shadow(0 0 5px rgba(242,193,78,.5))}
+
+/* beetle list */
+.bug{background:var(--card); border:1px solid var(--line); border-radius:16px; margin:12px 0; overflow:hidden}
+.bug.no{border:2px solid var(--redline); background:var(--redbg)}
+.bug-head{display:flex; gap:12px; align-items:center; padding:12px; cursor:pointer}
+.bug-art{width:96px; height:96px; flex:0 0 96px; background:#0f2418; border-radius:12px; border:1px solid var(--line)}
+.bug.no .bug-art{background:#25090b; border-color:var(--redline)}
+.bug-art>svg{display:block; width:100%; height:100%}
+#others div>svg{display:block; width:100%; height:100%}
+.fart>svg{display:block; width:100%; height:100%}
+.bug-name{flex:1; min-width:0}
+.bug-name .jp{font-size:16.5px; font-weight:800; line-height:1.4}
+.bug-name .size{font-size:12.5px; color:var(--sub); margin-top:2px}
+.chev{color:var(--sub); font-size:13px; flex:0 0 auto}
+.bug-body{display:none; padding:0 13px 14px; border-top:1px dashed var(--line)}
+.bug-body.on{display:block}
+.bug.no .bug-body{border-top-color:var(--redline)}
+.row{display:flex; gap:8px; margin:8px 0; font-size:14.5px}
+.row .k{flex:0 0 74px; color:var(--gold2); font-weight:700}
+.row .v{flex:1}
+.key{background:#0f2418; border-left:3px solid var(--gold); padding:9px 11px; border-radius:0 10px 10px 0; margin:10px 0; font-size:14.5px}
+.bug.no .key{background:#25090b; border-left-color:var(--red)}
+
+/* checklist */
+.chk{display:flex; align-items:center; gap:11px; background:var(--card); border:1px solid var(--line);
+     border-radius:13px; padding:11px 13px; margin:8px 0; cursor:pointer}
+.chk.done{background:#14401f; border-color:var(--green)}
+.box{width:26px;height:26px;flex:0 0 26px; border:2px solid var(--sub); border-radius:8px;
+     display:flex;align-items:center;justify-content:center; font-size:16px; color:transparent; font-weight:900}
+.chk.done .box{background:var(--green); border-color:var(--green); color:#06280f}
+.chk .t{flex:1; font-size:15.5px; font-weight:600}
+.chk .n{font-size:11.5px; color:var(--sub); font-weight:400; display:block}
+.chk.locked{opacity:.55; cursor:default}
+.progress{height:9px; background:#0f2418; border-radius:99px; overflow:hidden; margin:8px 0 4px; border:1px solid var(--line)}
+.progress i{display:block; height:100%; background:linear-gradient(90deg,var(--green),var(--gold)); width:0; transition:width .3s}
+
+/* quiz */
+.q{font-size:17px; font-weight:800; margin:4px 0 12px; line-height:1.6}
+.opt{display:block; width:100%; text-align:left; background:var(--card2); border:1px solid var(--line);
+     color:var(--txt); border-radius:13px; padding:13px; margin:8px 0; font-size:15.5px; cursor:pointer}
+.opt.right{background:#1a5c33; border-color:var(--green)}
+.opt.wrong{background:#5c1a1d; border-color:var(--red)}
+.opt:disabled{cursor:default}
+.expl{background:#0f2418; border-radius:12px; padding:12px; margin-top:10px; font-size:14.5px; display:none}
+.expl.on{display:block}
+.btn{background:var(--gold); color:#3a2a00; border:0; border-radius:12px; padding:12px 20px;
+     font-size:15.5px; font-weight:800; cursor:pointer; margin-top:10px}
+.btn.ghost{background:transparent; color:var(--gold); border:1px solid var(--gold)}
+.qmeta{font-size:12.5px; color:var(--sub); margin-bottom:6px}
+
+.tel{display:inline-block; background:#0f2418; border:1px solid var(--line); border-radius:10px;
+     padding:7px 12px; margin:4px 6px 4px 0; font-size:15px; font-weight:700; color:var(--gold2); text-decoration:none}
+.tel.em{background:#3a1416; border-color:var(--redline); color:#ff9a9d}
+
+.map{width:100%; height:auto; background:#0f2418; border:1px solid var(--line); border-radius:14px; margin:8px 0}
+
+/* sub tabs */
+.subtabs{display:flex; gap:6px; overflow-x:auto; padding:10px 0 4px; -webkit-overflow-scrolling:touch}
+.subtabs button{flex:0 0 auto; background:#0f2418; border:1px solid var(--line); color:var(--sub);
+  border-radius:999px; padding:8px 14px; font-size:13.5px; font-weight:700; cursor:pointer; white-space:nowrap}
+.subtabs button.on{background:var(--gold); border-color:var(--gold); color:#3a2a00}
+.sub{display:none}
+.sub.on{display:block}
+hr{border:0; border-top:1px dashed var(--line); margin:14px 0}
+.foot{text-align:center; color:var(--sub); font-size:11.5px; padding:18px 8px 6px; line-height:1.8}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+      <ellipse cx="32" cy="40" rx="15" ry="18" fill="#3d2a12" stroke="#f2c14e" stroke-width="2"/>
+      <ellipse cx="32" cy="22" rx="8" ry="7" fill="#2a1c0c" stroke="#f2c14e" stroke-width="2"/>
+      <path d="M26 18 C20 10 17 8 13 5 C18 11 18 15 22 19" fill="none" stroke="#f2c14e" stroke-width="3" stroke-linecap="round"/>
+      <path d="M38 18 C44 10 47 8 51 5 C46 11 46 15 42 19" fill="none" stroke="#f2c14e" stroke-width="3" stroke-linecap="round"/>
+      <line x1="32" y1="26" x2="32" y2="56" stroke="#f2c14e" stroke-width="1.5"/>
+    </svg>
+    <div>
+      <h1>やんばる クワガタずかん
+        <span class="sub">OKUYANBARU · KUNIGAMI · OKINAWA</span>
+      </h1>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section id="s-home" class="on">
+
+  <div class="card danger">
+    <h2>⛔ ぜったいに 捕（と）ってはいけない 虫がいます</h2>
+    <p class="big">やんばるには、<b>法律（ほうりつ）で 捕（と）ることが 禁止（きんし）されている クワガタ</b>がいます。うっかり捕まえると、<b>ほんとうに 罰（ばっ）せられます。</b></p>
+    <p>まず この2種類（しゅるい）を おぼえてから 森へ行こう。</p>
+    <button class="btn" onclick="go('zukan');openBug(0)">▶ 見てはいけない…じゃなくて「見分（みわ）けかた」を見る</button>
+  </div>
+
+  <div class="card warn">
+    <h2>🐍 ハブ ― これが いちばん こわい</h2>
+    <p>クワガタ採（と）りは <b>夜・草むら・木のまわり</b>。ハブに 出会（であ）う 条件（じょうけん）が ぜんぶ そろっています。</p>
+    <h3>もっていく物</h3>
+    <ul>
+      <li><b>長靴（ながぐつ）</b>（ハブの牙は短い。ゴム長靴が いちばん効く）</li>
+      <li><b>長ズボン・長そで</b>。サンダル・短パンは ぜったいダメ</li>
+      <li><b>懐中電灯（かいちゅうでんとう）を ひとり1つ ＋ 予備（よび）</b>。合計2つ以上</li>
+      <li>長い棒（草をかき分けるのは 手じゃなく 棒で）</li>
+      <li>虫よけ、軍手（ぐんて）、飲み水</li>
+    </ul>
+    <h3>やってはいけない事</h3>
+    <ul>
+      <li>草むら・穴・石の下に <b>手を入れない</b></li>
+      <li>木の根元（ねもと）を <b>のぞきこまない・座（すわ）らない</b></li>
+      <li>ヤブの中に 入らない。<b>舗装（ほそう）された道・広場から出ない</b></li>
+      <li>歩くとき <b>足元（あしもと）を先に照（て）らす</b>。1〜2m先を照らしてから足を出す</li>
+      <li>子どもだけで 先に歩かせない。<b>大人が先頭</b></li>
+    </ul>
+    <h3>もし咬（か）まれたら</h3>
+    <ul>
+      <li><b>走らない・あわてない。</b>動くと毒が回（まわ）ります</li>
+      <li>すぐ <b>119番</b>。場所（ばしょ）を伝える</li>
+      <li>咬まれた所を <b>心臓（しんぞう）より下</b>にして 安静（あんせい）に</li>
+      <li>強く縛（しば）らない。口で吸（す）い出さない。切らない</li>
+      <li>ハブは 咬まれても 死ぬことは まれ。<b>でも すぐ病院。</b>抗毒素（こうどくそ）が効きます</li>
+    </ul>
+    <h3>連絡先（れんらくさき）</h3>
+    <a class="tel em" href="tel:119">🚑 119（救急・消防）</a>
+    <a class="tel" href="tel:0980541111">北部地区医師会病院（名護）0980-54-1111 ※24時間救急</a>
+    <a class="tel" href="tel:0980415380">国頭診療所 0980-41-5380</a>
+    <a class="tel" href="tel:0980417511">国頭村立東部へき地診療所 0980-41-7511</a>
+    <p class="muted">※ 夜間・重症は 名護の <b>北部地区医師会病院</b>（名護市宇茂佐1712-3 / 0980-54-1111）が24時間365日の救急対応。奥から車で約1時間。<b>まず119番に電話すれば、行き先は救急隊が判断してくれます。</b>宿の人にも すぐ知らせて。</p>
+  </div>
+
+  <div class="card info">
+    <h2>🚗 夜の 林道（りんどう）は 入らない</h2>
+    <p>国頭村・大宜味村の林道は、<b>密猟（みつりょう）防止と ヤンバルクイナなどの保護</b>のため、夏〜秋に <b>夜間通行止め</b>になることがあります（過去には 19時〜翌5時など）。村営林道は <b>夜間通行許可の申請制</b>です。</p>
+    <ul>
+      <li><b>今年どうなっているかは 必ず 宿・国頭村観光協会（0980-41-2420）に確認</b></li>
+      <li>ゲート・監視カメラが 設置されます。無断で入らない</li>
+      <li>そもそも <b>林道に行かなくても クワガタは採れます</b>（宿の街灯まわりが本命）</li>
+    </ul>
+    <h3>車の運転</h3>
+    <ul>
+      <li><b>ヤンバルクイナは 夜も道路に出ます。時速30km以下で。</b>ロードキル（車にひかれる事故）が やんばる最大の問題のひとつ</li>
+      <li>路肩（ろかた）に急に停（と）めない。後続車が来ます</li>
+      <li>カエル・カニ・ヘビが 道路にいます。よけられないときは 無理にハンドルを切らない</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🌏 ここは 世界自然遺産（せかいしぜんいさん）</h2>
+    <p>やんばるは <b>2021年に世界自然遺産に登録</b>され、<b>やんばる国立公園</b>でもあります。場所によって ルールが変わります。</p>
+    <svg class="map" viewBox="0 0 340 200" role="img" aria-label="国立公園の区域の考え方">
+      <rect x="0" y="0" width="340" height="200" fill="#0f2418"/>
+      <rect x="14" y="14" width="312" height="172" rx="10" fill="#1b3d29" stroke="#2f6642"/>
+      <text x="24" y="34" fill="#a9cdb5" font-size="11">やんばる国立公園（イメージ図）</text>
+      <path d="M120 40 L280 46 L296 130 L150 160 L108 100 Z" fill="#2b1f10" stroke="#8a6a1e" stroke-width="2"/>
+      <path d="M170 62 L258 68 L266 118 L186 136 L156 96 Z" fill="#3a1416" stroke="#e5484d" stroke-width="2.5"/>
+      <text x="196" y="102" fill="#ff9a9d" font-size="12" font-weight="bold">特別保護地区</text>
+      <text x="196" y="116" fill="#ff9a9d" font-size="10">全部ダメ</text>
+      <text x="120" y="150" fill="#f2c14e" font-size="11" font-weight="bold">特別地域</text>
+      <text x="30" y="120" fill="#57c98a" font-size="11" font-weight="bold">ふつうの道路・</text>
+      <text x="30" y="134" fill="#57c98a" font-size="11" font-weight="bold">宿・集落</text>
+      <circle cx="52" cy="168" r="5" fill="#57c98a"/>
+      <text x="63" y="172" fill="#a9cdb5" font-size="10">ここで探そう</text>
+    </svg>
+    <h3>🟥 特別保護地区 ― 何も 捕（と）ってはいけない</h3>
+    <p>自然公園法により、<b>すべての動物の捕獲（ほかく）・殺傷、卵の採取が禁止</b>。虫・葉っぱ・落ち枝も 持ち出しダメ。</p>
+    <h3>🟨 特別地域 ― トラップは 許可（きょか）が必要</h3>
+    <p>木にバナナトラップを縛（しば）る、地面に固定する などの <b>仕掛（しか）けは 事前の許可が必要</b>。<b>手づかみ・虫あみ での捕獲は 規制対象外</b>です。</p>
+    <h3>🟩 いちばん安全な考え方</h3>
+    <p class="big">今回は <b>「宿の敷地・駐車場・街灯のまわり」だけ</b>で探そう。ここなら 特別保護地区に入る心配もなく、ハブのリスクも いちばん低い。クワガタは じゅうぶん来ます。</p>
+    <p class="muted">※ どこが特別保護地区か 地図で判断するのは 現地では難しいです。迷ったら「森の奥に入らない」。境界は 環境省「やんばる野生生物保護センター ウフギー自然館」（0980-50-1025）で確認できます。</p>
+    <h3>🚧 土地のこと</h3>
+    <ul>
+      <li>やんばるの森の多くは <b>国有林</b>や <b>村有林</b>。柵（さく）・ロープ・「立入禁止」の看板があったら 入らない</li>
+      <li>畑・果樹園・民家の庭は <b>私有地</b>。声をかけずに入らない</li>
+      <li><b>宿の敷地内は、宿の人にひとこと聞いてから</b>。たいてい「いいですよ」と教えてくれます</li>
+    </ul>
+  </div>
+
+  <div class="card ok">
+    <h2>💚 見たら 逃（に）がす、が いちばん楽しい</h2>
+    <p>捕まえて、じっくり見て、写真を撮（と）って、<b>元いた場所に そっと返す</b>。これが やんばるの森で いちばん かっこいい遊び方です。</p>
+    <ul>
+      <li>採（と）りすぎない。<b>1種類につき 1〜2匹まで</b>と決めよう</li>
+      <li>逃がすときは <b>捕まえた場所と同じ所へ</b>。よその場所に放（はな）すのはダメ</li>
+      <li>やんばるのクワガタを <b>本土に持ち帰って野外に放すのは 絶対ダメ</b>（生態系がこわれます）</li>
+    </ul>
+    <h3>持ち帰って飼うなら</h3>
+    <ul>
+      <li>プラケース＋<b>昆虫マット（クヌギの発酵マット）</b>を5cm以上</li>
+      <li><b>昆虫ゼリー</b>（黒糖・高タンパクが人気）。バナナでもOKだがコバエが出る</li>
+      <li>とまり木・落ち葉を入れる（ひっくり返ると 自力で起きられず死にます）</li>
+      <li><b>直射日光と車内はNG。</b>25℃前後の日かげに</li>
+      <li>オス同士は <b>別のケース</b>に（ケンカして 脚がちぎれます）</li>
+      <li>霧吹きで 少ししめらせる。ビショビショはダメ</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🦟 そのほかの 安全</h2>
+    <ul>
+      <li><b>蚊・ブヨ：</b>虫よけを 服の上からも。首・足首を狙われます。かゆみ止めも持参</li>
+      <li><b>迷子（まいご）：</b>子ども1人に1つ ライトを持たせる。<b>「大人の声が聞こえる所まで」</b>とルールを決める。笛（ホイッスル）があると安心</li>
+      <li><b>川・崖（がけ）：</b>夜は 水のそばに近づかない。奥やんばるは 川と急斜面（きゅうしゃめん）が多い</li>
+      <li><b>電波：</b>やんばるは 圏外（けんがい）が多い。このアプリは オフラインで動きます。宿に「何時に戻る」と伝えてから出る</li>
+      <li><b>熱中症：</b>8月の夜でも 蒸（む）します。水分をこまめに</li>
+    </ul>
+  </div>
+
+  <div class="card info">
+    <h2>📅 8月は 最高の季節（きせつ）</h2>
+    <p>沖縄のクワガタは <b>5月〜9月</b>が最盛期。<b>8月は ど真ん中</b>です。</p>
+    <ul>
+      <li><b>いちばん採れる時間：日没後〜22時ごろ</b>（19:30〜21:30 がゴールデンタイム）</li>
+      <li>明け方（5〜6時）も 街灯の下に落ちていることがある</li>
+      <li><b>むし暑くて 風のない夜、雨上がりの夜</b>が 大当たり</li>
+      <li>満月の夜は 街灯に来にくい（月明かりに散る）と言われます</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============ ZUKAN ============ -->
+<section id="s-zukan">
+  <div class="card danger" style="margin-top:12px">
+    <h2>まず この2種は 覚（おぼ）えて</h2>
+    <p>この下の <span class="pill p-no">捕獲禁止</span> の2種は、<b>捕まえるだけで 法律違反</b>です。見つけたら <b>見るだけ・写真だけ</b>。そして そっと離（はな）れよう。</p>
+  </div>
+  <div id="bugs"></div>
+  <div class="card">
+    <h2>🐛 ほかにも いる 生きもの</h2>
+    <div id="others"></div>
+  </div>
+</section>
+
+<!-- ============ SAGASHI ============ -->
+<section id="s-sagashi">
+
+  <div class="card ok">
+    <h2>🔦 まずは ここ ― 街灯（がいとう）の下</h2>
+    <p class="big">初心者・子ども連れなら <b>これが 本命（ほんめい）</b>。</p>
+    <p>クワガタは 夜、<b>明かりに飛んで来る</b>習性（しゅうせい）があります。宿の駐車場、自動販売機、トイレの外灯、道路の街灯。<b>森に入らなくていい・ハブのリスクが低い・子どもでも見つけられる。</b></p>
+    <svg class="map" viewBox="0 0 340 190" role="img" aria-label="街灯の下の探しかた">
+      <rect width="340" height="190" fill="#0a1811"/>
+      <path d="M0 150 L340 150 L340 190 L0 190 Z" fill="#1e1a14"/>
+      <line x1="60" y1="150" x2="60" y2="40" stroke="#4a5a50" stroke-width="5"/>
+      <path d="M60 40 L90 34 L90 44 L60 50 Z" fill="#4a5a50"/>
+      <circle cx="88" cy="42" r="9" fill="#fff6cf"/>
+      <path d="M88 46 L20 152 L170 152 Z" fill="#fff6cf" opacity="0.13"/>
+      <g fill="#f2c14e" opacity=".85">
+        <circle cx="55" cy="146" r="3.2"/><circle cx="82" cy="149" r="3.6"/>
+        <circle cx="110" cy="145" r="3"/><circle cx="70" cy="141" r="2.6"/>
+        <circle cx="130" cy="150" r="3.2"/>
+      </g>
+      <text x="150" y="120" fill="#f2c14e" font-size="12" font-weight="bold">← 光の輪の「はしっこ」</text>
+      <text x="150" y="136" fill="#a9cdb5" font-size="11">草の中じゃなく 地面を見る</text>
+      <text x="16" y="176" fill="#a9cdb5" font-size="11">壁・柱・地面・側溝（そっこう）のふち を ぐるっと一周</text>
+    </svg>
+    <h3>コツ</h3>
+    <ul>
+      <li>光の <b>真下より、明るさが消える「ふち」</b>に落ちている</li>
+      <li><b>壁・電柱・自販機の側面</b>にへばりついていることも。上のほうも見る</li>
+      <li><b>側溝（そっこう）や 排水口</b>に落ちて出られなくなっている常連ポイント</li>
+      <li>雨上がり・むし暑い夜は 大当たり</li>
+      <li><b>草むらに手を入れない。</b>棒か、足で軽くつつく</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>🌳 樹液（じゅえき）が 出ている木</h2>
+    <p>クワガタの <b>本当のごはん</b>は 木から しみ出す 甘い樹液。やんばるで 樹液が出る木は…</p>
+    <div class="key"><b>スダジイ（イタジイ）</b> ― やんばるの森の主役。どんぐりの木。幹が黒っぽく、大きくうねる。<b>いちばん出会いが多い</b></div>
+    <div class="key"><b>オキナワウラジロガシ</b> ― 日本一大きいどんぐり。葉の裏が白っぽい</div>
+    <div class="key"><b>タブノキ</b> ― つやのある葉。オキナワノコギリクワガタが好む</div>
+    <div class="key"><b>アカメガシワ・リュウキュウマツ</b> ― 傷から樹液が出ることも</div>
+    <h3>樹液のサインの見つけかた</h3>
+    <ul>
+      <li>幹（みき）が <b>黒く濡（ぬ）れて テカっている</b></li>
+      <li><b>あまずっぱい・お酒みたいな においがする</b>（これが 最強のサイン）</li>
+      <li><b>アリ・ハエ・ガ・ゴキブリ が集まっている</b> → クワガタも来ている証拠</li>
+      <li>木の <b>ウロ（穴）</b>、根元と地面のすきま、めくれた樹皮のうら</li>
+    </ul>
+    <p class="muted">⚠️ ただし 樹液の木は 森の中にあることが多く、<b>ハブのリスクが一気に上がります</b>。道路から見える範囲だけにして、ヤブに踏み込まないこと。木の根元をのぞきこむのも危険です。</p>
+  </div>
+
+  <div class="card">
+    <h2>🪵 朽木（くちき）・落ち葉のたまり場</h2>
+    <p>ネブトクワガタ、マメクワガタ、ルイスツノヒョウタンクワガタ は <b>樹液より 朽木や 葉っぱのたまり場</b>にいます。</p>
+    <ul>
+      <li>倒（たお）れた木の <b>樹皮（じゅひ）をそっとめくる</b></li>
+      <li>朽木の <b>すきま</b>、木くずの中</li>
+      <li>木のウロにたまった <b>フカフカの腐葉土（ふようど）</b></li>
+      <li><b>めくったら 必ず 元に戻す。</b>ほかの生きものの家です</li>
+      <li>朽木を バラバラに壊（こわ）さない。<b>ヤンバルテナガコガネの幼虫がいるかもしれません</b>（それ自体が違法になり得ます）</li>
+    </ul>
+  </div>
+
+  <div class="card warn">
+    <h2>🍌 バナナトラップは 今回 やめておこう</h2>
+    <p><b>国立公園の特別地域では、木に仕掛けを結ぶ・地面に固定する行為は 事前の許可が必要</b>です。うっかりだと 違反になります。</p>
+    <p>それに バナナトラップは <b>回収し忘れるとゴミ</b>になり、<b>ハブを呼ぶ</b>こともあります。<b>街灯めぐりで じゅうぶん採れます。</b></p>
+  </div>
+
+  <div class="card info">
+    <h2>⏰ 夜の 行動プラン（おすすめ）</h2>
+    <ul>
+      <li><b>18:30</b> 装備チェック（長靴・長ズボン・ライト人数分＋予備・虫よけ・ケース）</li>
+      <li><b>19:00</b> 宿の人に「敷地内で虫探しをしていいですか」と聞く。おすすめの街灯も教えてもらう</li>
+      <li><b>19:30〜21:00</b> 宿の敷地＋徒歩圏の街灯を ぐるぐる巡回。<b>同じ場所を 20分おきに 3周</b>すると 新しい個体が来ている</li>
+      <li><b>21:00</b> 部屋で観察・記録・写真。<b>チェックリスト</b>に入力</li>
+      <li><b>21:30</b> 逃がす（捕まえた場所に返す）／飼うなら ケースを涼しい所へ</li>
+      <li><b>翌朝 5:30〜6:30</b> 同じ街灯の下を もう一周。落ちて残っていることがある</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============ CHECK ============ -->
+<section id="s-check">
+  <div class="card">
+    <h2>✅ 見つけたよ！ チェックリスト</h2>
+    <p class="muted">見つけたら タップ。このスマホに 記録が残ります（オフラインOK）。</p>
+    <div class="progress"><i id="pbar"></i></div>
+    <p id="pcount" class="muted"></p>
+    <div id="chklist"></div>
+    <button class="btn ghost" onclick="resetChk()">記録をリセット</button>
+  </div>
+  <div class="card info">
+    <h2>📝 観察メモの コツ</h2>
+    <ul>
+      <li><b>いつ・どこで・何時ごろ</b>（例：8/16 20:10 宿の駐車場の街灯）</li>
+      <li><b>オス／メス</b>（大あごが大きいのが オス）</li>
+      <li><b>大きさ</b>（頭の先から おしりまで。定規がなければ 500円玉と並べて写真）</li>
+      <li><b>何をしていたか</b>（飛んできた／壁にいた／地面を歩いていた）</li>
+      <li>写真は <b>横から と 上から</b>。大あごの形がわかるように</li>
+    </ul>
+    <p class="muted">この観察メモ、夏休みの自由研究に そのまま使えます。</p>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="s-quiz">
+  <div class="card">
+    <h2>🎓 やんばる クワガタ検定（けんてい）</h2>
+    <p class="qmeta" id="qmeta"></p>
+    <div class="q" id="qtext"></div>
+    <div id="qopts"></div>
+    <div class="expl" id="qexpl"></div>
+    <button class="btn" id="qnext" style="display:none" onclick="nextQ()">つぎの問題 ▶</button>
+  </div>
+  <div class="card ok" id="qdone" style="display:none">
+    <h2 id="qscore"></h2>
+    <p id="qmsg"></p>
+    <button class="btn" onclick="startQuiz()">もう一回 やる</button>
+  </div>
+</section>
+
+<!-- ============ TSURI ============ -->
+<section id="s-tsuri">
+  <div class="subtabs">
+    <button class="on" data-s="ts-danger" onclick="subgo('ts-danger')">⚠️ 危険な魚</button>
+    <button data-s="ts-kawa" onclick="subgo('ts-kawa')">🏞 奥川</button>
+    <button data-s="ts-umi" onclick="subgo('ts-umi')">🌊 漁港</button>
+    <button data-s="ts-safe" onclick="subgo('ts-safe')">🦺 安全</button>
+    <button data-s="ts-gear" onclick="subgo('ts-gear')">🎣 道具</button>
+    <button data-s="ts-eat" onclick="subgo('ts-eat')">🍳 食べる</button>
+  </div>
+
+  <!-- ---- 危険な魚 ---- -->
+  <div class="sub on" id="ts-danger">
+    <div class="card danger">
+      <h2>🚫 これに 素手（すで）で さわったら 大変（たいへん）</h2>
+      <p class="huge">釣れた魚は、まず <b>大人（おとな）が 見てから。</b></p>
+      <p class="big">やんばるの海には <b>毒（どく）を持つ生きもの</b>がいます。<b>知らない魚は ぜったいに 素手でつかまない。</b>フィッシュグリップか タオルで つかむ。</p>
+      <ul>
+        <li><b>魚をつかむ前に この6つを 見せ合う</b>のを 家族のルールにしよう</li>
+        <li>釣れたら <b>「これ なに？」と 声に出す</b>。だまってつかまない</li>
+        <li><b>死んでいても 毒はあります。</b>砂に埋もれた魚も 踏まない</li>
+      </ul>
+    </div>
+    <div id="dangerlist"></div>
+
+    <div class="card danger">
+      <h2>🚑 刺（さ）された・咬（か）まれた ときの 応急処置（おうきゅうしょち）</h2>
+      <h3>① オコゼ・カサゴ・ゴンズイ など「トゲの毒」</h3>
+      <ul>
+        <li>まず <b>安全な場所へ移動</b>（水に落ちない・海に入らない）</li>
+        <li>見えている <b>大きなトゲは 抜く</b>（無理はしない）</li>
+        <li>傷口を <b>きれいな水で洗う</b></li>
+        <li><b>40〜45℃のお湯に 60〜90分つける。</b>この毒は <b>熱でこわれます</b>。痛みがぐっと引きます</li>
+        <li>やけどしない温度に。<b>お湯の温度は 必ず 大人が手で確かめる</b></li>
+        <li><b>オニダルマオコゼは 命にかかわります。刺されたら 即 119番。</b>お湯につけながら 救急を待つ</li>
+      </ul>
+      <h3>② ヒョウモンダコ・ウミヘビ など「神経（しんけい）の毒」</h3>
+      <ul>
+        <li><b>すぐ 119番。お湯は 効きません</b>（この毒は 熱でこわれない）</li>
+        <li>傷口を <b>水で洗い流す</b>。口で吸い出さない</li>
+        <li><b>動かさず 安静に。</b>呼吸（こきゅう）が苦しそうになったら すぐ伝える</li>
+        <li><b>咬まれても 痛くないことがあります。</b>「痛くないから大丈夫」は 危険。必ず受診</li>
+      </ul>
+      <h3>③ クラゲに刺されたら</h3>
+      <ul>
+        <li><b>ハブクラゲなら 酢（す）をたっぷりかける</b>（触手の毒針の発射を止める）</li>
+        <li>触手は <b>手でこすらず</b>、酢をかけてから そっと取る</li>
+        <li><b>カツオノエボシには 酢はダメ</b>（かえって悪化）。海水で洗って 119番</li>
+        <li>沖縄の主要ビーチには <b>酢のボトル</b>が置いてあります。漁港には ないので <b>ペットボトルに酢を持参</b>すると安心</li>
+      </ul>
+      <h3>④ 釣り針（つりばり）が 刺さったら</h3>
+      <ul>
+        <li class="big"><b>自分で 抜かない。</b>釣り針には <b>「カエシ」</b>があり、引き抜くと 中で肉を裂（さ）きます</li>
+        <li><b>糸を切って</b>、針は 刺さったまま。動かないよう <b>テープで固定</b></li>
+        <li>そのまま <b>病院へ</b>。目・顔・関節に刺さったら 迷わず 119番</li>
+        <li><b>予防：</b>キャップとサングラス（メガネ）。投げるときは <b>後ろを見て「投げるよ！」と声をかける</b></li>
+      </ul>
+      <a class="tel em" href="tel:119">🚑 119（救急）</a>
+      <a class="tel" href="tel:0980541111">北部地区医師会病院 0980-54-1111（24時間）</a>
+      <a class="tel" href="tel:0980415380">国頭診療所 0980-41-5380</a>
+    </div>
+  </div>
+
+  <!-- ---- 奥川 ---- -->
+  <div class="sub" id="ts-kawa">
+    <div class="card danger">
+      <h2>⛔ 川で ぜったいに 捕（と）ってはいけない もの</h2>
+      <h3>1. リュウキュウアユ</h3>
+      <p>沖縄本島では <b>1978年に絶滅</b>。1991年から 奄美大島の個体を <b>やんばるの川に放流して 復活させている</b>途中です。</p>
+      <p class="big">沖縄県内水面漁場管理委員会の指示により、<b>国頭村を含む やんばるの川と 河口から3km以内では、リュウキュウアユの採捕が 禁止</b>されています。<b>釣り人も対象</b>です。承認なく採ったアユは <b>持っているだけでも違反</b>。</p>
+      <p class="muted">※ この委員会指示は数年ごとに更新されます。<b>最新の内容は 沖縄県水産課（098-866-2300）で確認を。</b>いずれにせよ「やんばるの川のアユは 捕らない」で 間違いありません。</p>
+      <h3>2. ウナギの稚魚（ちぎょ）― 全長13cm以下</h3>
+      <p><b>漁業法の「特定水産動植物」</b>。全長13cm以下のウナギ類（オオウナギを含む）の採捕は禁止で、<b>3年以下の懲役 または 3,000万円以下の罰金</b>という 非常に重い罰則です。細いウナギが釣れたら <b>すぐ 川に返す。</b></p>
+      <h3>3. 川のカニ（サワガニのなかま）</h3>
+      <p>沖縄県の希少野生動植物保護条例の <b>指定種47種のうち、11種が カニ・エビ</b>です。やんばるの川にすむ <b>オキナワオオサワガニ</b>も その一つ。見分けるのは とても難しいので、<b>川のカニは 捕まえない</b>のが安全です。</p>
+      <p class="muted">※ 条例の指定種は 捕獲・採取・殺傷が禁止で、違反すると罰則があります。</p>
+    </div>
+
+    <div class="card">
+      <h2>🏞 奥川で 会える 生きもの</h2>
+      <p class="muted">タモ網ですくって、バケツで観察して、<b>そっと川に返す</b> ― これが いちばん楽しい遊び方。</p>
+      <div id="kawalist"></div>
+    </div>
+
+    <div class="card ok">
+      <h2>🥅 川の 遊び方（つかまえ方）</h2>
+      <h3>タモ網ガサガサ ― いちばん おすすめ</h3>
+      <ul>
+        <li><b>タモ網を 下流側に構（かま）えて</b>、上流側から 足で 草の根元や 石を ガサガサする</li>
+        <li>魚は <b>下流に逃げる</b>ので 網に入る。これが基本</li>
+        <li>石を どけたら <b>必ず 元に戻す</b></li>
+        <li><b>バケツに川の水を入れて</b>、そこで観察。日なたに置くと お湯になって死にます</li>
+        <li>観察は <b>10分まで。</b>写真を撮ったら すぐ返す</li>
+      </ul>
+      <h3>ミニ釣り（テナガエビ・ハゼ）</h3>
+      <ul>
+        <li><b>短い竿（1.5〜2m）＋細い糸＋小さい針</b>。ウキは 小さめ</li>
+        <li>えさは <b>ソーセージの小片、干しエビ、ミミズ</b></li>
+        <li>テナガエビは <b>石のすきま・岩の下</b>に えさを そっと落とす。<b>すぐアワせず、引き込むまで待つ</b></li>
+        <li>ハゼ類は <b>浅い瀬（せ）の石の上</b>にいます。目の前に えさを落とす</li>
+      </ul>
+      <h3>やってはいけないこと</h3>
+      <ul>
+        <li><b>洗剤・日焼け止めのついた手で 生きものを触らない</b>（弱ります）</li>
+        <li>捕った生きものを <b>よその川や海に放さない</b>。必ず 捕った場所へ</li>
+        <li><b>川の生きものを 本土に持ち帰らない</b></li>
+        <li>石を 全部ひっくり返さない。<b>生きものの家</b>です</li>
+      </ul>
+    </div>
+
+    <div class="card warn">
+      <h2>💧 川の 危険（きけん）</h2>
+      <ul>
+        <li class="big"><b>増水（ぞうすい）が いちばん危ない。</b>やんばるの川は <b>上流で降った雨で 急に増えます。晴れていても です</b></li>
+        <li><b>水が にごってきた／流木や葉が流れてきた／ゴーッと音がする</b> → <b>すぐ川から上がる</b></li>
+        <li>雨が降ったら <b>その日は 川に入らない</b></li>
+        <li><b>コケむした石は 氷のようにすべります。</b>マリンシューズか 濡れてもいい運動靴。ビーチサンダルは ダメ</li>
+        <li><b>深みに 急に落ちます。</b>子どもは <b>ライフジャケット</b>。ひざ下より深い所に 行かせない</li>
+        <li>夜の川には <b>ハブ</b>が来ます。<b>夜は 川に近づかない</b></li>
+        <li>河口（かこう）近くは <b>潮（しお）で水位が変わります</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ---- 漁港 ---- -->
+  <div class="sub" id="ts-umi">
+    <div class="card danger">
+      <h2>🏗 漁港は 漁師（りょうし）さんの 仕事場（しごとば）です</h2>
+      <p class="huge">遊びに来ている 私たちは <b>お客さん。</b></p>
+      <p class="big">漁港は 公園ではありません。<b>船を出し、魚を水揚（みずあ）げし、網を直す ― 人が働いている場所</b>です。おじゃまさせてもらう気持ちで。</p>
+      <h3>子どもと 約束すること</h3>
+      <ul>
+        <li><b>「立入禁止」「関係者以外立入禁止」の 看板・ロープ・柵の 先には 入らない。</b>ここは 議論の余地なし</li>
+        <li><b>船のロープ（係留ロープ）を またがない・踏まない・座らない。</b>船が動いた瞬間 ロープは 凶器になります</li>
+        <li><b>船・網・カゴ・浮き玉に さわらない。</b>全部 仕事の道具</li>
+        <li><b>スロープ（船を上げ下ろしする坂）には 立たない</b></li>
+        <li>車は <b>作業のじゃまにならない所へ。</b>迷ったら 漁港の外に停める</li>
+        <li><b>大きな声で 走り回らない。</b>荷物を運んでいる人がいます</li>
+        <li>漁師さんに会ったら <b>「こんにちは」「釣らせてもらっています」</b>。これだけで 空気が変わります</li>
+      </ul>
+      <h3>ゴミと 釣り糸</h3>
+      <ul>
+        <li class="big"><b>切れた釣り糸は 100%持ち帰る。</b>海鳥の脚に絡（から）まり、船のスクリューに巻きつきます</li>
+        <li>糸くず用の <b>小さい袋</b>を ポケットに。切ったら すぐそこへ</li>
+        <li><b>コマセ（撒きえさ）で汚した岸壁は 海水で流す。</b>バケツにロープをつけて 汲（く）む</li>
+        <li>えさの袋、飲み物、全部 持ち帰る。<b>来たときより きれいにして帰る</b></li>
+      </ul>
+      <p class="muted">⚠️ <b>漁港での釣りが 禁止・制限されている場合があります。</b>近年は 事故やマナー問題で 釣り禁止になる漁港が増えています。奥漁港の現在の可否は、<b>宿の方、国頭村役場（0980-41-2101）、国頭村漁業協同組合</b>に <b>行く前に 必ず確認</b>してください。現地の看板が 最優先です。</p>
+    </div>
+
+    <div class="card">
+      <h2>🐟 漁港で 釣れる 小魚</h2>
+      <p class="muted">サビキ釣り（小さい針がたくさんついた仕掛け）なら、子どもでも 数が釣れます。</p>
+      <div id="umilist"></div>
+    </div>
+
+    <div class="card ok">
+      <h2>🎣 サビキ釣りの やり方</h2>
+      <ul>
+        <li><b>仕掛け：</b>サビキ仕掛け（針3〜6号）＋ アミカゴ ＋ オモリ。竿は 1.8〜3mの 短めが 子どもに扱いやすい</li>
+        <li><b>えさ：</b>アミエビ（冷凍ブロック or チューブ）。<b>チューブ型が 手が汚れず ラク</b></li>
+        <li><b>手順：</b>カゴにアミエビを詰める → 落とす → <b>竿を2〜3回シャクってエビを煙のように出す</b> → 5〜10秒待つ → 繰り返す</li>
+        <li><b>タナ（深さ）：</b>魚の群れが見える層に合わせる。見えないときは <b>底から1〜2m上</b>から試す</li>
+        <li><b>時間：</b>朝まずめ（日の出前後）と 夕まずめ（日没前後）が 圧倒的に釣れる。日中の炎天下は 魚も人もバテます</li>
+        <li><b>コツ：</b>同じ場所に えさを 入れ続けると 魚が集まります。<b>あきらめず 10分続ける</b></li>
+      </ul>
+      <h3>釣れた魚の さわり方</h3>
+      <ul>
+        <li><b>まず 大人が 種類を確認。</b>知らない魚は フィッシュグリップかタオルで</li>
+        <li>手を <b>海水で濡らして</b>から さわる（乾いた手は 魚のぬめりを取って 弱らせます）</li>
+        <li><b>背びれのトゲ</b>に注意。頭のほうから おしり方向へ 手を滑らせない</li>
+        <li>逃がすなら <b>すばやく</b>。水から出す時間が短いほど 生きます</li>
+      </ul>
+    </div>
+
+    <div class="card warn">
+      <h2>🌊 漁港の 危険</h2>
+      <ul>
+        <li class="huge">岸壁（がんぺき）に 落ちたら、<b>自力で 上がれません。</b>はしごは 少なく、壁は つるつるで 波もあります</li>
+        <li class="big"><b>子どもは ライフジャケット 必着。</b>これは 交渉の余地なし。浮き輪では 代わりになりません</li>
+        <li><b>岸壁のふちから 1m 下がる。</b>「ふちに立たない」を ルールに</li>
+        <li><b>濡れた岸壁・コケ・魚のぬめりは 猛烈にすべります。</b>マリンシューズか 底がゴムの運動靴</li>
+        <li><b>テトラポッドには 絶対に乗らない。</b>すきまに落ちたら 助けられません</li>
+        <li><b>波・うねりが 高い日は 中止。</b>台風が遠くにあっても うねりは来ます</li>
+        <li><b>離岸流（りがんりゅう）：</b>沖に流される流れ。流されたら <b>岸に向かわず 岸と平行に泳ぐ</b>。ただし <b>そもそも 漁港では泳がない</b></li>
+        <li><b>熱中症・日焼け：</b>帽子、日焼け止め、水を たっぷり。8月の沖縄の日差しは 本土とは別物。日かげのない岸壁は 30分で危険</li>
+        <li><b>ライフジャケットを 着ていても</b>、落ちたら すぐ 119番。自分で助けに飛び込まない</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ---- 安全 ---- -->
+  <div class="sub" id="ts-safe">
+    <div class="card danger">
+      <h2>🦺 ライフジャケット ― 議論なし</h2>
+      <p class="huge">川でも 漁港でも、<b>子ども3人は 全員 着用。</b></p>
+      <ul>
+        <li><b>体重に合ったサイズ</b>を選ぶ。大きすぎると 水中で すっぽ抜けます</li>
+        <li><b>股（また）ベルトを 必ず留める。</b>これが無いと 顔が水中のまま浮きます</li>
+        <li>浮き輪・アームヘルパーは <b>代わりになりません</b></li>
+        <li>釣具店・ホームセンター・ネットで 数千円。<b>これだけは ケチらない</b></li>
+        <li>大人も 着ましょう。<b>「大人が着ていない」と 子どもは 脱ぎたがります</b></li>
+      </ul>
+    </div>
+
+    <div class="card warn">
+      <h2>👟 足元（あしもと）</h2>
+      <ul>
+        <li><b>マリンシューズ</b>（底がゴムで 足を包むタイプ）が 最強。川も 漁港も これ一足</li>
+        <li>なければ <b>濡れてもいい運動靴＋靴下</b></li>
+        <li><b>ビーチサンダル・クロックスは NG。</b>すべる、脱げる、トゲを踏む</li>
+        <li>海では <b>ガンガゼ（黒く長いトゲのウニ）</b>を踏む事故が多い。<b>裸足で歩かない</b></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>🎒 持ち物 チェック</h2>
+      <ul>
+        <li>☐ <b>ライフジャケット</b>（人数分）</li>
+        <li>☐ マリンシューズ／濡れてもいい靴</li>
+        <li>☐ 帽子・サングラス（<b>釣り針から目を守る意味も大きい</b>）</li>
+        <li>☐ 日焼け止め・飲み水（多め）・塩あめ</li>
+        <li>☐ <b>フィッシュグリップ or 厚手のタオル・軍手</b>（毒魚を素手で持たないため）</li>
+        <li>☐ <b>プライヤー（ペンチ）</b>― 針を外す。素手で外さない</li>
+        <li>☐ <b>酢のペットボトル</b>（クラゲ用）</li>
+        <li>☐ 救急セット（消毒・絆創膏・ポイズンリムーバー）</li>
+        <li>☐ <b>お湯を作れるもの</b>（キャンプ道具があれば バーナー＋コッヘル。毒魚の応急処置に使えます）</li>
+        <li>☐ ゴミ袋＋<b>糸くず用の小袋</b></li>
+        <li>☐ バケツ（ロープ付きだと 海水が汲める）・クーラーボックス・氷</li>
+        <li>☐ タオル・着替え（全員分）</li>
+        <li>☐ スマホ（<b>圏外に備えて、宿に行き先と帰る時間を伝える</b>）</li>
+      </ul>
+    </div>
+
+    <div class="card info">
+      <h2>👨‍👩‍👦 3人の子どもを 見るために</h2>
+      <ul>
+        <li><b>大人1人が「監視役」に専念する時間</b>を作る。全員が釣りに夢中になる瞬間が いちばん危ない</li>
+        <li>小4の双子は <b>2人セットで行動</b>させ、中2のお兄ちゃんに <b>「見張り役」の肩書き</b>を渡すと うまくいきます</li>
+        <li><b>「ふちから1m下がる線」</b>を 現地で 実際に指さして決める</li>
+        <li>釣り座は <b>子ども同士を 竿1本分以上 離す</b>（キャストで お互いに針が刺さる事故が多い）</li>
+        <li><b>投げる前に「後ろ、いい？」</b>と 必ず声を出す</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ---- 道具 ---- -->
+  <div class="sub" id="ts-gear">
+    <div class="card ok">
+      <h2>🛒 現地で 買えるところ</h2>
+      <h3>奥共同店（おく きょうどうてん）</h3>
+      <p>奥集落の <b>日本最古クラスの共同売店</b>。<b>つり道具の取扱いがあります。</b>宿から いちばん近い。</p>
+      <p class="muted">品ぞろえは 大型店ほどではないので、<b>行く前に 電話で「サビキ仕掛けとアミエビはありますか」と聞く</b>のが確実。営業時間も 聞いておこう。</p>
+      <h3>国頭スーパー（辺土名）</h3>
+      <p>国頭村の中心・辺土名にあるスーパー。<b>釣具も置いている</b>という情報があります。食料の買い出しと まとめて済むのが便利。</p>
+      <h3>もっと しっかり買うなら</h3>
+      <p>名護市まで下ると <b>釣具店・ホームセンター</b>があり、品ぞろえは段違い。<b>ライフジャケットを買うなら 名護</b>が確実です。奥から名護は 車で約1時間。</p>
+      <p class="muted">※ 店の営業状況・在庫は 変わります。<b>宿の方に聞くのが いちばん早くて正確</b>です。「子どもと釣りをしたい」と言えば、道具のことも 釣り場のことも 教えてくれます。</p>
+    </div>
+
+    <div class="card">
+      <h2>🎣 最低限（さいていげん）これだけ</h2>
+      <h3>漁港のサビキ（3人分）</h3>
+      <ul>
+        <li><b>のべ竿 or 小型リール竿 1.8〜3m</b> × 3本（子ども1人1本）</li>
+        <li><b>サビキ仕掛け（針3〜5号）</b> 予備を多めに。よく絡（から）まります</li>
+        <li><b>アミカゴ＋オモリ</b>（セット売りが便利）</li>
+        <li><b>アミエビ</b>（チューブ型が 断然ラク）</li>
+        <li>バケツ、<b>プライヤー</b>、<b>フィッシュグリップ</b>、ハサミ</li>
+      </ul>
+      <h3>川のガサガサ</h3>
+      <ul>
+        <li><b>タモ網</b>（目が細かいもの）× 人数分あると ケンカしない</li>
+        <li><b>透明なケース or バケツ</b>（観察用。100均の虫かごでOK）</li>
+        <li><b>短い竿1.5〜2m＋細糸＋小針</b>（テナガエビ用）</li>
+        <li>えさ：ソーセージ、干しエビ</li>
+      </ul>
+      <p class="muted">💡 キャンプ道具をお持ちなら、<b>バーナーとコッヘルは 必ず持っていってください。</b>毒魚に刺されたときの「45℃のお湯」を 現場で作れます。これは かなり大きい。</p>
+    </div>
+
+    <div class="card info">
+      <h2>📜 遊漁（ゆうぎょ）の ルール</h2>
+      <ul>
+        <li>沖縄県漁業調整規則により、<b>一般の人が使える漁具・漁法は 決まっています。</b><b>さお釣り・手釣り・タモ網</b>は 一般に認められている範囲。それ以外の仕掛けを使うと 規則違反（罰則：科料）</li>
+        <li class="big"><b>貝・タコ・イセエビ・ナマコ・モズク・海藻などは 漁業権の対象。</b>組合員以外が採ると <b>漁業権侵害で 100万円以下の罰金</b>。<b>磯（いそ）で 貝を拾って持ち帰るのも ダメ</b>です</li>
+        <li><b>ナマコ（全種）・造礁サンゴ・ウミガメ・ウナギの稚魚</b>は 採捕禁止。とくにナマコとウナギ稚魚は <b>3年以下の懲役／3,000万円以下の罰金</b>という 極めて重い罰則</li>
+        <li><b>砂・サンゴのかけら・ライブロックを 持ち帰るのも 禁止。</b>「記念に」もダメです</li>
+        <li>迷ったら <b>沖縄県水産課 098-866-2300</b>／地元の漁業協同組合へ</li>
+      </ul>
+      <p class="muted">✅ <b>結論：竿とタモ網で 魚を釣って、見て、逃がす。</b>これなら 心配ありません。</p>
+    </div>
+  </div>
+
+  <!-- ---- 食べる ---- -->
+  <div class="sub" id="ts-eat">
+    <div class="card warn">
+      <h2>🍳 釣った魚を 食べるとき</h2>
+      <p class="big">沖縄の魚には <b>シガテラ毒</b>という やっかいな毒があります。<b>知らない魚は 食べない。</b>これが 大原則。</p>
+      <h3>シガテラ毒って？</h3>
+      <ul>
+        <li>サンゴ礁の <b>プランクトンが作る毒</b>が、食物連鎖で 魚の体にたまったもの</li>
+        <li><b>加熱しても 冷凍しても 消えません。</b>味もにおいも 変わりません</li>
+        <li>症状：下痢・嘔吐・しびれ・関節痛。特徴的なのが <b>「ドライアイスセンセーション」</b>― <b>冷たい物に触ると 電気が走るように痛む</b>感覚。これが <b>数ヶ月〜1年</b>続くことがあります</li>
+        <li><b>同じ種類でも 場所や個体によって 毒があったり なかったり</b>。見た目では 分かりません</li>
+      </ul>
+      <h3>とくに 注意する魚</h3>
+      <ul>
+        <li><b>バラフエダイ（アカナー）</b> ― 沖縄でシガテラ中毒の代表格。<b>販売も禁止</b>されています</li>
+        <li><b>バラハタ、イッテンフエダイ、オニカマス（ドクカマス）</b>など。オニカマスは <b>食用禁止</b></li>
+        <li><b>ハタ類・フエダイ類の 大きい個体</b>ほど 毒がたまりやすい</li>
+        <li><b>ウツボ類</b>も 危険</li>
+      </ul>
+      <h3>安全に 楽しむための 4つのルール</h3>
+      <ul>
+        <li class="big">1. <b>小さい魚は 逃がす。</b>食べる分だけ持ち帰り、残りはリリース。<b>これが いちばん確実で かっこいい</b></li>
+        <li class="big">2. <b>名前が分からない魚は 食べない。</b>迷ったら食べない</li>
+        <li class="big">3. <b>食べる前に 地元の人に見せる。</b>宿の方、共同店の方、漁師さんに <b>「これ 食べられますか」</b>と 実物を見せて聞く。これが 最強の安全確認</li>
+        <li class="big">4. <b>フグ類は 絶対に食べない。</b>ハリセンボン（アバサー）は 沖縄で食べますが、<b>素人がさばくのは 危険。</b>お店で食べましょう</li>
+      </ul>
+      <h3>食べるなら</h3>
+      <ul>
+        <li><b>グルクン（タカサゴ）</b>― 沖縄県の県魚。<b>から揚げが 最高</b>。シガテラの心配が 基本的にない、安心して食べられる魚</li>
+        <li><b>ミジュン・ガチュン（メアジ）</b>― イワシ・アジのなかま。から揚げ、南蛮漬け</li>
+        <li><b>釣ったら すぐ 氷入りのクーラーへ。</b>沖縄の気温では 30分で傷みます。<b>食中毒はシガテラより ずっと起きやすい</b></li>
+        <li>血抜きをして 内臓を早く出すと 味が段違い</li>
+      </ul>
+      <p class="muted">💡 <b>いちばんのおすすめ：</b>「釣って、見て、写真を撮って、逃がす」。夕飯は <b>共同店で買った魚か お店で</b>。子どもの思い出は 食べたかどうかより <b>釣れた瞬間</b>に残ります。</p>
+    </div>
+  </div>
+</section>
+
+<div class="foot">
+  やんばる クワガタ＆さかな ずかん v2.0<br>
+  出典：環境省（種の保存法・国内希少野生動植物種／保護増殖事業）、文化庁（文化財保護法）、<br>
+  沖縄県（希少野生動植物保護条例・自然公園内の行為規制）、国頭村、国頭村観光協会<br><br>
+  ⚠️ 法令・林道規制は 変わります。<b>現地では 必ず 宿・村・環境省ウフギー自然館で 最新情報を確認してください。</b><br>
+  イラストはすべて このアプリ用に描いた オリジナルSVGです。
+</div>
+
+</main>
+
+<nav>
+  <button class="on" data-t="home" onclick="go('home')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 3 10v11h6v-6h6v6h6V10z"/></svg>安全</button>
+  <button data-t="zukan" onclick="go('zukan')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="15" rx="5" ry="6"/><circle cx="12" cy="7" r="2.5"/><path d="M10 6 6 2M14 6l4-4"/></svg>クワガタ</button>
+  <button data-t="sagashi" onclick="go('sagashi')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>さがす</button>
+  <button data-t="tsuri" onclick="go('tsuri')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l9 5-9 5V6z"/><path d="M12 11h6"/><path d="M21 8l-3 3 3 3"/></svg>つり</button>
+  <button data-t="check" onclick="go('check')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 10l2.5 2.5L16 7"/><path d="M8 16h8"/></svg>きろく</button>
+  <button data-t="quiz" onclick="go('quiz')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 115 .5c0 1.5-2.5 2-2.5 3.5"/><circle cx="12" cy="17" r=".8" fill="currentColor"/></svg>クイズ</button>
+</nav>
+
+<script>
+/* ---------- storage (safe) ---------- */
+var MEM = {};
+function save(k,v){ try{localStorage.setItem(k,v)}catch(e){MEM[k]=v} }
+function load(k){ try{var r=localStorage.getItem(k); return r===null?(MEM[k]||null):r}catch(e){return MEM[k]||null} }
+
+/* ---------- nav ---------- */
+function go(t){
+  document.querySelectorAll('section').forEach(function(s){s.classList.remove('on')});
+  document.getElementById('s-'+t).classList.add('on');
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on', b.dataset.t===t)});
+  window.scrollTo(0,0);
+}
+
+/* ---------- SVG art ---------- */
+function art(id){
+  var A = {
+  /* --- ヤンバルテナガコガネ : 前脚が異常に長い --- */
+  tenaga:'<svg viewBox="0 0 120 120"><defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6a4a"/><stop offset=".5" stop-color="#1b3d2c"/><stop offset="1" stop-color="#0e2018"/></linearGradient></defs>'
+    +'<ellipse cx="60" cy="72" rx="21" ry="27" fill="url(#tg)" stroke="#7fe0aa" stroke-width="1.6"/>'
+    +'<path d="M60 46v52" stroke="#7fe0aa" stroke-width="1" opacity=".7"/>'
+    +'<ellipse cx="48" cy="66" rx="6" ry="9" fill="#3f7a58" opacity=".55"/><ellipse cx="72" cy="66" rx="6" ry="9" fill="#3f7a58" opacity=".55"/>'
+    +'<ellipse cx="50" cy="86" rx="4" ry="7" fill="#3f7a58" opacity=".45"/><ellipse cx="70" cy="86" rx="4" ry="7" fill="#3f7a58" opacity=".45"/>'
+    +'<rect x="47" y="34" width="26" height="16" rx="5" fill="#173525" stroke="#7fe0aa" stroke-width="1.5"/>'
+    +'<ellipse cx="60" cy="26" rx="10" ry="7" fill="#0f2419" stroke="#7fe0aa" stroke-width="1.5"/>'
+    +'<path d="M54 22c-3-4-5-5-8-6" stroke="#7fe0aa" stroke-width="2" fill="none" stroke-linecap="round"/>'
+    +'<path d="M66 22c3-4 5-5 8-6" stroke="#7fe0aa" stroke-width="2" fill="none" stroke-linecap="round"/>'
+    /* 超長い前脚 = 名前の由来 */
+    +'<path d="M47 40 C28 34 16 20 8 8" stroke="#f2c14e" stroke-width="3.4" fill="none" stroke-linecap="round"/>'
+    +'<path d="M8 8 C12 14 12 18 10 22" stroke="#f2c14e" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M73 40 C92 34 104 20 112 8" stroke="#f2c14e" stroke-width="3.4" fill="none" stroke-linecap="round"/>'
+    +'<path d="M112 8 C108 14 108 18 110 22" stroke="#f2c14e" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M42 62 L22 66M42 78 L24 92M78 62 L98 66M78 78 L96 92" stroke="#7fe0aa" stroke-width="2.4" stroke-linecap="round"/>'
+    +'<circle cx="8" cy="8" r="3" fill="#ff9a9d"/><circle cx="112" cy="8" r="3" fill="#ff9a9d"/>'
+    +'</svg>',
+
+  /* --- オキナワマルバネクワガタ : 丸い体・短い大あご --- */
+  marubane:'<svg viewBox="0 0 120 120">'
+    +'<ellipse cx="60" cy="74" rx="26" ry="26" fill="#2b1a10" stroke="#c98b5a" stroke-width="1.6"/>'
+    +'<path d="M60 48v52" stroke="#c98b5a" stroke-width="1" opacity=".6"/>'
+    +'<path d="M44 56 L44 96M50 52 L50 98M70 52 L70 98M76 56 L76 96" stroke="#8a5c36" stroke-width="1" opacity=".7"/>'
+    +'<rect x="46" y="34" width="28" height="16" rx="6" fill="#231409" stroke="#c98b5a" stroke-width="1.5"/>'
+    +'<ellipse cx="60" cy="26" rx="11" ry="7" fill="#1a0f06" stroke="#c98b5a" stroke-width="1.5"/>'
+    /* 短く太く、先端が二又 */
+    +'<path d="M52 22 C46 16 42 12 39 8" stroke="#e8b98a" stroke-width="4" fill="none" stroke-linecap="round"/>'
+    +'<path d="M39 8 L34 6M39 8 L38 2" stroke="#e8b98a" stroke-width="3" stroke-linecap="round"/>'
+    +'<path d="M68 22 C74 16 78 12 81 8" stroke="#e8b98a" stroke-width="4" fill="none" stroke-linecap="round"/>'
+    +'<path d="M81 8 L86 6M81 8 L82 2" stroke="#e8b98a" stroke-width="3" stroke-linecap="round"/>'
+    +'<path d="M38 60 L18 54M38 76 L16 78M38 90 L20 100M82 60 L102 54M82 76 L104 78M82 90 L100 100" stroke="#c98b5a" stroke-width="2.6" stroke-linecap="round"/>'
+    +'</svg>',
+
+  /* --- オキナワヒラタクワガタ : 太くまっすぐ、内歯1本 --- */
+  hirata:'<svg viewBox="0 0 120 120">'
+    +'<ellipse cx="60" cy="78" rx="20" ry="25" fill="#1a1a1c" stroke="#9aa3ad" stroke-width="1.6"/>'
+    +'<path d="M60 54v49" stroke="#9aa3ad" stroke-width="1" opacity=".55"/>'
+    +'<ellipse cx="60" cy="72" rx="15" ry="12" fill="#2a2a2e" opacity=".8"/>'
+    +'<rect x="44" y="40" width="32" height="16" rx="4" fill="#141416" stroke="#9aa3ad" stroke-width="1.5"/>'
+    +'<ellipse cx="60" cy="32" rx="12" ry="7" fill="#0e0e10" stroke="#9aa3ad" stroke-width="1.5"/>'
+    /* 太くまっすぐ→先端だけ内側にフック、根元に大きい内歯1本 */
+    +'<path d="M51 28 C46 20 44 12 43 5" stroke="#d8dee6" stroke-width="4.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M43 5 C46 3 50 4 52 7" stroke="#d8dee6" stroke-width="4" fill="none" stroke-linecap="round"/>'
+    +'<path d="M48 20 L56 18" stroke="#d8dee6" stroke-width="4" stroke-linecap="round"/>'
+    +'<path d="M69 28 C74 20 76 12 77 5" stroke="#d8dee6" stroke-width="4.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M77 5 C74 3 70 4 68 7" stroke="#d8dee6" stroke-width="4" fill="none" stroke-linecap="round"/>'
+    +'<path d="M72 20 L64 18" stroke="#d8dee6" stroke-width="4" stroke-linecap="round"/>'
+    +'<path d="M40 64 L18 58M40 80 L16 84M40 94 L22 106M80 64 L102 58M80 80 L104 84M80 94 L98 106" stroke="#9aa3ad" stroke-width="2.6" stroke-linecap="round"/>'
+    +'<text x="60" y="118" text-anchor="middle" font-size="8" fill="#57c98a">まっすぐ＋根元に歯1本</text>'
+    +'</svg>',
+
+  /* --- オキナワノコギリクワガタ : 湾曲＋ギザギザ --- */
+  nokogiri:'<svg viewBox="0 0 120 120">'
+    +'<ellipse cx="60" cy="78" rx="19" ry="25" fill="#5a2410" stroke="#e0954f" stroke-width="1.6"/>'
+    +'<path d="M60 54v49" stroke="#e0954f" stroke-width="1" opacity=".6"/>'
+    +'<rect x="45" y="40" width="30" height="16" rx="4" fill="#46190a" stroke="#e0954f" stroke-width="1.5"/>'
+    +'<ellipse cx="60" cy="32" rx="12" ry="7" fill="#381306" stroke="#e0954f" stroke-width="1.5"/>'
+    /* 大きく湾曲、内側にノコギリ歯 */
+    +'<path d="M51 28 C40 22 32 14 30 4 C36 10 42 12 48 12" stroke="#f0b271" stroke-width="4.2" fill="none" stroke-linecap="round"/>'
+    +'<path d="M45 22 L50 21M40 17 L46 16M36 12 L42 12" stroke="#f0b271" stroke-width="2.4" stroke-linecap="round"/>'
+    +'<path d="M69 28 C80 22 88 14 90 4 C84 10 78 12 72 12" stroke="#f0b271" stroke-width="4.2" fill="none" stroke-linecap="round"/>'
+    +'<path d="M75 22 L70 21M80 17 L74 16M84 12 L78 12" stroke="#f0b271" stroke-width="2.4" stroke-linecap="round"/>'
+    +'<path d="M41 64 L19 58M41 80 L17 84M41 94 L23 106M79 64 L101 58M79 80 L103 84M79 94 L97 106" stroke="#e0954f" stroke-width="2.6" stroke-linecap="round"/>'
+    +'<text x="60" y="118" text-anchor="middle" font-size="8" fill="#57c98a">大きく曲がる＋ギザギザ</text>'
+    +'</svg>',
+
+  /* --- リュウキュウコクワガタ : 細くまっすぐ、中央に歯1本 --- */
+  kokuwa:'<svg viewBox="0 0 120 120">'
+    +'<ellipse cx="60" cy="80" rx="16" ry="22" fill="#221f1c" stroke="#8f8880" stroke-width="1.6"/>'
+    +'<path d="M60 58v44" stroke="#8f8880" stroke-width="1" opacity=".55"/>'
+    +'<rect x="48" y="46" width="24" height="14" rx="4" fill="#191714" stroke="#8f8880" stroke-width="1.5"/>'
+    +'<ellipse cx="60" cy="39" rx="10" ry="6" fill="#121110" stroke="#8f8880" stroke-width="1.5"/>'
+    /* 細くまっすぐ、真ん中あたりに小さな内歯 */
+    +'<path d="M53 35 C50 26 49 18 49 12" stroke="#cfc8c0" stroke-width="3" fill="none" stroke-linecap="round"/>'
+    +'<path d="M49 12 C52 11 55 12 56 14" stroke="#cfc8c0" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M50 24 L56 23" stroke="#cfc8c0" stroke-width="2.6" stroke-linecap="round"/>'
+    +'<path d="M67 35 C70 26 71 18 71 12" stroke="#cfc8c0" stroke-width="3" fill="none" stroke-linecap="round"/>'
+    +'<path d="M71 12 C68 11 65 12 64 14" stroke="#cfc8c0" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M70 24 L64 23" stroke="#cfc8c0" stroke-width="2.6" stroke-linecap="round"/>'
+    +'<path d="M44 68 L26 62M44 82 L24 86M44 94 L30 106M76 68 L94 62M76 82 L96 86M76 94 L90 106" stroke="#8f8880" stroke-width="2.3" stroke-linecap="round"/>'
+    +'<text x="60" y="118" text-anchor="middle" font-size="8" fill="#57c98a">細い・小さい・中央に歯</text>'
+    +'</svg>',
+
+  /* --- オキナワネブトクワガタ : ずんぐり、短い大あご、上翅に縦スジ --- */
+  nebuto:'<svg viewBox="0 0 120 120">'
+    +'<ellipse cx="60" cy="80" rx="21" ry="20" fill="#241a12" stroke="#a68a68" stroke-width="1.6"/>'
+    +'<path d="M60 60v40" stroke="#a68a68" stroke-width="1" opacity=".6"/>'
+    +'<path d="M47 66 L47 96M52 63 L52 98M68 63 L68 98M73 66 L73 96" stroke="#7d6448" stroke-width="1.4"/>'
+    +'<rect x="47" y="48" width="26" height="14" rx="4" fill="#1c150e" stroke="#a68a68" stroke-width="1.5"/>'
+    +'<ellipse cx="60" cy="41" rx="10" ry="6" fill="#150f0a" stroke="#a68a68" stroke-width="1.5"/>'
+    /* とても短い大あご */
+    +'<path d="M53 37 C50 32 49 28 50 24" stroke="#d4b992" stroke-width="3.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M50 24 L55 26" stroke="#d4b992" stroke-width="3" stroke-linecap="round"/>'
+    +'<path d="M67 37 C70 32 71 28 70 24" stroke="#d4b992" stroke-width="3.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M70 24 L65 26" stroke="#d4b992" stroke-width="3" stroke-linecap="round"/>'
+    +'<path d="M40 70 L22 64M40 84 L20 88M42 96 L28 108M80 70 L98 64M80 84 L100 88M78 96 L92 108" stroke="#a68a68" stroke-width="2.4" stroke-linecap="round"/>'
+    +'<text x="60" y="118" text-anchor="middle" font-size="8" fill="#57c98a">ずんぐり・タテ筋・小さい</text>'
+    +'</svg>',
+
+  /* --- ルイスツノヒョウタンクワガタ : 細長い、ひょうたん型 --- */
+  hyoutan:'<svg viewBox="0 0 120 120">'
+    +'<ellipse cx="60" cy="84" rx="12" ry="20" fill="#1c1c1e" stroke="#8f8880" stroke-width="1.6"/>'
+    +'<ellipse cx="60" cy="58" rx="13" ry="11" fill="#161618" stroke="#8f8880" stroke-width="1.6"/>'
+    +'<path d="M60 66v38" stroke="#8f8880" stroke-width="1" opacity=".55"/>'
+    +'<ellipse cx="60" cy="41" rx="11" ry="7" fill="#101012" stroke="#8f8880" stroke-width="1.5"/>'
+    /* 短い角状の突起 */
+    +'<path d="M53 37 C51 30 51 26 53 22" stroke="#cfc8c0" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+    +'<path d="M67 37 C69 30 69 26 67 22" stroke="#cfc8c0" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+    +'<path d="M50 46 L34 40M50 58 L32 62M50 70 L36 80M70 46 L86 40M70 58 L88 62M70 70 L84 80" stroke="#8f8880" stroke-width="2.3" stroke-linecap="round"/>'
+    +'<text x="60" y="116" text-anchor="middle" font-size="8" fill="#57c98a">ひょうたん形・平ら</text>'
+    +'</svg>',
+
+  /* --- マメクワガタ : とても小さい --- */
+  mame:'<svg viewBox="0 0 120 120">'
+    +'<circle cx="90" cy="30" r="17" fill="none" stroke="#2f6642" stroke-width="1"/>'
+    +'<text x="90" y="33" text-anchor="middle" font-size="9" fill="#a9cdb5">実物大</text>'
+    +'<ellipse cx="55" cy="78" rx="14" ry="17" fill="#20201f" stroke="#8f8880" stroke-width="1.6"/>'
+    +'<path d="M55 61v34" stroke="#8f8880" stroke-width="1" opacity=".5"/>'
+    +'<rect x="45" y="52" width="20" height="11" rx="3" fill="#181817" stroke="#8f8880" stroke-width="1.5"/>'
+    +'<ellipse cx="55" cy="46" rx="9" ry="5.5" fill="#111" stroke="#8f8880" stroke-width="1.5"/>'
+    +'<path d="M49 43 C47 38 47 34 49 31" stroke="#cfc8c0" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M61 43 C63 38 63 34 61 31" stroke="#cfc8c0" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M41 66 L26 60M41 78 L24 82M43 90 L31 100M69 66 L84 60M69 78 L86 82M67 90 L79 100" stroke="#8f8880" stroke-width="2.1" stroke-linecap="round"/>'
+    +'<ellipse cx="90" cy="30" rx="4" ry="5" fill="#20201f" stroke="#8f8880" stroke-width=".8"/>'
+    +'<text x="55" y="114" text-anchor="middle" font-size="8" fill="#57c98a">1cm前後！見つけたら名人</text>'
+    +'</svg>',
+
+  /* --- オキナワカブトムシ --- */
+  kabuto:'<svg viewBox="0 0 120 120">'
+    +'<ellipse cx="60" cy="80" rx="22" ry="24" fill="#3d2a12" stroke="#e0a44f" stroke-width="1.6"/>'
+    +'<path d="M60 56v48" stroke="#e0a44f" stroke-width="1" opacity=".6"/>'
+    +'<rect x="46" y="42" width="28" height="16" rx="5" fill="#2c1d0b" stroke="#e0a44f" stroke-width="1.5"/>'
+    +'<ellipse cx="60" cy="35" rx="11" ry="6" fill="#201406" stroke="#e0a44f" stroke-width="1.5"/>'
+    /* 頭角（Y字） */
+    +'<path d="M60 31 C58 22 55 14 52 8" stroke="#f0c583" stroke-width="4.4" fill="none" stroke-linecap="round"/>'
+    +'<path d="M52 8 L46 4M52 8 L54 2" stroke="#f0c583" stroke-width="3.2" stroke-linecap="round"/>'
+    +'<path d="M57 44 C54 40 52 38 49 36" stroke="#f0c583" stroke-width="3" fill="none" stroke-linecap="round"/>'
+    +'<path d="M42 66 L20 60M42 82 L18 86M44 96 L26 108M78 66 L100 60M78 82 L102 86M76 96 L94 108" stroke="#e0a44f" stroke-width="2.6" stroke-linecap="round"/>'
+    +'<text x="60" y="118" text-anchor="middle" font-size="8" fill="#57c98a">本土より小ぶり・角が短め</text>'
+    +'</svg>',
+
+  /* --- ヤンバルクイナ --- */
+  kuina:'<svg viewBox="0 0 120 120">'
+    +'<ellipse cx="58" cy="62" rx="26" ry="20" fill="#3f5a3a" stroke="#8fd06f" stroke-width="1.6"/>'
+    +'<path d="M40 58 Q34 48 40 40 Q46 34 52 38" fill="#3f5a3a" stroke="#8fd06f" stroke-width="1.6"/>'
+    +'<circle cx="44" cy="42" r="7" fill="#2c4229" stroke="#8fd06f" stroke-width="1.5"/>'
+    +'<circle cx="42" cy="41" r="2" fill="#fff"/><circle cx="42" cy="41" r="1" fill="#000"/>'
+    +'<path d="M37 43 L24 46 L37 48Z" fill="#e5484d"/>'
+    +'<path d="M46 34 Q44 28 40 26" stroke="#fff" stroke-width="2" fill="none"/>'
+    +'<path d="M56 70 L54 92M66 70 L68 92" stroke="#e5484d" stroke-width="3.4" stroke-linecap="round"/>'
+    +'<path d="M54 92 L48 96M54 92 L58 97M68 92 L62 96M68 92 L74 97" stroke="#e5484d" stroke-width="2.4" stroke-linecap="round"/>'
+    +'<path d="M50 58 L74 58M50 66 L76 66" stroke="#dfe9d8" stroke-width="1.6" opacity=".7"/>'
+    +'<text x="60" y="114" text-anchor="middle" font-size="8" fill="#f2c14e">飛べない・赤いくちばしと脚</text>'
+    +'</svg>',
+
+  /* --- ノグチゲラ --- */
+  noguchi:'<svg viewBox="0 0 120 120">'
+    +'<path d="M76 20 L76 104" stroke="#4a3a26" stroke-width="12" stroke-linecap="round"/>'
+    +'<ellipse cx="56" cy="60" rx="14" ry="22" fill="#6b3a22" stroke="#e0954f" stroke-width="1.6"/>'
+    +'<circle cx="56" cy="36" r="10" fill="#7a4527" stroke="#e0954f" stroke-width="1.5"/>'
+    +'<path d="M50 28 Q56 22 62 28" fill="#e5484d"/>'
+    +'<circle cx="52" cy="35" r="2" fill="#fff"/><circle cx="52" cy="35" r="1" fill="#000"/>'
+    +'<path d="M48 38 L34 36 L48 42Z" fill="#d8dee6"/>'
+    +'<path d="M62 48 Q74 58 66 74" fill="#5a2f1a" stroke="#e0954f" stroke-width="1.4"/>'
+    +'<path d="M56 82 L58 96 L52 100" stroke="#4a3a26" stroke-width="3" fill="none" stroke-linecap="round"/>'
+    +'<text x="60" y="116" text-anchor="middle" font-size="8" fill="#f2c14e">赤い頭・木をつつく音でわかる</text>'
+    +'</svg>',
+
+  /* --- イボイモリ --- */
+  imori:'<svg viewBox="0 0 120 120">'
+    +'<path d="M20 60 Q40 40 60 60 Q80 80 100 62" stroke="#3a2a16" stroke-width="16" fill="none" stroke-linecap="round"/>'
+    +'<circle cx="22" cy="58" r="9" fill="#4a3a1e" stroke="#f2c14e" stroke-width="1.4"/>'
+    +'<circle cx="19" cy="55" r="2" fill="#f2c14e"/>'
+    +'<g fill="#f2c14e"><circle cx="36" cy="50" r="2.6"/><circle cx="48" cy="49" r="2.6"/><circle cx="60" cy="54" r="2.6"/><circle cx="72" cy="64" r="2.6"/><circle cx="84" cy="68" r="2.6"/><circle cx="94" cy="62" r="2.6"/></g>'
+    +'<path d="M36 68 L30 82M52 66 L48 82M74 76 L72 90M90 74 L94 88" stroke="#3a2a16" stroke-width="5" stroke-linecap="round"/>'
+    +'<path d="M100 62 Q112 56 108 44" stroke="#3a2a16" stroke-width="7" fill="none" stroke-linecap="round"/>'
+    +'<text x="60" y="110" text-anchor="middle" font-size="8" fill="#f2c14e">背中にゴツゴツのイボ・触らない</text>'
+    +'</svg>',
+
+  /* --- ヤマガメ --- */
+  yamagame:'<svg viewBox="0 0 120 120">'
+    +'<ellipse cx="62" cy="66" rx="30" ry="22" fill="#5a4020" stroke="#e0a44f" stroke-width="1.8"/>'
+    +'<path d="M62 44v44M40 52 Q62 62 84 52M40 80 Q62 70 84 80" stroke="#8a6a30" stroke-width="1.6" fill="none"/>'
+    +'<path d="M62 46 L50 58 L62 66 L74 58Z" fill="#6e5028" stroke="#8a6a30"/>'
+    +'<circle cx="28" cy="58" r="9" fill="#6e5028" stroke="#e0a44f" stroke-width="1.5"/>'
+    +'<circle cx="25" cy="56" r="2" fill="#fff"/><circle cx="25" cy="56" r="1" fill="#000"/>'
+    +'<path d="M42 84 L38 96M78 84 L84 96M44 48 L38 40M80 48 L88 42" stroke="#6e5028" stroke-width="6" stroke-linecap="round"/>'
+    +'<text x="60" y="112" text-anchor="middle" font-size="8" fill="#f2c14e">天然記念物・持ち帰らない</text>'
+    +'</svg>',
+
+  /* --- ハブ（警告用） --- */
+  habu:'<svg viewBox="0 0 120 120">'
+    +'<path d="M104 26 Q70 30 78 54 Q86 78 52 82 Q22 86 24 104" stroke="#8a7a2a" stroke-width="13" fill="none" stroke-linecap="round"/>'
+    +'<path d="M104 26 Q70 30 78 54 Q86 78 52 82 Q22 86 24 104" stroke="#d9c94a" stroke-width="4" fill="none" stroke-dasharray="7 9" stroke-linecap="round"/>'
+    +'<path d="M104 20 Q118 24 112 36 Q104 42 98 34Z" fill="#8a7a2a" stroke="#d9c94a" stroke-width="1.5"/>'
+    +'<circle cx="106" cy="27" r="2.4" fill="#e5484d"/>'
+    +'<path d="M99 33 L88 38 M99 33 L92 42" stroke="#e5484d" stroke-width="2" stroke-linecap="round"/>'
+    +'<text x="52" y="116" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">三角の頭・夜に活動</text>'
+    +'</svg>',
+
+  /* ===== DANGEROUS SEA ===== */
+  /* ゴンズイ : ナマズ形・ヒゲ・黄色い縦帯 */
+  gonzui:'<svg viewBox="0 0 140 100">'
+    +'<path d="M24 50 C40 30 92 30 116 44 L132 34 L128 50 L132 66 L116 56 C92 70 40 70 24 50Z" fill="#2a2118" stroke="#f2c14e" stroke-width="1.6"/>'
+    +'<path d="M30 44 C60 38 96 40 116 46" stroke="#f7d97a" stroke-width="3.5" fill="none"/>'
+    +'<path d="M30 54 C60 60 96 58 116 52" stroke="#f7d97a" stroke-width="3.5" fill="none"/>'
+    +'<circle cx="34" cy="46" r="3" fill="#fff"/><circle cx="34" cy="46" r="1.6" fill="#000"/>'
+    +'<path d="M24 50 L10 42M24 52 L8 52M24 54 L10 62M26 46 L14 34" stroke="#f2c14e" stroke-width="1.6" stroke-linecap="round"/>'
+    +'<path d="M56 32 L58 16M62 32 L64 18" stroke="#e5484d" stroke-width="3.4" stroke-linecap="round"/>'
+    +'<path d="M42 62 L36 78M46 62 L42 80" stroke="#e5484d" stroke-width="3.4" stroke-linecap="round"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">黄色い2本線＋ヒゲ／赤=毒トゲ</text>'
+    +'</svg>',
+  /* ハオコゼ : 小さい・背びれが大きく棘立つ */
+  haokoze:'<svg viewBox="0 0 140 100">'
+    +'<path d="M36 56 C48 40 88 38 106 50 L126 38 L122 54 L126 70 L106 60 C88 72 48 70 36 56Z" fill="#7a2f22" stroke="#f0a080" stroke-width="1.6"/>'
+    +'<path d="M50 42 L48 18 L58 34 L60 14 L70 32 L74 16 L82 34 L88 20 L92 40" fill="#8c3a24" stroke="#e5484d" stroke-width="2.6" stroke-linejoin="round"/>'
+    +'<circle cx="46" cy="52" r="4" fill="#fff"/><circle cx="46" cy="52" r="2" fill="#000"/>'
+    +'<path d="M36 56 L26 52 L28 60Z" fill="#7a2f22" stroke="#f0a080"/>'
+    +'<path d="M60 66 L56 80M70 68 L68 82" stroke="#e5484d" stroke-width="3" stroke-linecap="round"/>'
+    +'<ellipse cx="74" cy="54" rx="10" ry="7" fill="#a8543a" opacity=".6"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">手のひらサイズ・背に赤いトゲ列</text>'
+    +'</svg>',
+  /* ミノカサゴ : 扇状の長いヒレ条＋シマ模様 */
+  minokasago:'<svg viewBox="0 0 140 100">'
+    +'<g stroke="#e5484d" stroke-width="2.2" fill="none" stroke-linecap="round">'
+    +'<path d="M62 40 L50 6"/><path d="M68 38 L64 4"/><path d="M74 38 L80 6"/><path d="M80 40 L92 10"/><path d="M86 42 L100 16"/>'
+    +'<path d="M60 62 L46 92"/><path d="M68 64 L62 96"/><path d="M76 64 L84 94"/><path d="M84 62 L98 88"/>'
+    +'<path d="M46 46 L20 30"/><path d="M46 54 L18 50"/><path d="M46 60 L20 74"/>'
+    +'</g>'
+    +'<path d="M40 52 C52 36 92 36 110 46 L128 36 L124 52 L128 68 L110 58 C92 68 52 68 40 52Z" fill="#6b2a1e" stroke="#f7c9b0" stroke-width="1.6"/>'
+    +'<g stroke="#f7e2d4" stroke-width="3.4">'
+    +'<path d="M56 40 L54 64"/><path d="M70 38 L70 66"/><path d="M84 39 L86 65"/><path d="M98 43 L102 61"/>'
+    +'</g>'
+    +'<circle cx="48" cy="48" r="4" fill="#fff"/><circle cx="48" cy="48" r="2" fill="#000"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">羽のような長いヒレ＝ぜんぶ毒</text>'
+    +'</svg>',
+  /* オニダルマオコゼ : 岩そっくり・ゴツゴツ */
+  onidaruma:'<svg viewBox="0 0 140 100">'
+    +'<path d="M18 74 C14 58 26 44 42 42 C48 28 74 26 84 38 C104 34 120 46 118 62 C126 66 124 78 112 78 L26 78 C20 78 18 76 18 74Z" fill="#4a4436" stroke="#a89c78" stroke-width="1.6"/>'
+    +'<g fill="#6b6350"><circle cx="40" cy="58" r="6"/><circle cx="62" cy="50" r="7"/><circle cx="86" cy="56" r="6"/><circle cx="104" cy="64" r="5"/><circle cx="52" cy="70" r="5"/><circle cx="78" cy="70" r="4"/></g>'
+    +'<g stroke="#e5484d" stroke-width="2.6" stroke-linecap="round">'
+    +'<path d="M44 42 L42 28"/><path d="M56 38 L56 24"/><path d="M68 36 L70 22"/><path d="M80 38 L84 25"/><path d="M92 42 L98 30"/></g>'
+    +'<ellipse cx="34" cy="56" rx="5" ry="4" fill="#111"/><circle cx="33" cy="55" r="1.6" fill="#f2c14e"/>'
+    +'<path d="M22 66 C30 70 40 70 48 66" stroke="#2a2620" stroke-width="2.4" fill="none"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">岩そっくり！踏むと刺さる・最凶</text>'
+    +'</svg>',
+  /* エラブウミヘビ : 白黒の輪 */
+  umihebi:'<svg viewBox="0 0 140 100">'
+    +'<path d="M126 26 C96 22 88 46 104 58 C118 70 100 86 74 80 C48 74 40 50 20 56" stroke="#dfe6ee" stroke-width="12" fill="none" stroke-linecap="round"/>'
+    +'<path d="M126 26 C96 22 88 46 104 58 C118 70 100 86 74 80 C48 74 40 50 20 56" stroke="#1a2430" stroke-width="12" fill="none" stroke-dasharray="9 11" stroke-linecap="butt"/>'
+    +'<ellipse cx="128" cy="24" rx="9" ry="7" fill="#1a2430" stroke="#dfe6ee" stroke-width="1.4"/>'
+    +'<circle cx="131" cy="22" r="1.8" fill="#f2c14e"/>'
+    +'<path d="M20 56 L8 50 L8 62Z" fill="#dfe6ee"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">白黒のしま・平たい尾／猛毒</text>'
+    +'</svg>',
+  /* ヒョウモンダコ : 青いリング */
+  hyoumon:'<svg viewBox="0 0 140 100">'
+    +'<ellipse cx="66" cy="40" rx="22" ry="19" fill="#8a6a2a" stroke="#f2c14e" stroke-width="1.5"/>'
+    +'<g stroke="#8a6a2a" stroke-width="6" fill="none" stroke-linecap="round">'
+    +'<path d="M50 54 C40 68 26 72 16 66"/><path d="M58 58 C52 76 40 86 28 86"/>'
+    +'<path d="M66 60 C66 80 60 92 50 96"/><path d="M74 58 C80 76 92 86 104 86"/>'
+    +'<path d="M82 54 C92 68 106 72 116 66"/></g>'
+    +'<g fill="none" stroke="#3fd0ff" stroke-width="2.6">'
+    +'<circle cx="56" cy="34" r="4.5"/><circle cx="72" cy="30" r="4.5"/><circle cx="80" cy="44" r="4.5"/>'
+    +'<circle cx="60" cy="48" r="4"/><circle cx="46" cy="60" r="3.5"/><circle cx="88" cy="60" r="3.5"/>'
+    +'<circle cx="30" cy="70" r="3"/><circle cx="102" cy="70" r="3"/><circle cx="62" cy="80" r="3"/></g>'
+    +'<circle cx="58" cy="40" r="2.4" fill="#111"/><circle cx="76" cy="38" r="2.4" fill="#111"/>'
+    +'<text x="70" y="96" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">青い輪が光ったら 猛毒！10cm</text>'
+    +'</svg>',
+  /* ハブクラゲ : 立方体のかさ＋長い触手 */
+  habukurage:'<svg viewBox="0 0 140 100">'
+    +'<path d="M52 12 L88 12 L92 44 L48 44 Z" fill="#bfe9f5" opacity=".45" stroke="#8fd0ff" stroke-width="1.8"/>'
+    +'<path d="M52 12 L48 44M88 12 L92 44M70 12 L70 44" stroke="#8fd0ff" stroke-width="1" opacity=".7"/>'
+    +'<g stroke="#8fd0ff" stroke-width="1.8" fill="none" opacity=".9">'
+    +'<path d="M50 44 C44 60 52 72 44 90"/><path d="M58 44 C54 62 62 74 54 94"/>'
+    +'<path d="M66 44 C64 64 70 76 64 96"/><path d="M74 44 C76 64 70 76 78 96"/>'
+    +'<path d="M82 44 C86 62 78 74 88 94"/><path d="M90 44 C96 60 88 72 98 90"/></g>'
+    +'<text x="70" y="90" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">四角いかさ・透明で見えない</text>'
+    +'</svg>',
+
+  /* ===== RIVER ===== */
+  /* リュウキュウアユ : 禁止 */
+  ayu:'<svg viewBox="0 0 140 100">'
+    +'<path d="M22 50 C42 30 88 30 108 44 L130 30 L124 50 L130 70 L108 56 C88 70 42 70 22 50Z" fill="#3f4a52" stroke="#cfe0ea" stroke-width="1.6"/>'
+    +'<path d="M24 50 C44 44 90 44 110 48" stroke="#9fb6c4" stroke-width="1.4" fill="none"/>'
+    +'<path d="M58 34 L60 20 L78 32Z" fill="#4d5a64" stroke="#cfe0ea" stroke-width="1.4"/>'
+    +'<ellipse cx="52" cy="46" rx="9" ry="7" fill="#d8b24a" opacity=".85"/>'
+    +'<circle cx="32" cy="46" r="4" fill="#fff"/><circle cx="32" cy="46" r="2" fill="#000"/>'
+    +'<path d="M50 62 L46 74M66 64 L64 76" stroke="#9fb6c4" stroke-width="2.4" stroke-linecap="round"/>'
+    +'<text x="70" y="92" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">ほほに黄色い斑・小さな脂びれ</text>'
+    +'</svg>',
+  /* ボウズハゼ : 吸盤口・平たい頭 */
+  bouzu:'<svg viewBox="0 0 140 100">'
+    +'<path d="M20 56 C36 40 90 40 110 50 L130 40 L126 56 L130 72 L110 62 C90 72 36 72 20 56Z" fill="#3d5240" stroke="#9fd0ac" stroke-width="1.6"/>'
+    +'<ellipse cx="22" cy="58" rx="7" ry="6" fill="#2a3b2d" stroke="#9fd0ac" stroke-width="1.5"/>'
+    +'<circle cx="34" cy="50" r="3.4" fill="#fff"/><circle cx="34" cy="50" r="1.7" fill="#000"/>'
+    +'<path d="M52 42 L54 26 L70 40Z" fill="#4a6350" stroke="#9fd0ac" stroke-width="1.3"/>'
+    +'<path d="M78 42 L82 30 L96 44Z" fill="#4a6350" stroke="#9fd0ac" stroke-width="1.3"/>'
+    +'<ellipse cx="48" cy="66" rx="10" ry="5" fill="#4a6350" stroke="#9fd0ac" stroke-width="1.2"/>'
+    +'<g fill="#7fb08c" opacity=".7"><circle cx="60" cy="52" r="2.4"/><circle cx="76" cy="50" r="2.4"/><circle cx="92" cy="54" r="2.4"/><circle cx="68" cy="60" r="2"/></g>'
+    +'<text x="70" y="92" text-anchor="middle" font-size="9" fill="#57c98a">口が吸盤・石にはりつく</text>'
+    +'</svg>',
+  /* ヨシノボリ : ずんぐり・腹に吸盤・頬に模様 */
+  yoshinobori:'<svg viewBox="0 0 140 100">'
+    +'<path d="M24 54 C40 36 92 38 112 50 L130 40 L126 55 L130 70 L112 60 C92 72 40 72 24 54Z" fill="#5a4a34" stroke="#e0c28f" stroke-width="1.6"/>'
+    +'<path d="M56 40 L58 24 L72 38Z" fill="#6e5a40" stroke="#e0c28f" stroke-width="1.3"/>'
+    +'<path d="M80 40 L84 28 L98 44Z" fill="#6e5a40" stroke="#e0c28f" stroke-width="1.3"/>'
+    +'<circle cx="36" cy="48" r="4" fill="#fff"/><circle cx="36" cy="48" r="2" fill="#000"/>'
+    +'<path d="M30 56 L40 58M31 60 L41 60" stroke="#e5484d" stroke-width="1.8" stroke-linecap="round"/>'
+    +'<ellipse cx="52" cy="68" rx="9" ry="5" fill="#8a7050" stroke="#e0c28f" stroke-width="1.4"/>'
+    +'<g fill="#3a2f20" opacity=".75"><circle cx="62" cy="52" r="3"/><circle cx="78" cy="50" r="3"/><circle cx="94" cy="54" r="3"/><circle cx="70" cy="60" r="2.4"/><circle cx="86" cy="60" r="2.4"/></g>'
+    +'<text x="70" y="92" text-anchor="middle" font-size="9" fill="#57c98a">ほほに赤い線・腹の吸盤で吸いつく</text>'
+    +'</svg>',
+  /* テナガエビ : 長いハサミ脚 */
+  tenagaebi:'<svg viewBox="0 0 140 100">'
+    +'<path d="M108 46 C96 34 70 32 54 42 C42 50 40 60 46 68 C54 78 78 78 94 70" fill="#3a4a5a" stroke="#9fc4e0" stroke-width="1.6"/>'
+    +'<path d="M94 70 C104 66 112 72 118 80 L108 78 L112 88" fill="#3a4a5a" stroke="#9fc4e0" stroke-width="1.5"/>'
+    +'<path d="M60 40 L58 34M68 38 L67 32M76 38 L76 32" stroke="#9fc4e0" stroke-width="1.2"/>'
+    +'<circle cx="52" cy="46" r="3" fill="#fff"/><circle cx="52" cy="46" r="1.5" fill="#000"/>'
+    +'<path d="M50 44 C36 34 22 22 10 14" stroke="#9fc4e0" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M10 14 L2 8M10 14 L4 20" stroke="#9fc4e0" stroke-width="2.2" stroke-linecap="round"/>'
+    +'<path d="M54 52 C40 52 26 44 14 34" stroke="#9fc4e0" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+    +'<path d="M14 34 L5 30M14 34 L8 40" stroke="#9fc4e0" stroke-width="2.2" stroke-linecap="round"/>'
+    +'<path d="M56 68 L52 82M66 72 L64 86M76 72 L78 86M86 70 L90 84" stroke="#9fc4e0" stroke-width="1.8" stroke-linecap="round"/>'
+    +'<text x="70" y="96" text-anchor="middle" font-size="9" fill="#57c98a">体より長いハサミ＝オス</text>'
+    +'</svg>',
+  /* オオウナギ : 太い・まだら */
+  oounagi:'<svg viewBox="0 0 140 100">'
+    +'<path d="M12 40 C36 24 62 60 88 44 C110 30 124 44 130 58" stroke="#4a3d24" stroke-width="17" fill="none" stroke-linecap="round"/>'
+    +'<path d="M12 40 C36 24 62 60 88 44 C110 30 124 44 130 58" stroke="#d8c07a" stroke-width="5" fill="none" stroke-dasharray="4 9" stroke-linecap="round" opacity=".85"/>'
+    +'<ellipse cx="14" cy="40" rx="9" ry="8" fill="#4a3d24" stroke="#d8c07a" stroke-width="1.4"/>'
+    +'<circle cx="11" cy="37" r="2" fill="#f2c14e"/>'
+    +'<path d="M6 44 C12 47 18 46 22 43" stroke="#2c2416" stroke-width="2" fill="none"/>'
+    +'<text x="70" y="90" text-anchor="middle" font-size="9" fill="#ff9a9d" font-weight="bold">13cm以下の細いのは 即リリース</text>'
+    +'</svg>',
+  /* ユゴイ : 銀色・二叉尾 */
+  yugoi:'<svg viewBox="0 0 140 100">'
+    +'<path d="M24 50 C42 28 88 28 108 44 L130 28 L120 50 L130 72 L108 56 C88 72 42 72 24 50Z" fill="#7f8c96" stroke="#dfe9f0" stroke-width="1.6"/>'
+    +'<path d="M56 30 L58 16 L80 30Z" fill="#8e9aa4" stroke="#dfe9f0" stroke-width="1.3"/>'
+    +'<circle cx="36" cy="46" r="5" fill="#fff"/><circle cx="36" cy="46" r="2.6" fill="#000"/>'
+    +'<path d="M118 34 L112 46M118 66 L112 54" stroke="#2a3138" stroke-width="4"/>'
+    +'<path d="M52 64 L48 78M66 66 L64 80" stroke="#a8b4bd" stroke-width="2.4" stroke-linecap="round"/>'
+    +'<text x="70" y="92" text-anchor="middle" font-size="9" fill="#57c98a">銀ピカ・尾の先が黒い</text>'
+    +'</svg>',
+
+  /* ===== SEA (catchable) ===== */
+  /* オヤビッチャ : 5本の黒帯＋黄色い背 */
+  oyabiccha:'<svg viewBox="0 0 140 100">'
+    +'<path d="M26 50 C40 22 96 22 112 44 L132 28 L124 50 L132 72 L112 56 C96 78 40 78 26 50Z" fill="#e8eef2" stroke="#8fa4b0" stroke-width="1.6"/>'
+    +'<path d="M30 40 C46 24 96 24 112 42 L108 34 C92 20 46 20 32 36Z" fill="#f2c14e"/>'
+    +'<path d="M34 34 C50 22 94 22 110 40 L112 46 C96 28 48 28 32 42Z" fill="#f2c14e"/>'
+    +'<g stroke="#1c2430" stroke-width="6">'
+    +'<path d="M46 28 L44 72"/><path d="M62 24 L60 76"/><path d="M78 24 L78 76"/><path d="M94 26 L96 74"/><path d="M108 32 L112 68"/></g>'
+    +'<circle cx="36" cy="46" r="5" fill="#fff"/><circle cx="36" cy="46" r="2.6" fill="#000"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#57c98a">黒い5本線＋背中が黄色</text>'
+    +'</svg>',
+  /* ロクセンスズメダイ : 6本帯・尾に黒線 */
+  rokusen:'<svg viewBox="0 0 140 100">'
+    +'<path d="M26 50 C40 24 96 24 112 44 L132 28 L124 50 L132 72 L112 56 C96 76 40 76 26 50Z" fill="#eef3f6" stroke="#8fa4b0" stroke-width="1.6"/>'
+    +'<g stroke="#1c2430" stroke-width="5.5">'
+    +'<path d="M44 30 L42 70"/><path d="M58 26 L56 74"/><path d="M72 25 L72 75"/><path d="M86 25 L88 75"/><path d="M100 28 L104 72"/></g>'
+    +'<path d="M124 32 L120 50 L124 68" stroke="#1c2430" stroke-width="4.5" fill="none"/>'
+    +'<circle cx="36" cy="46" r="5" fill="#fff"/><circle cx="36" cy="46" r="2.6" fill="#000"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#57c98a">背は黄色くない・尾に黒スジ</text>'
+    +'</svg>',
+  /* グルクン : 紡錘形・黄色い縦条・深い二叉尾 */
+  gurukun:'<svg viewBox="0 0 140 100">'
+    +'<path d="M18 50 C40 32 92 32 110 46 L134 26 L122 50 L134 74 L110 54 C92 68 40 68 18 50Z" fill="#5f8fb0" stroke="#cfe4f0" stroke-width="1.6"/>'
+    +'<path d="M22 46 C46 38 92 38 112 46 L112 52 C92 44 46 44 22 52Z" fill="#f2c14e"/>'
+    +'<path d="M26 56 C50 52 92 52 110 56" stroke="#e8734a" stroke-width="2.6" fill="none"/>'
+    +'<circle cx="30" cy="46" r="4.6" fill="#fff"/><circle cx="30" cy="46" r="2.4" fill="#000"/>'
+    +'<path d="M52 34 L54 22 L74 32Z" fill="#6f9fc0" stroke="#cfe4f0" stroke-width="1.2"/>'
+    +'<path d="M126 30 L120 50 L126 70" stroke="#e5484d" stroke-width="3.4" fill="none"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#57c98a">黄色い1本線・尾の先が赤い</text>'
+    +'</svg>',
+  /* ガチュン(メアジ) : 銀・大きい目・ゼンゴ */
+  gachun:'<svg viewBox="0 0 140 100">'
+    +'<path d="M18 50 C40 34 92 34 110 46 L134 28 L124 50 L134 72 L110 54 C92 66 40 66 18 50Z" fill="#aebac4" stroke="#e6eef4" stroke-width="1.6"/>'
+    +'<path d="M70 54 C88 55 104 53 116 50" stroke="#6a7884" stroke-width="4" fill="none" stroke-dasharray="3 3"/>'
+    +'<circle cx="30" cy="46" r="7" fill="#fff" stroke="#6a7884"/><circle cx="30" cy="46" r="3.6" fill="#000"/>'
+    +'<path d="M50 34 L52 22 L66 32Z" fill="#bcc7d0" stroke="#e6eef4" stroke-width="1.2"/>'
+    +'<path d="M76 34 L80 26 L94 34Z" fill="#bcc7d0" stroke="#e6eef4" stroke-width="1.2"/>'
+    +'<circle cx="44" cy="40" r="3.4" fill="#2a3138"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#57c98a">目が大きい・尾の付け根にトゲ列</text>'
+    +'</svg>',
+  /* ベラのなかま : 細長い・とがった口・派手 */
+  bera:'<svg viewBox="0 0 140 100">'
+    +'<path d="M16 52 C40 34 92 34 112 48 L132 34 L126 52 L132 70 L112 56 C92 70 40 70 16 52Z" fill="#3f8f7a" stroke="#a8e0cc" stroke-width="1.6"/>'
+    +'<path d="M16 52 L6 48 L8 56Z" fill="#3f8f7a" stroke="#a8e0cc" stroke-width="1.4"/>'
+    +'<path d="M30 44 C54 38 96 40 114 48" stroke="#f2c14e" stroke-width="3" fill="none"/>'
+    +'<path d="M32 58 C56 62 96 60 112 54" stroke="#e8734a" stroke-width="2.4" fill="none"/>'
+    +'<circle cx="26" cy="48" r="3.6" fill="#fff"/><circle cx="26" cy="48" r="1.8" fill="#000"/>'
+    +'<path d="M40 38 L110 40" stroke="#a8e0cc" stroke-width="2.6"/>'
+    +'<path d="M48 64 L44 76M62 66 L60 78" stroke="#a8e0cc" stroke-width="2.2" stroke-linecap="round"/>'
+    +'<text x="70" y="92" text-anchor="middle" font-size="9" fill="#57c98a">細長い・口がとがる・色あざやか</text>'
+    +'</svg>',
+  /* ミーバイ(ハタの幼魚) : ずんぐり・まだら・大きい口 */
+  miibai:'<svg viewBox="0 0 140 100">'
+    +'<path d="M20 52 C36 30 92 28 110 46 L132 32 L126 52 L132 72 L110 58 C92 76 36 74 20 52Z" fill="#6b5a3e" stroke="#e0cba0" stroke-width="1.6"/>'
+    +'<g fill="#2f2718" opacity=".8"><circle cx="46" cy="42" r="5"/><circle cx="62" cy="52" r="6"/><circle cx="80" cy="40" r="5"/><circle cx="96" cy="52" r="5"/><circle cx="56" cy="66" r="4"/><circle cx="88" cy="66" r="4"/><circle cx="106" cy="42" r="4"/></g>'
+    +'<circle cx="32" cy="44" r="4.6" fill="#fff"/><circle cx="32" cy="44" r="2.4" fill="#000"/>'
+    +'<path d="M20 52 C26 58 34 60 42 58" stroke="#3a3020" stroke-width="2.6" fill="none"/>'
+    +'<path d="M46 30 L48 20 L64 28Z" fill="#7d6a4a" stroke="#e0cba0" stroke-width="1.2"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#f2c14e">まだら模様・口が大きい／背びれ注意</text>'
+    +'</svg>',
+  /* アバサー(ハリセンボン) : 丸い・トゲ */
+  abasa:'<svg viewBox="0 0 140 100">'
+    +'<ellipse cx="66" cy="52" rx="34" ry="26" fill="#c8b48a" stroke="#efe0c0" stroke-width="1.6"/>'
+    +'<g stroke="#8a7a56" stroke-width="1.8" stroke-linecap="round">'
+    +'<path d="M40 32 L34 24"/><path d="M56 26 L54 16"/><path d="M74 26 L78 16"/><path d="M90 34 L98 26"/>'
+    +'<path d="M34 50 L24 48"/><path d="M96 50 L108 48"/><path d="M40 70 L34 80"/><path d="M58 78 L56 88"/><path d="M78 78 L82 88"/><path d="M92 70 L100 80"/></g>'
+    +'<g fill="#5a4c30" opacity=".7"><circle cx="52" cy="40" r="4"/><circle cx="72" cy="38" r="4"/><circle cx="84" cy="54" r="4"/><circle cx="56" cy="60" r="3.4"/></g>'
+    +'<circle cx="42" cy="46" r="7" fill="#fff"/><circle cx="42" cy="46" r="3.6" fill="#000"/>'
+    +'<path d="M32 54 C36 58 42 58 46 55" stroke="#7a6a48" stroke-width="2.6" fill="none"/>'
+    +'<path d="M100 44 L116 34 L112 52 L118 68 L100 60Z" fill="#c8b48a" stroke="#efe0c0" stroke-width="1.4"/>'
+    +'<text x="70" y="94" text-anchor="middle" font-size="9" fill="#f2c14e">フグのなかま・自分でさばかない</text>'
+    +'</svg>'
+  };
+  return A[id]||'';
+}
+
+/* ---------- data ---------- */
+var BUGS = [
+{id:'tenaga', no:true, jp:'ヤンバルテナガコガネ', ruby:'', size:'50〜60mm ／ 日本最大の甲虫（こうちゅう）',
+ art:'tenaga',
+ alert:'⛔ 捕（と）ったら 法律（ほうりつ）違反。見るだけ！',
+ rows:[
+  ['法的立場','<b>国内希少野生動植物種</b>（種の保存法／1996年指定）<br><b>国の天然記念物</b>（文化財保護法／1985年指定）<br>環境省レッドリスト <b>絶滅危惧IB類</b>'],
+  ['罰則','種の保存法：<b>個人 5年以下の懲役 または 500万円以下の罰金</b>（法人は最大1億円の罰金）<br>文化財保護法：5年以下の懲役 または 30万円以下の罰金'],
+  ['どこに','沖縄島北部の <b>やんばる地域だけ</b>にすむ 固有種（こゆうしゅ）。樹洞（じゅどう＝木のうろ）のある <b>スダジイ・オキナワウラジロガシの大木</b>'],
+  ['時期','9〜11月ごろが 成虫の活動期。8月は 出会う可能性は低いですが、<b>ゼロではありません</b>'],
+  ['見分け方','<b>前あしが 体より長い！</b>これが決定的。金属のような <b>緑〜銅色の光沢</b>。上ばねに 黄色い斑（まだら）模様。そして とにかく <b>大きい</b>']
+ ],
+ key:'🔑 <b>「前あしが 異常に長い」＝ ヤンバルテナガコガネ。</b>ほかのどの虫とも まちがえません。見つけたら <b>手を出さず、写真だけ撮って、その場を離れる。</b>そして 環境省 やんばる野生生物保護センター（ウフギー自然館 0980-50-1025）に 連絡すると 保護に役立ちます。',
+ extra:'<p class="muted">※ この虫の <b>幼虫（ようちゅう）</b>は 大木のうろの中の腐葉土（ふようど）で育ちます。<b>朽木や木のうろを 掘り返す・壊す行為は、それだけで 保護違反になり得ます。</b>朽木を探すときは やさしく、そして 必ず元に戻してください。</p>'
+},
+{id:'marubane', no:true, jp:'オキナワマルバネクワガタ', size:'35〜60mm ／ 丸っこい体',
+ art:'marubane',
+ alert:'⛔ 捕（と）ったら 法律違反。これも 見るだけ！',
+ rows:[
+  ['法的立場','<b>国内希少野生動植物種</b>（種の保存法／2016年3月指定）。<b>捕獲・採取・殺傷・譲渡（ゆずりわたし）が 原則禁止</b>'],
+  ['罰則','<b>個人 5年以下の懲役 または 500万円以下の罰金</b>（法人は最大1億円の罰金）'],
+  ['どこに','沖縄島北部の やんばるの <b>原生林（げんせいりん）</b>。オキナワウラジロガシなどの 大木のうろ'],
+  ['時期','<b>9月下旬〜11月</b>が中心。8月は ほぼ出ませんが 覚えておこう'],
+  ['見分け方','<b>体が丸っこくて ずんぐり</b>。赤みのある黒〜こげ茶。<b>大あごが短くて、先が 二又（ふたまた）に割れる。</b>上ばねに はっきりした <b>タテ筋</b>']
+ ],
+ key:'🔑 <b>「丸い体＋短くて先が二又の大あご」。</b>ヒラタやノコギリのように 大あごが長く伸びません。迷ったら <b>捕まえない</b>のが正解。',
+ extra:'<p class="muted">※ 沖縄県の「希少野生動植物保護条例」の指定47種には 昆虫は入っていません。<b>クワガタの規制は 国の「種の保存法」でかかっています。</b>「県条例に載ってないから大丈夫」は まちがいです。</p>'
+},
+{id:'hirata', no:false, jp:'オキナワヒラタクワガタ', size:'オス 25〜75mm ／ メス 20〜35mm',
+ art:'hirata',
+ rows:[
+  ['法的立場','<span class="pill p-ok">採集OK</span> 規制種ではありません（ただし 特別保護地区では すべて禁止）'],
+  ['どこに','<b>街灯・自販機の下</b>／樹液の出る <b>スダジイ・タブノキ</b>／木のうろ。<b>いちばん出会いやすい</b>'],
+  ['時期','5〜9月。<b>8月は最盛期。</b>日没〜22時が勝負'],
+  ['見分け方','<b>体が とても平たい。</b>光沢のある黒。大あごは <b>太くて まっすぐ</b>に伸び、<b>先だけ内側にフック</b>。<b>根元近くに 大きな内歯（うちば）が1本</b>'],
+  ['性格','気が強い。<b>指をはさむと かなり痛い！</b>持つときは <b>上ばね（背中）</b>を つまむ']
+ ],
+ key:'🔑 <b>「平たい＋まっすぐな太い大あご＋根元に歯1本」＝ヒラタ。</b>オスは大あごの長さが 個体でぜんぜん違います（小さい個体は 歯がほぼ見えないことも）。'
+},
+{id:'nokogiri', no:false, jp:'オキナワノコギリクワガタ', size:'オス 25〜65mm ／ メス 22〜35mm',
+ art:'nokogiri',
+ rows:[
+  ['法的立場','<span class="pill p-ok">採集OK</span> 規制種ではありません'],
+  ['どこに','樹液の出る <b>タブノキ・スダジイ</b>／街灯の下。よく飛びます'],
+  ['時期','5〜9月。<b>8月が最盛期</b>'],
+  ['見分け方','<b>赤みのある茶色〜黒褐色。</b>大あごが <b>水牛（すいぎゅう）の角みたいに 大きくカーブ</b>し、<b>内側に ノコギリの歯がズラッと並ぶ</b>'],
+  ['おもしろい','大きい個体（大歯型）と 小さい個体（小歯型）で <b>大あごの形がぜんぜん違う。</b>同じ種類とは思えないほど']
+ ],
+ key:'🔑 <b>「曲がっている＋内側がギザギザ」＝ノコギリ。</b>ヒラタは まっすぐ、ノコギリは カーブ。ここだけ覚えれば まず間違えません。'
+},
+{id:'kokuwa', no:false, jp:'リュウキュウコクワガタ', size:'オス 15〜35mm ／ メス 13〜22mm',
+ art:'kokuwa',
+ rows:[
+  ['法的立場','<span class="pill p-ok">採集OK</span> 規制種ではありません'],
+  ['どこに','<b>やんばる（名護市より北）</b>の森。樹液・街灯・朽木'],
+  ['時期','ほぼ一年中いるが、5〜9月が多い'],
+  ['見分け方','<b>小さくて 細身。</b>つやのある黒。大あごは <b>細くてまっすぐ、真ん中あたりに 小さな内歯1本</b>'],
+  ['まちがえやすい','ヒラタの小さい個体と 似ています。<b>コクワは 体がスリムで、ヒラタほど平たくない</b>']
+ ],
+ key:'🔑 <b>「小さい＋細くまっすぐな大あご」＝コクワ。</b>やんばるのは 本土のコクワとは別亜種（べつあしゅ）。<b>ここでしか会えません。</b>'
+},
+{id:'nebuto', no:false, jp:'オキナワネブトクワガタ', size:'オス 12〜25mm ／ メス 10〜18mm',
+ art:'nebuto',
+ rows:[
+  ['法的立場','<span class="pill p-ok">採集OK</span> 規制種ではありません'],
+  ['どこに','<b>朽木（くちき）の中</b>／木のうろにたまった腐葉土／樹液。街灯にも来る'],
+  ['時期','5〜9月'],
+  ['見分け方','<b>ずんぐり丸っこい</b>小型種。上ばねに <b>はっきりした タテ筋</b>。大あごは <b>とても短くて 太い</b>'],
+  ['豆知識','小さいけど <b>とても力持ち。</b>指ではさまれると びっくりします']
+ ],
+ key:'🔑 <b>「小さい＋ずんぐり＋タテ筋＋短い大あご」＝ネブト。</b>マルバネ（禁止種）と 少し似ていますが、<b>ネブトは ずっと小さい（2cm前後）</b>のが決め手。'
+},
+{id:'hyoutan', no:false, jp:'ルイスツノヒョウタンクワガタ', size:'10〜20mm',
+ art:'hyoutan',
+ rows:[
+  ['法的立場','<span class="pill p-ok">採集OK</span> 規制種ではありません'],
+  ['どこに','<b>海岸近くの朽木・砂まじりの倒木</b>の中。樹液には あまり来ない'],
+  ['時期','ほぼ一年中'],
+  ['見分け方','<b>ひょうたんのような くびれた体</b>。とても平たい。頭に 短い <b>ツノ状の突起</b>'],
+  ['豆知識','「クワガタらしくない」見た目。<b>知っていると 一気に博士（はかせ）っぽい</b>']
+ ],
+ key:'🔑 <b>「細長くて くびれている」＝ヒョウタン。</b>倒木の樹皮をめくると出てきます。めくったら 必ず 元に戻して。'
+},
+{id:'mame', no:false, jp:'マメクワガタ', size:'8〜13mm ／ 日本最小級',
+ art:'mame',
+ rows:[
+  ['法的立場','<span class="pill p-ok">採集OK</span> 規制種ではありません'],
+  ['どこに','<b>朽木の中</b>。とても小さいので 見のがしやすい'],
+  ['時期','ほぼ一年中'],
+  ['見分け方','<b>1cm前後！</b>つやのある黒褐色。大あごは とても短い'],
+  ['豆知識','<b>親が幼虫の世話をする</b>という めずらしい性質を持つ仲間。見つけたら 大自慢していい']
+ ],
+ key:'🔑 <b>「アリぐらい小さいのに クワガタの形」＝マメクワガタ。</b>これを見つけたら 今回のMVP。'
+}
+];
+
+var OTHERS = [
+{jp:'オキナワカブトムシ', art:'kabuto', tag:'p-ok', tagt:'採集OK',
+ d:'本土のカブトムシより <b>やや小さく、角（つの）が短め</b>。街灯や樹液に来ます。子どもに いちばん喜ばれる。'},
+{jp:'ハブ', art:'habu', tag:'p-no', tagt:'超危険',
+ d:'虫じゃないけど <b>いちばん大事</b>。<b>頭が三角</b>、体は黄土色に黒いまだら、1.5m以上になることも。夜に活動し、木の枝の上にもいます。<b>見つけたら 静かに後ずさりして離れる。</b>棒でつつく・写真を撮ろうと近づく、は絶対ダメ。'},
+{jp:'ヤンバルクイナ', art:'kuina', tag:'p-care', tagt:'見るだけ',
+ d:'<b>飛べない鳥</b>。赤いくちばしと赤い脚。国の天然記念物。<b>夜は 木の上で寝ています。</b>朝方 道路を横切ることが多いので、<b>車は必ず徐行。</b>見られたら 大ラッキー。'},
+{jp:'ノグチゲラ', art:'noguchi', tag:'p-care', tagt:'見るだけ',
+ d:'<b>やんばるにしかいないキツツキ</b>。国の特別天然記念物。赤い頭。「コンコン」と木をたたく音で気づきます。'},
+{jp:'イボイモリ', art:'imori', tag:'p-care', tagt:'見るだけ・触らない',
+ d:'背中に <b>ゴツゴツのイボ</b>が並ぶ、恐竜みたいなイモリ。沖縄県の天然記念物。<b>皮膚に毒があります。触ったら必ず手を洗う。</b>雨上がりの夜、道路に出てきます。'},
+{jp:'リュウキュウヤマガメ', art:'yamagame', tag:'p-care', tagt:'見るだけ',
+ d:'<b>国の天然記念物。</b>陸にすむカメ。<b>持ち帰りは違法です。</b>道路にいたら、車に注意して 進行方向の道路脇へ そっと逃がしてあげよう。'}
+];
+
+/* ---------- fish data ---------- */
+var DANGER = [
+{jp:'オニダルマオコゼ', art:'onidaruma', size:'20〜40cm', lv:'最凶',
+ d:'<b>岩や砂そっくりに 化けて じっとしています。</b>背びれに 猛毒のトゲ。毒の強さは <b>ハブの数十倍</b>とも言われ、<b>命にかかわります。</b>',
+ how:'<b>裸足で 磯を歩かない。</b>踏んで刺されるのが 典型的な事故。刺されたら <b>すぐ119番</b>＋45℃のお湯。'},
+{jp:'ゴンズイ', art:'gonzui', size:'10〜20cm', lv:'よく釣れる',
+ d:'ナマズのような <b>ヒゲ</b>と、体の <b>黄色い2本の縦線</b>。<b>群れ（ゴンズイ玉）でいる</b>ので、1匹釣れたら 何匹も釣れます。<b>背びれと胸びれに 強い毒のトゲ。</b>',
+ how:'<b>漁港で いちばん刺される魚。</b>釣れたら 針ごと 糸を切って 捨てるくらいでいい。<b>死んでも 毒は残る</b>ので、岸壁に放置しない。'},
+{jp:'ハオコゼ', art:'haokoze', size:'5〜10cm', lv:'小さいのに危険',
+ d:'手のひらに乗る <b>小さな赤茶色の魚</b>。<b>背びれのトゲが 大きく立っています。</b>小さいので 子どもが「かわいい」と つかんでしまいがち。',
+ how:'<b>小さい＝安全 ではありません。</b>サビキに よくかかります。フィッシュグリップで 外す。'},
+{jp:'ミノカサゴ', art:'minokasago', size:'20〜30cm', lv:'見た目でわかる',
+ d:'<b>羽（はね）のように広がる 長いヒレ</b>と <b>シマウマ模様</b>。とてもきれいで 目立ちます。<b>その長いヒレのトゲが ぜんぶ毒。</b>',
+ how:'きれいなので 子どもが近づきます。<b>「きれいな魚ほど 危ない」</b>と教えよう。ゆっくり泳ぐので 追いかけない。'},
+{jp:'ヒョウモンダコ', art:'hyoumon', size:'約10cm', lv:'猛毒・熱は効かない',
+ d:'<b>10cmほどの 小さなタコ。</b>ふだんは地味ですが、<b>興奮すると 青く光る輪</b>が浮き出ます。唾液に <b>テトロドトキシン（フグ毒）</b>。<b>咬まれると 呼吸が止まることがあります。</b>',
+ how:'<b>お湯は効きません。すぐ119番。</b>磯の潮だまりにいます。<b>小さいタコを 見つけても 絶対につかまない。</b>'},
+{jp:'ウミヘビ（エラブウミヘビなど）', art:'umihebi', size:'1m前後', lv:'猛毒・おとなしい',
+ d:'<b>白と黒（紺）の輪</b>が 並ぶヘビ。尾が <b>平たいオール状</b>。ハブより強い神経毒を持ちますが、<b>性格はおとなしく</b>、こちらから触らなければ まず咬みません。',
+ how:'<b>咬まれても 痛みが軽いことがあり、気づくのが遅れます。</b>接触したら 症状がなくても すぐ受診。岸壁や磯に上がってくることがあります。'},
+{jp:'ハブクラゲ', art:'habukurage', size:'かさ10cm・触手1.5m', lv:'夏がシーズン',
+ d:'<b>四角いかさ</b>と 長い触手。<b>透明でほぼ見えません。</b><b>6〜9月が最盛期</b>で、まさに今。浅い砂地・波の穏やかな入り江に多い。刺されると 激痛とミミズ腫れ。',
+ how:'<b>刺されたら 酢をたっぷり。</b>こすらない。<b>ペットボトルに酢を持参</b>を強く推奨。防止には ラッシュガード。'}
+];
+
+var KAWA = [
+{jp:'リュウキュウアユ', art:'ayu', size:'10〜20cm', no:true, tag:'p-no', tagt:'⛔採捕禁止',
+ d:'<b>沖縄本島では一度 絶滅し、いま 復活の途中</b>の魚。ほほに <b>黄色い斑</b>、背中に小さな <b>脂（あぶら）びれ</b>。<b>国頭村の川と河口3km以内では 採捕禁止（釣り人も対象）。</b>釣れてしまったら <b>すぐ 川に返す。</b>'},
+{jp:'オオウナギ', art:'oounagi', size:'50cm〜1.5m', tag:'p-care', tagt:'サイズ注意',
+ d:'茶色に <b>まだら模様</b>の 太いウナギ。<b>やんばるの川なら たいていの川にいます。</b>夜行性で、昼は 岩の下に潜んでいます。<br><b>⚠️ 全長13cm以下の細いウナギは 採捕禁止（3年以下の懲役／3,000万円以下の罰金）。</b>細いのが釣れたら 即リリース。'},
+{jp:'ボウズハゼ', art:'bouzu', size:'8〜15cm', tag:'p-ok', tagt:'観察OK',
+ d:'<b>口が 吸盤（きゅうばん）</b>になっていて、<b>石にはりついて コケを食べます。</b>流れの速い場所が好き。頭が丸くて つるっとしているのが 名前の由来。近い仲間の <b>ナンヨウボウズハゼ</b>は オスが 青や赤に光る 美しい魚。'},
+{jp:'ヨシノボリのなかま', art:'yoshinobori', size:'5〜10cm', tag:'p-ok', tagt:'観察OK',
+ d:'<b>やんばるの川で いちばん出会うハゼ。</b>ほほに <b>赤い線や点</b>。<b>おなかのヒレが くっついて 吸盤</b>になっていて、石に吸いつきます。タモ網で 簡単に採れて、バケツで よく観察できます。'},
+{jp:'テナガエビのなかま', art:'tenagaebi', size:'5〜30cm', tag:'p-ok', tagt:'観察OK',
+ d:'<b>オスは ハサミのついた腕が 体より長い。</b>いちばん大きい <b>コンジンテナガエビ</b>は 腕を含めて <b>30cm超</b>になります。石のすきまにいて、<b>夜に活発。</b>釣りでも タモ網でも 捕れて、子どもに大人気。'},
+{jp:'ユゴイ', art:'yugoi', size:'10〜20cm', tag:'p-ok', tagt:'観察OK',
+ d:'<b>銀色でピカピカ、尾びれの先が黒い</b>魚。川の中流〜下流の 淵（ふち）にいて、群れます。よく跳ねるので、釣れると 子どもは 大興奮。'}
+];
+
+var UMI = [
+{jp:'オヤビッチャ', art:'oyabiccha', size:'10〜15cm', tag:'p-ok', tagt:'よく釣れる',
+ d:'<b>漁港の主役。</b>体に <b>黒い縦じま5本</b>、<b>背中が黄色い</b>のが特徴。どこの漁港にも 群れでいて、サビキに 面白いように釣れます。<b>最初の1匹は だいたいこれ。</b>'},
+{jp:'ロクセンスズメダイ', art:'rokusen', size:'10〜15cm', tag:'p-ok', tagt:'よく釣れる',
+ d:'オヤビッチャに そっくり。見分けは <b>背中が黄色くない</b>ことと、<b>尾びれの上下に 黒いスジ</b>が入ること。<b>2種を見比べられたら 立派な魚博士。</b>'},
+{jp:'グルクン（タカサゴ）', art:'gurukun', size:'幼魚10〜20cm', tag:'p-ok', tagt:'沖縄県の魚',
+ d:'<b>沖縄県の県魚（けんぎょ）。</b>細長い体に <b>黄色い1本線</b>、尾びれの先が赤い。生きているときは 青緑、釣り上げると <b>赤く変わる</b>のが面白い。<b>から揚げが絶品</b>で、シガテラの心配もない 安心な魚。'},
+{jp:'ガチュン（メアジ）', art:'gachun', size:'10〜20cm', tag:'p-ok', tagt:'よく釣れる',
+ d:'<b>目が大きい</b>アジの仲間。銀色で、<b>尾の付け根に ゼンゴ（トゲトゲのウロコ列）</b>があります。<b>ゼンゴで手を切る</b>ので 気をつけて。群れが入ると 入れ食い。から揚げ・南蛮漬けに。'},
+{jp:'ベラのなかま', art:'bera', size:'10〜25cm', tag:'p-ok', tagt:'カラフル',
+ d:'<b>細長い体、とがった口、はでな色。</b>沖縄には たくさんの種類がいて、<b>同じ種類でも オスとメスで 色がまったく違う</b>ものも。えさ取り名人で、よく針にかかります。'},
+{jp:'ミーバイ（ハタの幼魚）', art:'miibai', size:'10〜25cm', tag:'p-care', tagt:'トゲ注意',
+ d:'<b>ずんぐりした体に まだら模様、大きな口。</b>沖縄の高級魚 ミーバイの子ども。岸壁のすきまや 敷石の間から出てきます。<b>背びれのトゲが かたく鋭い</b>ので 持ち方に注意。<b>大きい個体は シガテラのリスク</b>があります。'},
+{jp:'アバサー（ハリセンボン）', art:'abasa', size:'15〜30cm', tag:'p-care', tagt:'食べない',
+ d:'ふくらむと <b>トゲだらけのボール</b>に。<b>フグのなかま</b>です。沖縄では アバサー汁にして食べますが、<b>素人がさばくのは 危険。</b>釣れたら <b>観察して 逃がす。</b>歯が強く、指を咬まれます。'}
+];
+
+var CHECK = [
+ {t:'オキナワヒラタクワガタ', n:'まっすぐな太い大あご'},
+ {t:'オキナワノコギリクワガタ', n:'カーブ＋ギザギザ'},
+ {t:'リュウキュウコクワガタ', n:'小さくて細い'},
+ {t:'オキナワネブトクワガタ', n:'ずんぐり＋タテ筋'},
+ {t:'ルイスツノヒョウタンクワガタ', n:'ひょうたん形'},
+ {t:'マメクワガタ', n:'1cm！ 見つけたらMVP'},
+ {t:'オキナワカブトムシ', n:'角が短め'},
+ {t:'クワガタのメス', n:'大あごが小さい。種の見分けは上級編'},
+ {t:'ヤンバルクイナ', n:'見られたら大ラッキー'},
+ {t:'ノグチゲラ', n:'木をたたく音を聞いた もOK'},
+ {t:'イボイモリ', n:'触らずに 写真だけ'},
+ {t:'リュウキュウヤマガメ', n:'見るだけ'},
+ {t:'樹液の出ている木', n:'においで見つけたら合格'},
+ {t:'ヤンバルテナガコガネ', n:'⛔捕獲禁止。見ただけでOK。伝説級', locked:true},
+ {t:'オキナワマルバネクワガタ', n:'⛔捕獲禁止。見ただけでOK', locked:true},
+ {t:'― ここから 魚 ―', n:'', head:true},
+ {t:'ヨシノボリのなかま', n:'🏞 ほほの赤い線'},
+ {t:'ボウズハゼ', n:'🏞 口が吸盤'},
+ {t:'テナガエビ', n:'🏞 長い腕のオスを狙え'},
+ {t:'オオウナギ', n:'🏞 細いのは即リリース'},
+ {t:'ユゴイ', n:'🏞 銀色・尾の先が黒い'},
+ {t:'オヤビッチャ', n:'🌊 黒5本線＋黄色い背'},
+ {t:'ロクセンスズメダイ', n:'🌊 尾に黒スジ。見分けたら博士'},
+ {t:'グルクン', n:'🌊 沖縄県の魚'},
+ {t:'ガチュン（メアジ）', n:'🌊 目が大きい'},
+ {t:'ベラのなかま', n:'🌊 とがった口'},
+ {t:'ミーバイ（ハタ幼魚）', n:'🌊 まだら模様'},
+ {t:'アバサー（ハリセンボン）', n:'🌊 観察して逃がす'}
+];
+
+var QUIZ = [
+ {q:'前あしが 体より長い、緑色に光る大きな虫を見つけた。どうする？',
+  o:['そっと捕まえて ケースに入れる','写真だけ撮って、手を出さずに離れる','大あごを持って みんなに見せる'],
+  a:1, e:'それは <b>ヤンバルテナガコガネ</b>。国の天然記念物であり 種の保存法の指定種で、<b>捕まえるだけで 5年以下の懲役または500万円以下の罰金</b>の対象です。写真を撮って、環境省ウフギー自然館（0980-50-1025）に知らせよう。'},
+ {q:'大あごが「まっすぐ太くて、根元に大きい歯が1本」。この子はだれ？',
+  o:['オキナワノコギリクワガタ','オキナワヒラタクワガタ','オキナワマルバネクワガタ'],
+  a:1, e:'<b>ヒラタ</b>です。まっすぐ＝ヒラタ、カーブ＋ギザギザ＝ノコギリ。体が平たいのも ヒラタの特徴。'},
+ {q:'大あごが「大きくカーブして、内側がノコギリみたいにギザギザ」。だれ？',
+  o:['オキナワノコギリクワガタ','リュウキュウコクワガタ','ルイスツノヒョウタンクワガタ'],
+  a:0, e:'<b>ノコギリ</b>です。水牛の角みたいな形。赤みのある茶色も 見分けのヒント。'},
+ {q:'体が丸っこくて、大あごが短く 先が二又に割れているクワガタ。どうする？',
+  o:['珍しいから 持って帰る','捕まえずに 写真だけ','友だちにあげる'],
+  a:1, e:'<b>オキナワマルバネクワガタ</b>の可能性が高い。2016年に 種の保存法の <b>国内希少野生動植物種</b>に指定され、<b>捕獲も 人にあげるのも 禁止</b>です。'},
+ {q:'夜、クワガタを探しに行く。いちばん安全で よく採れる場所は？',
+  o:['林道の奥、森の中','宿の駐車場や 自販機の街灯の下','川のそばの草むら'],
+  a:1, e:'<b>街灯の下</b>が本命。森に入らずに済み、ハブのリスクも低く、子どもでも見つけられます。光の「ふち」の地面を よく見て。'},
+ {q:'ハブに咬（か）まれてしまった。まず どうする？',
+  o:['走って宿まで戻る','その場で安静にして 119番','傷口を口で吸い出す'],
+  a:1, e:'<b>動かない・119番。</b>走ると 毒が体に回ります。傷口を 心臓より下にして安静に。<b>縛らない、吸わない、切らない。</b>ハブには 効く抗毒素があります。すぐ病院へ。'},
+ {q:'国立公園の「特別保護地区」で できることは？',
+  o:['虫あみで クワガタを捕まえる','落ち葉を 記念に持ち帰る','見る・写真を撮る'],
+  a:2, e:'<b>特別保護地区は すべての動物の捕獲が禁止</b>（自然公園法）。落ち葉や落ち枝の採取もダメ。見る・写真だけにしよう。'},
+ {q:'木にバナナを吊（つ）るして トラップを仕掛けたい。',
+  o:['自由にやっていい','国立公園の特別地域では 事前の許可が必要','夜だけならOK'],
+  a:1, e:'木に結ぶ・地面に固定する仕掛けは <b>特別地域では 事前の許可が必要</b>です。手づかみ・虫あみは規制対象外。今回は <b>街灯めぐり</b>にしよう。'},
+ {q:'やんばるの林道を 夜に車で走りたい。',
+  o:['まず 宿や村に 規制を確認する','ゲートがなければ 入っていい','ライトを消せば大丈夫'],
+  a:0, e:'密猟防止と ヤンバルクイナ保護のため、<b>夏〜秋に 夜間通行止め</b>になることがあり、村営林道は <b>夜間通行許可の申請制</b>です。必ず確認を。'},
+ {q:'道路を 赤い脚の 飛べない鳥が横切った。運転はどうする？',
+  o:['クラクションを鳴らす','時速30km以下で 徐行する','写真を撮るため 急停車する'],
+  a:1, e:'<b>ヤンバルクイナ</b>です。国の天然記念物。<b>車にひかれる事故（ロードキル）が いちばんの脅威。</b>やんばるでは いつでも徐行を。'},
+ {q:'クワガタを 3匹 捕まえた。観察が終わったら？',
+  o:['全部 家に持ち帰る','捕まえた場所に そっと返す','別の きれいな森に放す'],
+  a:1, e:'<b>元いた場所に返す</b>のが基本。よその場所に放すと 生態系がこわれます。持ち帰るなら 1〜2匹にして、大事に 最後まで飼おう。'},
+ {q:'朽木をめくったら、小さい虫がたくさんいた。めくった木は？',
+  o:['そのままでいい','必ず 元の形に戻す','よけて 道の脇に置く'],
+  a:1, e:'<b>必ず 元に戻す。</b>そこは たくさんの生きものの家です。それに <b>ヤンバルテナガコガネの幼虫</b>がいるかもしれず、朽木を壊す行為は 保護違反になり得ます。'},
+ {q:'🐟 釣れた魚に ヒゲがあって、体に黄色い2本線。どうする？',
+  o:['素手でつかんで 針を外す','さわらず 大人を呼ぶ','背びれを持てば安全'],
+  a:1, e:'<b>ゴンズイ</b>です。<b>背びれと胸びれに 強い毒のトゲ。</b>漁港で いちばん刺される魚。<b>死んでも毒は残ります。</b>針ごと糸を切ってもいいくらい。'},
+ {q:'🐟 オコゼやゴンズイに刺された。正しい応急処置は？',
+  o:['冷たい水で よく冷やす','40〜45℃のお湯に 60〜90分つける','傷口を強く縛る'],
+  a:1, e:'この毒は <b>熱でこわれます</b>。やけどしない <b>40〜45℃のお湯</b>に つけると 痛みが引きます。<b>オニダルマオコゼなら 即119番。</b>'},
+ {q:'🐟 潮だまりに 10cmくらいの小さなタコ。青い輪が光った！',
+  o:['小さいから 手に乗せる','絶対に触らず 離れる','棒でつついてみる'],
+  a:1, e:'<b>ヒョウモンダコ</b>。唾液に <b>フグと同じ毒</b>。咬まれると 呼吸が止まることがあります。<b>お湯は効きません。すぐ119番。</b>'},
+ {q:'🏞 奥川で 細いウナギ（10cmくらい）が釣れた。',
+  o:['持ち帰って飼う','すぐ 川に返す','クーラーに入れる'],
+  a:1, e:'<b>全長13cm以下のウナギ類は 採捕禁止</b>（漁業法の特定水産動植物）。罰則は <b>3年以下の懲役 または 3,000万円以下の罰金</b>と とても重い。すぐ返そう。'},
+ {q:'🏞 やんばるの川で アユが釣れた。',
+  o:['珍しいので 持ち帰る','すぐ 川に返す','写真を撮ってから食べる'],
+  a:1, e:'<b>リュウキュウアユ</b>は 沖縄本島で一度 絶滅し、いま 復活の途中。<b>国頭村の川と河口3km以内では 釣り人も 採捕禁止</b>です。すぐ返そう。'},
+ {q:'🌊 漁港に着いた。船のロープが 通路をまたいでいる。',
+  o:['またいで通る','ロープを持ち上げて くぐる','ロープを避けて 別の道を通る'],
+  a:2, e:'<b>係留ロープには 絶対に触れない・またがない。</b>船が動いた瞬間、ロープは 人を投げ飛ばす凶器になります。漁港は <b>漁師さんの仕事場</b>です。'},
+ {q:'🌊 岸壁で 子どもが釣りをする。絶対に必要なものは？',
+  o:['浮き輪','ライフジャケット','うきわ付きの帽子'],
+  a:1, e:'<b>ライフジャケット（股ベルトを留める）。</b>岸壁に落ちると <b>自力では上がれません</b>。浮き輪は代わりになりません。大人も着ましょう。'},
+ {q:'🎣 釣り針が 指に刺さってしまった。',
+  o:['まっすぐ 引き抜く','糸を切って、刺さったまま病院へ','ひねって抜く'],
+  a:1, e:'釣り針には <b>「カエシ」</b>があり、引き抜くと 中で肉を裂きます。<b>糸を切って テープで固定し、そのまま病院へ。</b>目や顔なら 119番。'},
+ {q:'🍳 名前の分からない魚が釣れた。おいしそう。',
+  o:['よく焼けば大丈夫','食べない（か、地元の人に見せて聞く）','小さいから大丈夫'],
+  a:1, e:'沖縄には <b>シガテラ毒</b>があり、<b>加熱しても冷凍しても消えません。</b>症状は 数ヶ月続くことも。<b>宿の方や共同店の方に 実物を見せて聞く</b>のが 最強の安全確認。'},
+ {q:'🌊 磯で きれいな貝を見つけた。持ち帰りたい。',
+  o:['1個だけなら いい','持ち帰らない','砂も一緒に持ち帰る'],
+  a:1, e:'<b>貝類は 漁業権の対象</b>で、組合員以外が採ると <b>漁業権侵害で 100万円以下の罰金</b>。<b>砂やサンゴのかけらも 持ち出し禁止</b>です。写真で残そう。'}
+];
+
+/* ---------- render zukan ---------- */
+(function(){
+  var h='';
+  BUGS.forEach(function(b,i){
+    h+='<div class="bug'+(b.no?' no':'')+'">'
+      +'<div class="bug-head" onclick="toggleBug('+i+')">'
+      +'<div class="bug-art">'+art(b.art)+'</div>'
+      +'<div class="bug-name"><div class="jp">'+b.jp+'</div>'
+      +'<div>'+(b.no?'<span class="pill p-no">捕獲禁止</span>':'<span class="pill p-ok">採集OK</span>')+'</div>'
+      +'<div class="size">'+b.size+'</div></div>'
+      +'<div class="chev" id="cv'+i+'">▼</div></div>'
+      +'<div class="bug-body" id="bb'+i+'">';
+    if(b.alert) h+='<p class="huge">'+b.alert+'</p>';
+    b.rows.forEach(function(r){ h+='<div class="row"><div class="k">'+r[0]+'</div><div class="v">'+r[1]+'</div></div>' });
+    h+='<div class="key">'+b.key+'</div>';
+    if(b.extra) h+=b.extra;
+    h+='</div></div>';
+  });
+  document.getElementById('bugs').innerHTML=h;
+
+  var o='';
+  OTHERS.forEach(function(x){
+    o+='<div style="display:flex;gap:11px;align-items:flex-start;margin:14px 0;padding-bottom:12px;border-bottom:1px dashed #2f6642">'
+      +'<div style="width:74px;height:74px;flex:0 0 74px;background:#0f2418;border-radius:11px;border:1px solid #2f6642">'+art(x.art)+'</div>'
+      +'<div style="flex:1"><div style="font-weight:800;font-size:15.5px">'+x.jp+' <span class="pill '+x.tag+'">'+x.tagt+'</span></div>'
+      +'<div style="font-size:14px;margin-top:3px">'+x.d+'</div></div></div>';
+  });
+  document.getElementById('others').innerHTML=o;
+})();
+
+/* ---------- render fish ---------- */
+function fishCard(x, wide){
+  var h='<div class="bug'+(x.no?' no':'')+'" style="margin:12px 0">'
+   +'<div style="display:flex;gap:11px;align-items:center;padding:11px">'
+   +'<div style="width:'+(wide?120:104)+'px;height:'+(wide?86:74)+'px;flex:0 0 '+(wide?120:104)+'px;background:'+(x.no?'#25090b':'#0f2418')+';border-radius:11px;border:1px solid '+(x.no?'#8f2226':'#2f6642')+'" class="fart">'+art(x.art)+'</div>'
+   +'<div style="flex:1;min-width:0"><div style="font-weight:800;font-size:15.5px;line-height:1.4">'+x.jp+'</div>'
+   +'<div style="margin:3px 0"><span class="pill '+(x.tag||'p-no')+'">'+(x.tagt||x.lv)+'</span></div>'
+   +'<div style="font-size:12.5px;color:var(--sub)">'+x.size+'</div></div></div>'
+   +'<div style="padding:0 13px 13px;font-size:14.5px">'+x.d;
+  if(x.how) h+='<div class="key" style="margin-top:9px">🔑 '+x.how+'</div>';
+  h+='</div></div>';
+  return h;
+}
+(function(){
+  document.getElementById('dangerlist').innerHTML = DANGER.map(function(x){return fishCard(x,true)}).join('');
+  document.getElementById('kawalist').innerHTML   = KAWA.map(function(x){return fishCard(x)}).join('');
+  document.getElementById('umilist').innerHTML    = UMI.map(function(x){return fishCard(x)}).join('');
+})();
+function subgo(id){
+  document.querySelectorAll('#s-tsuri .sub').forEach(function(s){s.classList.remove('on')});
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.subtabs button').forEach(function(b){b.classList.toggle('on', b.dataset.s===id)});
+  window.scrollTo(0,0);
+}
+
+function toggleBug(i){
+  var e=document.getElementById('bb'+i);
+  var on=e.classList.toggle('on');
+  document.getElementById('cv'+i).textContent = on?'▲':'▼';
+}
+function openBug(i){ var e=document.getElementById('bb'+i); if(!e.classList.contains('on')) toggleBug(i);
+  setTimeout(function(){e.scrollIntoView({behavior:'smooth',block:'start'})},120); }
+
+/* ---------- checklist ---------- */
+var chkState={};
+try{ chkState=JSON.parse(load('kuwagata_chk')||'{}') }catch(e){ chkState={} }
+function renderChk(){
+  var h='', done=0, total=0;
+  CHECK.forEach(function(c,i){
+    if(c.head){ h+='<h3 style="margin:18px 0 4px;color:var(--gold2);font-size:15px">'+c.t+'</h3>'; return }
+    total++;
+    var d=!!chkState[i]; if(d) done++;
+    h+='<div class="chk'+(d?' done':'')+'" onclick="tapChk('+i+')">'
+      +'<div class="box">✓</div><div class="t">'+c.t+(c.n?'<span class="n">'+c.n+'</span>':'')+'</div></div>';
+  });
+  document.getElementById('chklist').innerHTML=h;
+  var p=Math.round(done/total*100);
+  document.getElementById('pbar').style.width=p+'%';
+  document.getElementById('pcount').innerHTML='<b>'+done+' / '+total+'</b> 見つけた！'
+    + (done===total?' 🏆 やんばる博士（はかせ）認定！' : (done>=12?' 🌟 すごい！' : ''));
+}
+function tapChk(i){ chkState[i]=!chkState[i]; save('kuwagata_chk',JSON.stringify(chkState)); renderChk(); }
+function resetChk(){ if(confirm('記録をぜんぶ消しますか？')){ chkState={}; save('kuwagata_chk','{}'); renderChk(); } }
+renderChk();
+
+/* ---------- quiz ---------- */
+var qOrder=[], qi=0, qScore=0;
+function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t;} return a }
+function startQuiz(){
+  qOrder=shuffle(QUIZ.map(function(_,i){return i})).slice(0,8); qi=0; qScore=0;
+  document.getElementById('qdone').style.display='none';
+  document.querySelector('#s-quiz .card').style.display='block';
+  showQ();
+}
+function showQ(){
+  var q=QUIZ[qOrder[qi]];
+  document.getElementById('qmeta').textContent='第 '+(qi+1)+' 問 / '+qOrder.length+'　　正解 '+qScore;
+  document.getElementById('qtext').innerHTML=q.q;
+  var h='';
+  q.o.forEach(function(t,i){ h+='<button class="opt" onclick="ansQ('+i+')">'+t+'</button>' });
+  document.getElementById('qopts').innerHTML=h;
+  var ex=document.getElementById('qexpl'); ex.classList.remove('on'); ex.innerHTML='';
+  document.getElementById('qnext').style.display='none';
+}
+function ansQ(i){
+  var q=QUIZ[qOrder[qi]];
+  var btns=document.querySelectorAll('#qopts .opt');
+  btns.forEach(function(b,j){
+    b.disabled=true;
+    if(j===q.a) b.classList.add('right');
+    else if(j===i) b.classList.add('wrong');
+  });
+  if(i===q.a) qScore++;
+  var ex=document.getElementById('qexpl');
+  ex.innerHTML=(i===q.a?'<b style="color:#57c98a">⭕ 正解！</b><br>':'<b style="color:#ff9a9d">❌ ざんねん</b><br>')+q.e;
+  ex.classList.add('on');
+  document.getElementById('qnext').style.display='inline-block';
+  document.getElementById('qnext').textContent = (qi+1>=qOrder.length)?'けっか を見る 🏁':'つぎの問題 ▶';
+}
+function nextQ(){
+  qi++;
+  if(qi>=qOrder.length){
+    document.querySelector('#s-quiz .card').style.display='none';
+    var d=document.getElementById('qdone'); d.style.display='block';
+    document.getElementById('qscore').textContent='🏁 '+qScore+' / '+qOrder.length+' 問 正解！';
+    var m;
+    if(qScore===qOrder.length) m='パーフェクト！ <b>やんばる名人</b>。安心して森へ行けます。';
+    else if(qScore>=6) m='すばらしい！ ルールも安全も バッチリです。';
+    else if(qScore>=4) m='いい調子。まちがえたところを もう一度 読み返そう。';
+    else m='もう一回！ とくに <b>「捕ってはいけない虫」と「ハブ」</b>は 覚えてから出かけよう。';
+    document.getElementById('qmsg').innerHTML=m;
+    window.scrollTo(0,0);
+  } else showQ();
+}
+startQuiz();
+
+/* ---------- service worker (offline) ---------- */
+if ('serviceWorker' in navigator && location.protocol.indexOf('http')===0){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('./sw.js', {scope:'./'})
+      .then(function(r){ console.log('[kuwagata] offline ready', r.scope) })
+      .catch(function(e){ console.warn('[kuwagata] sw failed', e) });
+  });
+}
+</script>
+</body>
+</html>

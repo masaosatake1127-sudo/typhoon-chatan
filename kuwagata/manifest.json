@@ -1,0 +1,34 @@
+{
+  "name": "やんばる クワガタ＆さかな ずかん",
+  "short_name": "やんばる図鑑",
+  "description": "沖縄・国頭村やんばるで、クワガタ採りと小魚釣りを安全に・合法的に楽しむための子ども向けフィールドガイド。完全オフライン動作。",
+  "lang": "ja",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1f16",
+  "theme_color": "#123524",
+  "categories": ["education", "travel", "books"],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
